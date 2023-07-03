@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CourseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CourseRepository::class)]
@@ -15,10 +16,14 @@ class Course
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\ManyToOne(inversedBy: 'courses')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
     #[ORM\Column]
@@ -27,25 +32,37 @@ class Course
     #[ORM\Column]
     private ?bool $visio = null;
 
-    #[ORM\OneToMany(mappedBy: 'course_id', targetEntity: Lesson::class, orphanRemoval: true)]
+    #[ORM\OneToOne(inversedBy: 'course', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Subject $subject = null;
+
+    #[ORM\OneToMany(mappedBy: 'course', targetEntity: Lesson::class, orphanRemoval: true)]
     private Collection $lessons;
 
-    #[ORM\OneToOne(inversedBy: 'course', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $user_id = null;
-
-    #[ORM\OneToOne(inversedBy: 'course', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Subject $subject_id = null;
+    #[ORM\ManyToMany(targetEntity: Language::class, mappedBy: 'course')]
+    private Collection $languages;
 
     public function __construct()
     {
         $this->lessons = new ArrayCollection();
+        $this->languages = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
     }
 
     public function getTitle(): ?string
@@ -96,6 +113,18 @@ class Course
         return $this;
     }
 
+    public function getSubject(): ?Subject
+    {
+        return $this->subject;
+    }
+
+    public function setSubject(Subject $subject): static
+    {
+        $this->subject = $subject;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Lesson>
      */
@@ -108,7 +137,7 @@ class Course
     {
         if (!$this->lessons->contains($lesson)) {
             $this->lessons->add($lesson);
-            $lesson->setCourseId($this);
+            $lesson->setCourse($this);
         }
 
         return $this;
@@ -118,34 +147,37 @@ class Course
     {
         if ($this->lessons->removeElement($lesson)) {
             // set the owning side to null (unless already changed)
-            if ($lesson->getCourseId() === $this) {
-                $lesson->setCourseId(null);
+            if ($lesson->getCourse() === $this) {
+                $lesson->setCourse(null);
             }
         }
 
         return $this;
     }
 
-    public function getUserId(): ?User
+    /**
+     * @return Collection<int, Language>
+     */
+    public function getLanguages(): Collection
     {
-        return $this->user_id;
+        return $this->languages;
     }
 
-    public function setUserId(User $user_id): static
+    public function addLanguage(Language $language): static
     {
-        $this->user_id = $user_id;
+        if (!$this->languages->contains($language)) {
+            $this->languages->add($language);
+            $language->addCourse($this);
+        }
 
         return $this;
     }
 
-    public function getSubjectId(): ?Subject
+    public function removeLanguage(Language $language): static
     {
-        return $this->subject_id;
-    }
-
-    public function setSubjectId(Subject $subject_id): static
-    {
-        $this->subject_id = $subject_id;
+        if ($this->languages->removeElement($language)) {
+            $language->removeCourse($this);
+        }
 
         return $this;
     }
