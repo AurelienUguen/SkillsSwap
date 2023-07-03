@@ -16,7 +16,7 @@ class Category
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\OneToOne(mappedBy: 'category_id', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(mappedBy: 'category', cascade: ['persist', 'remove'])]
     private ?Subject $subject = null;
 
     public function getId(): ?int
@@ -44,8 +44,8 @@ class Category
     public function setSubject(Subject $subject): static
     {
         // set the owning side of the relation if necessary
-        if ($subject->getCategoryId() !== $this) {
-            $subject->setCategoryId($this);
+        if ($subject->getCategory() !== $this) {
+            $subject->setCategory($this);
         }
 
         $this->subject = $subject;

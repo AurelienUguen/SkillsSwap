@@ -44,14 +44,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $city = null;
 
-    #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Lesson::class, orphanRemoval: true)]
-    private Collection $lessons;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Course::class, orphanRemoval: true)]
+    private Collection $courses;
 
-    #[ORM\OneToOne(mappedBy: 'user_id', cascade: ['persist', 'remove'])]
-    private ?Course $course = null;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Lesson::class, orphanRemoval: true)]
+    private Collection $lessons;
 
     public function __construct()
     {
+        $this->courses = new ArrayCollection();
         $this->lessons = new ArrayCollection();
     }
 
@@ -186,6 +187,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
+     * @return Collection<int, Course>
+     */
+    public function getCourses(): Collection
+    {
+        return $this->courses;
+    }
+
+    public function addCourse(Course $course): static
+    {
+        if (!$this->courses->contains($course)) {
+            $this->courses->add($course);
+            $course->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCourse(Course $course): static
+    {
+        if ($this->courses->removeElement($course)) {
+            // set the owning side to null (unless already changed)
+            if ($course->getUser() === $this) {
+                $course->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * @return Collection<int, Lesson>
      */
     public function getLessons(): Collection
@@ -197,7 +228,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->lessons->contains($lesson)) {
             $this->lessons->add($lesson);
-            $lesson->setUserId($this);
+            $lesson->setUser($this);
         }
 
         return $this;
@@ -207,27 +238,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->lessons->removeElement($lesson)) {
             // set the owning side to null (unless already changed)
-            if ($lesson->getUserId() === $this) {
-                $lesson->setUserId(null);
+            if ($lesson->getUser() === $this) {
+                $lesson->setUser(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getCourse(): ?Course
-    {
-        return $this->course;
-    }
-
-    public function setCourse(Course $course): static
-    {
-        // set the owning side of the relation if necessary
-        if ($course->getUserId() !== $this) {
-            $course->setUserId($this);
-        }
-
-        $this->course = $course;
 
         return $this;
     }

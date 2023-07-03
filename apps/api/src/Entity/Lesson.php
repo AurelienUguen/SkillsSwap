@@ -14,6 +14,14 @@ class Lesson
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\ManyToOne(inversedBy: 'lessons')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Course $course = null;
+
+    #[ORM\ManyToOne(inversedBy: 'lessons')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
@@ -23,17 +31,33 @@ class Lesson
     #[ORM\Column]
     private ?bool $visio = null;
 
-    #[ORM\ManyToOne(inversedBy: 'lessons')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Course $course_id = null;
-
-    #[ORM\ManyToOne(inversedBy: 'lessons')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $user_id = null;
-
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getCourse(): ?Course
+    {
+        return $this->course;
+    }
+
+    public function setCourse(?Course $course): static
+    {
+        $this->course = $course;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
     }
 
     public function getDate(): ?\DateTimeInterface
@@ -68,30 +92,6 @@ class Lesson
     public function setVisio(bool $visio): static
     {
         $this->visio = $visio;
-
-        return $this;
-    }
-
-    public function getCourseId(): ?Course
-    {
-        return $this->course_id;
-    }
-
-    public function setCourseId(?Course $course_id): static
-    {
-        $this->course_id = $course_id;
-
-        return $this;
-    }
-
-    public function getUserId(): ?User
-    {
-        return $this->user_id;
-    }
-
-    public function setUserId(?User $user_id): static
-    {
-        $this->user_id = $user_id;
 
         return $this;
     }

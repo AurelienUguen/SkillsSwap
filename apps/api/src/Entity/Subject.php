@@ -13,19 +13,31 @@ class Subject
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\OneToOne(inversedBy: 'subject', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Category $category = null;
+
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\OneToOne(inversedBy: 'subject', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Category $category_id = null;
-
-    #[ORM\OneToOne(mappedBy: 'subject_id', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(mappedBy: 'subject', cascade: ['persist', 'remove'])]
     private ?Course $course = null;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(Category $category): static
+    {
+        $this->category = $category;
+
+        return $this;
     }
 
     public function getTitle(): ?string
@@ -40,18 +52,6 @@ class Subject
         return $this;
     }
 
-    public function getCategoryId(): ?Category
-    {
-        return $this->category_id;
-    }
-
-    public function setCategoryId(Category $category_id): static
-    {
-        $this->category_id = $category_id;
-
-        return $this;
-    }
-
     public function getCourse(): ?Course
     {
         return $this->course;
@@ -60,8 +60,8 @@ class Subject
     public function setCourse(Course $course): static
     {
         // set the owning side of the relation if necessary
-        if ($course->getSubjectId() !== $this) {
-            $course->setSubjectId($this);
+        if ($course->getSubject() !== $this) {
+            $course->setSubject($this);
         }
 
         $this->course = $course;
