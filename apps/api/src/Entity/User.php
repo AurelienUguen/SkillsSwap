@@ -8,8 +8,20 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use ApiPlatform\Metadata as Api;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[Api\ApiResource(
+    normalizationContext:['groups' => ['read_user']],
+    denormalizationContext:['groups' => ['create_user']],
+    operations:[
+        new Api\GetCollection(),
+        new Api\Post(),
+        new Api\Get(),
+        new Api\Put()
+    ]
+)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -18,6 +30,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Groups(['read_user','create_user'])]
     private ?string $firstname = null;
 
     #[ORM\Column]
@@ -27,21 +40,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Groups(['read_user','create_user'])]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['read_user','create_user'])]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['read_user','create_user'])]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['read_user','create_user'])]
     private ?string $phoneNumber = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['read_user','create_user'])]
     private ?int $district = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['read_user','create_user'])]
     private ?string $city = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Course::class, orphanRemoval: true)]
