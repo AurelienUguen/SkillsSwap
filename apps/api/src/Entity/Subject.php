@@ -3,9 +3,23 @@
 namespace App\Entity;
 
 use App\Repository\SubjectRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata as Api;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: SubjectRepository::class)]
+#[Api\ApiResource(
+    normalizationContext:['groups' => ['read_subject']],
+    denormalizationContext:['groups' => ['create_subject']],
+    operations:[
+        new Api\GetCollection(),
+        new Api\Post(),
+        new Api\Get(),
+        new Api\Put()
+    ]
+)]
 class Subject
 {
     #[ORM\Id]
@@ -13,31 +27,26 @@ class Subject
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToOne(inversedBy: 'subject', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Category $category = null;
-
     #[ORM\Column(length: 255)]
+    #[Groups(['read_subject','create_subject'])]
     private ?string $title = null;
 
-    #[ORM\OneToOne(mappedBy: 'subject', cascade: ['persist', 'remove'])]
-    private ?Course $course = null;
+    #[ORM\ManyToOne(inversedBy: 'subjects')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['read_subject','create_subject'])]
+    private ?Category $category = null;
+
+    #[ORM\OneToMany(mappedBy: 'subject', targetEntity: Course::class, orphanRemoval: true)]
+    private Collection $courses;
+
+    public function __construct()
+    {
+        $this->courses = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
-
-    public function setCategory(Category $category): static
-    {
-        $this->category = $category;
-
-        return $this;
     }
 
     public function getTitle(): ?string
@@ -52,19 +61,44 @@ class Subject
         return $this;
     }
 
-    public function getCourse(): ?Course
+    public function getCategory(): ?Category
     {
-        return $this->course;
+        return $this->category;
     }
 
-    public function setCourse(Course $course): static
+    public function setCategory(?Category $category): static
     {
-        // set the owning side of the relation if necessary
-        if ($course->getSubject() !== $this) {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Course>
+     */
+    public function getCourses(): Collection
+    {
+        return $this->courses;
+    }
+
+    public function addCourse(Course $course): static
+    {
+        if (!$this->courses->contains($course)) {
+            $this->courses->add($course);
             $course->setSubject($this);
         }
 
-        $this->course = $course;
+        return $this;
+    }
+
+    public function removeCourse(Course $course): static
+    {
+        if ($this->courses->removeElement($course)) {
+            // set the owning side to null (unless already changed)
+            if ($course->getSubject() === $this) {
+                $course->setSubject(null);
+            }
+        }
 
         return $this;
     }

@@ -7,8 +7,20 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata as Api;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CourseRepository::class)]
+#[Api\ApiResource(
+    normalizationContext:['groups' => ['read_course']],
+    denormalizationContext:['groups' => ['create_course']],
+    operations:[
+        new Api\GetCollection(),
+        new Api\Post(),
+        new Api\Get(),
+        new Api\Put()
+    ]
+)]
 class Course
 {
     #[ORM\Id]
@@ -18,29 +30,36 @@ class Course
 
     #[ORM\ManyToOne(inversedBy: 'courses')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['read_course','create_course'])]
     private ?User $user = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['read_course','create_course'])]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['read_course','create_course'])]
     private ?string $description = null;
 
     #[ORM\Column]
+    #[Groups(['read_course','create_course'])]
     private ?bool $irl = null;
 
     #[ORM\Column]
+    #[Groups(['read_course','create_course'])]
     private ?bool $visio = null;
-
-    #[ORM\OneToOne(inversedBy: 'course', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Subject $subject = null;
 
     #[ORM\OneToMany(mappedBy: 'course', targetEntity: Lesson::class, orphanRemoval: true)]
     private Collection $lessons;
 
     #[ORM\ManyToMany(targetEntity: Language::class, mappedBy: 'course')]
+    #[Groups(['read_course','create_course'])]
     private Collection $languages;
+
+    #[ORM\ManyToOne(inversedBy: 'courses')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['read_course','create_course'])]
+    private ?Subject $subject = null;
 
     public function __construct()
     {
@@ -113,18 +132,6 @@ class Course
         return $this;
     }
 
-    public function getSubject(): ?Subject
-    {
-        return $this->subject;
-    }
-
-    public function setSubject(Subject $subject): static
-    {
-        $this->subject = $subject;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Lesson>
      */
@@ -178,6 +185,18 @@ class Course
         if ($this->languages->removeElement($language)) {
             $language->removeCourse($this);
         }
+
+        return $this;
+    }
+
+    public function getSubject(): ?Subject
+    {
+        return $this->subject;
+    }
+
+    public function setSubject(?Subject $subject): static
+    {
+        $this->subject = $subject;
 
         return $this;
     }

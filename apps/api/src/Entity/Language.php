@@ -6,8 +6,20 @@ use App\Repository\LanguageRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata as Api;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: LanguageRepository::class)]
+#[Api\ApiResource(
+    normalizationContext:['groups' => ['read_language']],
+    denormalizationContext:['groups' => ['create_language']],
+    operations:[
+        new Api\GetCollection(),
+        new Api\Post(),
+        new Api\Get(),
+        new Api\Put()
+    ]
+)]
 class Language
 {
     #[ORM\Id]
@@ -19,6 +31,7 @@ class Language
     private Collection $course;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['read_language','create_language'])]
     private ?string $name = null;
 
     public function __construct()

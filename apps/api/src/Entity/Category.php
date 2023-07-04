@@ -3,9 +3,23 @@
 namespace App\Entity;
 
 use App\Repository\CategoryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata as Api;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
+#[Api\ApiResource(
+    normalizationContext:['groups' => ['read_category']],
+    denormalizationContext:['groups' => ['create_category']],
+    operations:[
+        new Api\GetCollection(),
+        new Api\Post(),
+        new Api\Get(),
+        new Api\Put()
+    ]
+)]
 class Category
 {
     #[ORM\Id]
@@ -14,10 +28,16 @@ class Category
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['read_category','create_category'])]
     private ?string $title = null;
 
-    #[ORM\OneToOne(mappedBy: 'category', cascade: ['persist', 'remove'])]
-    private ?Subject $subject = null;
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Subject::class, orphanRemoval: true)]
+    private Collection $subjects;
+
+    public function __construct()
+    {
+        $this->subjects = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -36,19 +56,32 @@ class Category
         return $this;
     }
 
-    public function getSubject(): ?Subject
+    /**
+     * @return Collection<int, Subject>
+     */
+    public function getSubjects(): Collection
     {
-        return $this->subject;
+        return $this->subjects;
     }
 
-    public function setSubject(Subject $subject): static
+    public function addSubject(Subject $subject): static
     {
-        // set the owning side of the relation if necessary
-        if ($subject->getCategory() !== $this) {
+        if (!$this->subjects->contains($subject)) {
+            $this->subjects->add($subject);
             $subject->setCategory($this);
         }
 
-        $this->subject = $subject;
+        return $this;
+    }
+
+    public function removeSubject(Subject $subject): static
+    {
+        if ($this->subjects->removeElement($subject)) {
+            // set the owning side to null (unless already changed)
+            if ($subject->getCategory() === $this) {
+                $subject->setCategory(null);
+            }
+        }
 
         return $this;
     }
