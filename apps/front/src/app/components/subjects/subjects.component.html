@@ -1,1 +1,13 @@
 <h1> Hello World </h1>
+
+<h2>Sujet</h2>
+  <!-- <p> {{ subjects | json }} </p> -->
+  <div *ngFor="let subject of subjects">
+
+
+    <div *ngIf="subject.category.id === category.id">
+      <a routerLink="#">{{ subject.title }}</a>
+    </div>
+  </div>
+
+<button type="button" (click)="goBack()">Retour</button>

@@ -28,6 +28,7 @@ export class ApiService {
   }
 
   getSubjects() {
+
     return this.http.get<Subject>(this.subjectsUrl);
   }
 

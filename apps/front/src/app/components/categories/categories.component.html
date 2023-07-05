@@ -2,3 +2,4 @@
   <div *ngFor="let category of categories">
     <a routerLink="subjects/{{ category.slug }}">{{ category.title }}</a>
   </div>
+  <button type="button" (click)="goBack()">Retour</button>

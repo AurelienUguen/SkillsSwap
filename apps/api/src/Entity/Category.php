@@ -30,7 +30,7 @@ class Category
     #[ORM\GeneratedValue]
     #[ORM\Column]
     #[ApiProperty(identifier:false)]
-    #[Groups(['read_category'])]
+    #[Groups(['read_category', 'read_subject'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
