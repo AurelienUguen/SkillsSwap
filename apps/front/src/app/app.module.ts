@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CategoriesComponent } from './components/categories/categories.component'
 
-
 import { HttpClientModule } from '@angular/common/http';
 import { SubjectsComponent } from './components/subjects/subjects.component';
 

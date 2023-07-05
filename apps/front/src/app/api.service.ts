@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 
 import { Category } from './model/category';
-import { Observable, catchError, of, tap } from 'rxjs';
+import { Subject } from './model/subject';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -12,6 +13,7 @@ import { Observable, catchError, of, tap } from 'rxjs';
 export class ApiService {
 
   private categoriesUrl = 'https://127.0.0.1:8000/api/categories';
+  private subjectsUrl = 'https://127.0.0.1:8000/api/subjects';
 
   constructor(private http: HttpClient) { }
 
@@ -23,6 +25,10 @@ export class ApiService {
     const url = `${this.categoriesUrl}/${id}`;
 
     return this.http.get<Category>(url);
+  }
+
+  getSubjects() {
+    return this.http.get<Subject>(this.subjectsUrl);
   }
 
 }

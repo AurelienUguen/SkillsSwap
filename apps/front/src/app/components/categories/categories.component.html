@@ -1,5 +1,5 @@
 <h2>Catégories</h2>
-  <!-- <p> {{ categories | json }} </p> -->
+  <p> {{ categories | json }} </p>
   <div *ngFor="let category of categories">
     <a routerLink="subjects/{{ category.id }}">{{ category.title }}</a>
 
