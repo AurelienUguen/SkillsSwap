@@ -13,11 +13,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[Api\ApiResource(
     normalizationContext:['groups' => ['read_category']],
     denormalizationContext:['groups' => ['create_category']],
+    
     operations:[
         new Api\GetCollection(),
         new Api\Post(),
         new Api\Get(),
-        new Api\Put()
+        new Api\Put(),
+        new Api\Delete()
     ]
 )]
 class Category
