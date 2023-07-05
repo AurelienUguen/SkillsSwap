@@ -8,7 +8,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata as Api;
+use ApiPlatform\Metadata\ApiProperty;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: CourseRepository::class)]
 #[Api\ApiResource(
@@ -27,6 +29,7 @@ class Course
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[ApiProperty(identifier:false)]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'courses')]
@@ -61,6 +64,12 @@ class Course
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['read_course','create_course'])]
     private ?Subject $subject = null;
+
+    #[ORM\Column(length: 255)]
+    #[Groups(['read_course'])]
+    #[Gedmo\Slug(fields:['title'])]
+    #[ApiProperty(identifier:true)]
+    private ?string $slug = null;
 
     public function __construct()
     {
@@ -198,6 +207,18 @@ class Course
     public function setSubject(?Subject $subject): static
     {
         $this->subject = $subject;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
 
         return $this;
     }

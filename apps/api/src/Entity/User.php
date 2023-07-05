@@ -9,7 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Metadata as Api;
+use ApiPlatform\Metadata\ApiProperty;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[Api\ApiResource(
@@ -28,6 +30,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[ApiProperty(identifier:false)]
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
@@ -69,6 +72,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Lesson::class, orphanRemoval: true)]
     private Collection $lessons;
+
+    #[ORM\Column(length: 255)]
+    #[Groups(['read_user'])]
+    #[Gedmo\Slug(fields:['firstname','lastname','city','district'])]
+    #[ApiProperty(identifier:true)]
+    private ?string $slug = null;
 
     public function __construct()
     {
@@ -262,6 +271,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $lesson->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
 
         return $this;
     }
