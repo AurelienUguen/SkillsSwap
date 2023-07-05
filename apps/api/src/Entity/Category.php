@@ -7,7 +7,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata as Api;
+use ApiPlatform\Metadata\ApiProperty;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 #[Api\ApiResource(
@@ -27,6 +29,7 @@ class Category
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[ApiProperty(identifier:false)]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
@@ -35,6 +38,12 @@ class Category
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Subject::class, orphanRemoval: true)]
     private Collection $subjects;
+
+    #[ORM\Column(length: 255)]
+    #[Groups(['read_category'])]
+    #[Gedmo\Slug(fields:['title'])]
+    #[ApiProperty(identifier:true)]
+    private ?string $slug = null;
 
     public function __construct()
     {
@@ -84,6 +93,18 @@ class Category
                 $subject->setCategory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
 
         return $this;
     }
