@@ -1,7 +1,7 @@
 import { Category } from "./category";
 
 export interface Subject {
-  id: string;
+  id: number;
   slug: string;
   title: string;
   category: Category;

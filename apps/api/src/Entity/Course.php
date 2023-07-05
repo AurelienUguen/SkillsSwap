@@ -30,6 +30,7 @@ class Course
     #[ORM\GeneratedValue]
     #[ORM\Column]
     #[ApiProperty(identifier:false)]
+    #[Groups(['read_course', 'read_subject'])]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'courses')]
@@ -62,7 +63,7 @@ class Course
 
     #[ORM\ManyToOne(inversedBy: 'courses')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['read_course','create_course'])]
+    #[Groups(['read_course','read_subject', 'create_course'])]
     private ?Subject $subject = null;
 
     #[ORM\Column(length: 255)]

@@ -7,6 +7,8 @@ import { CategoriesComponent } from './components/categories/categories.componen
 
 import { HttpClientModule } from '@angular/common/http';
 import { SubjectsComponent } from './components/subjects/subjects.component';
+import { CoursesComponent } from './components/courses/courses.component';
+
 
 
 
@@ -16,6 +18,7 @@ import { SubjectsComponent } from './components/subjects/subjects.component';
     AppComponent,
     CategoriesComponent,
     SubjectsComponent,
+    CoursesComponent,
   ],
   imports: [
     BrowserModule,

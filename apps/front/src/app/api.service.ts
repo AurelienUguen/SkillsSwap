@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http'
 
 import { Category } from './model/category';
 import { Subject } from './model/subject';
+import { Course } from './model/course';
+
 import { Observable } from 'rxjs';
 
 
@@ -14,6 +16,7 @@ export class ApiService {
 
   private categoriesUrl = 'https://127.0.0.1:8000/api/categories';
   private subjectsUrl = 'https://127.0.0.1:8000/api/subjects';
+  private courseUrl = 'https://127.0.0.1:8000/api/courses';
 
   constructor(private http: HttpClient) { }
 
@@ -30,6 +33,17 @@ export class ApiService {
   getSubjects() {
 
     return this.http.get<Subject>(this.subjectsUrl);
+  }
+
+  getSubjectBySlug(slug: string): Observable<Subject> {
+    const url = `${this.subjectsUrl}/${slug}`;
+
+    return this.http.get<Subject>(url);
+  }
+
+  getCourses() {
+
+    return this.http.get<Course>(this.courseUrl);
   }
 
 }

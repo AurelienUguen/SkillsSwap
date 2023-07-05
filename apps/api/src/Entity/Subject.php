@@ -29,7 +29,7 @@ class Subject
     #[ORM\GeneratedValue]
     #[ORM\Column]
     #[ApiProperty(identifier:false)]
-    #[Groups(['read_subject'])]
+    #[Groups(['read_subject', 'read_course'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
@@ -42,6 +42,7 @@ class Subject
     private ?Category $category = null;
 
     #[ORM\OneToMany(mappedBy: 'subject', targetEntity: Course::class, orphanRemoval: true)]
+    #[Groups(['read_subject', 'read_course'])]
     private Collection $courses;
 
     #[ORM\Column(length: 255)]
