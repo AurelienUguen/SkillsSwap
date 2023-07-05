@@ -29,6 +29,7 @@ class Subject
     #[ORM\GeneratedValue]
     #[ORM\Column]
     #[ApiProperty(identifier:false)]
+    #[Groups(['read_subject'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
@@ -37,7 +38,7 @@ class Subject
 
     #[ORM\ManyToOne(inversedBy: 'subjects')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['read_subject','create_subject'])]
+    #[Groups(['read_subject', 'read_category', 'create_subject'])]
     private ?Category $category = null;
 
     #[ORM\OneToMany(mappedBy: 'subject', targetEntity: Course::class, orphanRemoval: true)]

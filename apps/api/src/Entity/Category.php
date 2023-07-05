@@ -38,6 +38,7 @@ class Category
     private ?string $title = null;
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Subject::class, orphanRemoval: true)]
+    #[Groups(['read_category', 'read_subject'])]
     private Collection $subjects;
 
     #[ORM\Column(length: 255)]
