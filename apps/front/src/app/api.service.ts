@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 
 import { Category } from './model/category';
-import { Subject } from './model/subject';
 import { Observable } from 'rxjs';
 
 
@@ -25,10 +24,6 @@ export class ApiService {
     const url = `${this.categoriesUrl}/${slug}`;
 
     return this.http.get<Category>(url);
-  }
-
-  getSubjects() {
-    return this.http.get<Subject>(this.subjectsUrl);
   }
 
 }
