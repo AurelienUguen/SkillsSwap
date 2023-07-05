@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 
 import { Category } from './model/category';
+import { Observable, catchError, of, tap } from 'rxjs';
 
 
 @Injectable({
@@ -16,6 +17,12 @@ export class ApiService {
 
   getCategories() {
     return this.http.get<Category>(this.categoriesUrl);
+  }
+
+  getCategory(id: number): Observable<Category> {
+    const url = `${this.categoriesUrl}/${id}`;
+
+    return this.http.get<Category>(url);
   }
 
 }
