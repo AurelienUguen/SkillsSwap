@@ -23,8 +23,9 @@ export class SubjectsComponent {
   }
 
   getCategory(): void {
-    const id = parseInt(this.route.snapshot.paramMap.get('id')!, 10);
-    this.apiService.getCategory(id)
+    const slug = this.route.snapshot.paramMap.get('slug')!;
+
+    this.apiService.getCategory(slug)
       .subscribe(category => this.category = category);
   }
 
