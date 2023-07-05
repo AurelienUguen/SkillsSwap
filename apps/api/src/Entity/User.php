@@ -12,6 +12,7 @@ use ApiPlatform\Metadata as Api;
 use ApiPlatform\Metadata\ApiProperty;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[Api\ApiResource(
@@ -27,6 +28,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 )]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    use TimestampableEntity;
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
