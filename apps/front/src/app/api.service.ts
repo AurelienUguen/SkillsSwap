@@ -27,7 +27,9 @@ export class ApiService {
     return this.http.get<Category>(this.categoriesUrl);
   }
 
+
   getCategoryBySlug(slug: string): Observable<Category> {
+
     const url = `${this.categoriesUrl}/${slug}`;
 
     return this.http.get<Category>(url);

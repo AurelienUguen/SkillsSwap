@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -7,6 +8,7 @@ import { Location } from '@angular/common';
 
 import { Subject } from 'src/app/model/subject';
 import { Course } from 'src/app/model/course';
+
 
 @Component({
   selector: 'app-subjects',

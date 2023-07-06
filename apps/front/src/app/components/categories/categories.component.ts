@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/api.service';
 import { Category } from '../../model/category';
 
+
 import { Location } from '@angular/common';
 
 @Component({
@@ -14,7 +15,9 @@ export class CategoriesComponent implements OnInit {
 
   categories: Category[] = [];
 
+
   constructor(private apiService: ApiService, private location: Location) {
+
 
   }
 
@@ -27,8 +30,8 @@ export class CategoriesComponent implements OnInit {
     .subscribe((categories: any) => this.categories = categories['hydra:member']);
   }
 
+
   goBack(): void {
     this.location.back();
   }
-
 }
