@@ -1,40 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
 import { ApiService } from 'src/app/api.service';
+
 import { Location } from '@angular/common';
 
-import { Category } from 'src/app/model/category';
 import { Subject } from 'src/app/model/subject';
+import { Course } from 'src/app/model/course';
+
 @Component({
   selector: 'app-subjects',
   templateUrl: './subjects.component.html',
   styleUrls: ['./subjects.component.scss']
 })
-export class SubjectsComponent {
+export class SubjectsComponent implements OnInit {
 
-  category!: Category;
-  subjects: Subject[] = [];
+  subject!: Subject;
+  courses: Course[] = [];
 
   constructor(private route: ActivatedRoute, private apiService: ApiService, private location: Location) {
 
   }
 
-
-  ngOnInit(): void {
-    this.getCategory();
-    this.getSubjects();
+  ngOnInit() {
+    this.getSubjectBySlug();
+    this.getCourses();
   }
 
-  getCategory(): void {
-    const slug = this.route.snapshot.paramMap.get('slug')!;
+  getSubjectBySlug(): void {
+    const slug = this.route.snapshot.paramMap.get('subject')!;
 
-    this.apiService.getCategory(slug)
-      .subscribe(category => this.category = category);
+    this.apiService.getSubjectBySlug(slug)
+      .subscribe(subject => this.subject = subject);
   }
 
-  getSubjects() {
-    return this.apiService.getSubjects()
-    .subscribe((subjects: any) => this.subjects = subjects['hydra:member']);
+  getCourses() {
+    return this.apiService.getCourses()
+    .subscribe((courses: any) => this.courses = courses['hydra:member']);
   }
 
   goBack(): void {

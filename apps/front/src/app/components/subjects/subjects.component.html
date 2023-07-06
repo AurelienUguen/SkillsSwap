@@ -1,13 +1,12 @@
-<h1> Hello World </h1>
-
-<h2>Sujet</h2>
-  <!-- <p> {{ subjects | json }} </p> -->
-  <div *ngFor="let subject of subjects">
 
 
-    <div *ngIf="subject.category.id === category.id">
-      <a routerLink="courses">{{ subject.title }}</a>
+<h2>Liste des cours</h2>
+  <div *ngFor="let course of courses">
+
+    <div *ngIf="course.subject.id === subject.id">
+      <a [routerLink]="['course', course.slug]">{{ course.title }}</a>
     </div>
+
   </div>
 
 <button type="button" (click)="goBack()">Retour</button>

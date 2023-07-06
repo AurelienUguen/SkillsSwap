@@ -9,4 +9,5 @@ export interface Course {
   visio: boolean;
   slug: string;
   subject: Subject;
+  languages: string;
 }

@@ -1,15 +1,8 @@
+<h1> Le cours </h1>
 
-
-<h1> courses works! </h1>
-
-<h2>Les cours</h2>
-  <div *ngFor="let course of courses">
-
-    <div *ngIf="course.subject.id === subject.id">
-      <p>{{course.title}}</p>
-      <a routerLink="#">{{ course.id }} | {{ course.title }} | {{ course.subject.id }}</a>
-    </div>
-
-  </div>
+<h2> {{ course.title }} </h2>
+<p> {{ course.description }} </p>
+<p> Face-à-face : {{ course.irl }} </p>
+<p> A distance : {{ course.visio }} </p>
 
 <button type="button" (click)="goBack()">Retour</button>

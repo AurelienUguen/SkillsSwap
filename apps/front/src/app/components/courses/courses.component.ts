@@ -1,9 +1,14 @@
-import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
 import { ApiService } from 'src/app/api.service';
+
+import { Location } from '@angular/common';
+
 import { Course } from 'src/app/model/course';
 import { Subject } from 'src/app/model/subject';
+
+
 
 @Component({
   selector: 'app-courses',
@@ -12,33 +17,24 @@ import { Subject } from 'src/app/model/subject';
 })
 export class CoursesComponent implements OnInit {
 
-  subject!: Subject;
-  courses: Course[] = [];
+  course!: Course;
 
   constructor(private route: ActivatedRoute, private apiService: ApiService, private location: Location) {
 
   }
 
   ngOnInit() {
-    this.getSubject();
-    this.getCourses();
+    this.getCourseBySlug();
   }
 
-  getSubject(): void {
-    const slug = this.route.snapshot.paramMap.get('slug')!;
+  getCourseBySlug(): void {
+    const slug = this.route.snapshot.paramMap.get('course')!;
 
-    this.apiService.getSubjectBySlug(slug)
-      .subscribe(subject => this.subject = subject);
+    this.apiService.getCourseBySlug(slug)
+      .subscribe(course => this.course = course);
   }
-
-  getCourses() {
-    return this.apiService.getCourses()
-    .subscribe((courses: any) => this.courses = courses['hydra:member']);
-  }
-
 
   goBack(): void {
     this.location.back();
   }
-
 }

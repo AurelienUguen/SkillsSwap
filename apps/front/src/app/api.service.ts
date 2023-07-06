@@ -7,6 +7,7 @@ import { Subject } from './model/subject';
 import { Course } from './model/course';
 
 import { Observable } from 'rxjs';
+import { Lesson } from './model/lesson';
 
 
 @Injectable({
@@ -17,6 +18,8 @@ export class ApiService {
   private categoriesUrl = 'https://127.0.0.1:8000/api/categories';
   private subjectsUrl = 'https://127.0.0.1:8000/api/subjects';
   private courseUrl = 'https://127.0.0.1:8000/api/courses';
+  private lessonUrl = 'https://127.0.0.1:8000/api/lessons'
+
 
   constructor(private http: HttpClient) { }
 
@@ -24,7 +27,7 @@ export class ApiService {
     return this.http.get<Category>(this.categoriesUrl);
   }
 
-  getCategory(slug: string): Observable<Category> {
+  getCategoryBySlug(slug: string): Observable<Category> {
     const url = `${this.categoriesUrl}/${slug}`;
 
     return this.http.get<Category>(url);
@@ -44,6 +47,17 @@ export class ApiService {
   getCourses() {
 
     return this.http.get<Course>(this.courseUrl);
+  }
+
+  getCourseBySlug(slug: string): Observable<Course> {
+    const url = `${this.courseUrl}/${slug}`;
+
+    return this.http.get<Course>(url);
+  }
+
+  getLessons() {
+
+    return this.http.get<Lesson>(this.lessonUrl);
   }
 
 }
