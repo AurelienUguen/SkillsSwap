@@ -14,6 +14,7 @@ class SubjectFixtures extends Fixture implements DependentFixtureInterface
     const PIANO = 'Piano';
     const POTE = 'Poterie';
     const INFO = 'Infographie';
+    const BUR = 'Bureautique';
 
     public function load(ObjectManager $manager): void
     {
@@ -46,6 +47,12 @@ class SubjectFixtures extends Fixture implements DependentFixtureInterface
         $sub5->setCategory($this->getReference(CategoryFixtures::INFO));
         $this->addReference(self::INFO, $sub5);
         $manager->persist($sub5);
+
+        $sub6 = new Subject();
+        $sub6->setTitle('Bureautique');
+        $sub6->setCategory($this->getReference(CategoryFixtures::INFO));
+        $this->addReference(self::BUR, $sub6);
+        $manager->persist($sub6);
 
         $manager->flush();
     }

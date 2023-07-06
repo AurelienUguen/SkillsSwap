@@ -3,9 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { SubjectsComponent } from './components/subjects/subjects.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 
+import { CoursesComponent } from './components/courses/courses.component';
+import { CategoryComponent } from './components/category/category.component';
+
 const routes: Routes = [
-    { path: 'category', component: CategoriesComponent},
-    { path: 'subjects/:slug', component: SubjectsComponent },
+    { path: 'categories', component: CategoriesComponent},
+    { path: 'categories/category/:category', component: CategoryComponent },
+    { path: 'categories/category/:category/subject/:subject', component: SubjectsComponent },
+    { path: 'categories/category/:category/subject/:subject/course/:course', component: CoursesComponent },
+
 ];
 
 @NgModule({
