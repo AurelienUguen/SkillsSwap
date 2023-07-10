@@ -17,7 +17,7 @@ import { Subject } from 'src/app/model/subject';
 })
 export class CoursesComponent implements OnInit {
 
-  course!: Course;
+  course?: Course;
 
   constructor(private route: ActivatedRoute, private apiService: ApiService, private location: Location) {
 

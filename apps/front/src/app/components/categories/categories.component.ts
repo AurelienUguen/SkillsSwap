@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { ApiService } from 'src/app/api.service';
 import { Category } from '../../model/category';
@@ -18,7 +18,6 @@ export class CategoriesComponent implements OnInit {
 
   constructor(private apiService: ApiService, private location: Location) {
 
-
   }
 
   ngOnInit(): void {
@@ -29,7 +28,6 @@ export class CategoriesComponent implements OnInit {
     return this.apiService.getCategories()
     .subscribe((categories: any) => this.categories = categories['hydra:member']);
   }
-
 
   goBack(): void {
     this.location.back();

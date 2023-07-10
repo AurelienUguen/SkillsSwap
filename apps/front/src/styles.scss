@@ -1,2 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+$primary: #0C5051;
+
 @import "~bootstrap/dist/css/bootstrap.css";
+
+* {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+body {
+  background: linear-gradient(#BCF4F5, #ffffff);
+  background-repeat: no-repeat;
+}
+
+.custom-container {
+  width: 80%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}

@@ -1,8 +1,15 @@
 <h1> Le cours </h1>
 
-<h2> {{ course.title }} </h2>
-<p> {{ course.description }} </p>
-<p> Face-à-face : {{ course.irl }} </p>
-<p> A distance : {{ course.visio }} </p>
+<ng-container *ngIf="course">
+  <h2> {{ course.title }} </h2>
+  <p> {{ course.description }} </p>
 
-<button type="button" (click)="goBack()">Retour</button>
+  <div class="d-flex flex-column">
+      <h5>Format du cours :</h5>
+      <p *ngIf="course.irl">- Face-à-face</p>
+      <p *ngIf="course.visio">- A distance</p>
+  </div>
+</ng-container>
+
+
+<button type="button" class="btn btn-primary custom-btn" (click)="goBack()">Retour</button>

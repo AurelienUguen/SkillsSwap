@@ -1,1 +1,35 @@
+$primary: #0C5051;
+$hover: #0c5051b8;
+
+@import url('https://fonts.googleapis.com/css2?family=Mansalva&display=swap');
+
+* {
+  text-decoration: none;
+}
+
+.company-title {
+  font-family: 'Mansalva', cursive;
+  color: #0C5051;
+}
+
+ul li a {
+  color: $primary;
+}
+
+ul li {
+  display: flex;
+  align-items: center;
+}
+
+.connexion-btn {
+  color: white;
+  background-color: $primary;
+  padding: 10px 40px;
+  border-radius: 30px;
+}
+
+.connexion-btn:hover {
+  background-color: $hover;
+}
+
 

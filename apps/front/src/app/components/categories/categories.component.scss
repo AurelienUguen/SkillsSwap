@@ -1,0 +1,25 @@
+$primary: #0C5051;
+$hover: #0c5051b8;
+
+@import "~bootstrap/dist/css/bootstrap.css";
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.custom-btn {
+  border-radius: 0;
+  border: #0C5051;
+  background-color: $primary;
+}
+
+.custom-btn:hover {
+  background-color: $hover;
+}
+
+.category-container {
+  width: 30%;
+  margin: 10px;
+  padding: 10px;
+}
