@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 
 import { Category } from './model/category';
+import { User } from './model/user';
 import { Subject } from './model/subject';
 import { Course } from './model/course';
 
@@ -16,26 +17,37 @@ import { Lesson } from './model/lesson';
 export class ApiService {
 
   private categoriesUrl = 'https://127.0.0.1:8000/api/categories';
-  private subjectsUrl = 'https://127.0.0.1:8000/api/subjects';
-  private courseUrl = 'https://127.0.0.1:8000/api/courses';
-  private lessonUrl = 'https://127.0.0.1:8000/api/lessons'
+  /* private subjectsUrl = 'https://127.0.0.1:8000/api/subjects';
+  private courseUrl = 'https://127.0.0.1:8000/api/courses'; */
+  private usersUrl = 'https://127.0.0.1:8000/api/users'
 
 
   constructor(private http: HttpClient) { }
 
   getCategories() {
+
     return this.http.get<Category>(this.categoriesUrl);
   }
 
 
   getCategoryBySlug(slug: string): Observable<Category> {
-
     const url = `${this.categoriesUrl}/${slug}`;
 
     return this.http.get<Category>(url);
   }
 
-  getSubjects() {
+  getUsers() {
+
+    return this.http.get<User>(this.usersUrl);
+  }
+
+  getUserBySlug(slug: string): Observable<User> {
+    const url = `${this.usersUrl}/${slug}`;
+
+    return this.http.get<User>(url);
+  }
+
+  /* getSubjects() {
 
     return this.http.get<Subject>(this.subjectsUrl);
   }
@@ -60,6 +72,6 @@ export class ApiService {
   getLessons() {
 
     return this.http.get<Lesson>(this.lessonUrl);
-  }
+  } */
 
 }

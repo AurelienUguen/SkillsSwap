@@ -1,12 +1,13 @@
-<h1> Liste des sujets</h1>
+<h1> Les professeurs de {{ category.title | lowercase}} </h1>
 
-  <!-- <p> {{ category | json }} </p> -->
-  <div *ngFor="let subject of subjects">
+  <!-- <p> {{ users| json }} </p> -->
+  <div *ngFor="let user of users">
 
+    <p> {{ user.firstname }}  {{ user.lastname }} - {{ user.roles }} - {{ user.email }}</p>
 
-    <div *ngIf="subject.category.id === category.id">
-      <a [routerLink]="['subject', subject.slug]">{{ subject.title }}</a>
-    </div>
+    <!-- <div *ngIf="subject.category.id === category.id">
+      <a [routerLink]="['subject' subject.slug]">{{ subject.title }}</a>
+    </div> -->
   </div>
 
 <button type="button" class="btn btn-primary custom-btn" (click)="goBack()">Retour</button>

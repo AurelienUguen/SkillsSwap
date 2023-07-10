@@ -24,15 +24,16 @@ export class CoursesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getCourseBySlug();
+    /* this.getCourseBySlug(); */
   }
 
-  getCourseBySlug(): void {
+  /* getCourseBySlug(): void {
     const slug = this.route.snapshot.paramMap.get('course')!;
 
     this.apiService.getCourseBySlug(slug)
       .subscribe(course => this.course = course);
   }
+  */
 
   goBack(): void {
     this.location.back();
