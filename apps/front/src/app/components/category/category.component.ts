@@ -5,6 +5,8 @@ import { ApiService } from 'src/app/api.service';
 import { Category } from 'src/app/model/category';
 
 import { Subject } from 'src/app/model/subject';
+import { User } from 'src/app/model/user';
+
 
 @Component({
   selector: 'app-category',
@@ -14,14 +16,15 @@ import { Subject } from 'src/app/model/subject';
 export class CategoryComponent {
 
   category!: Category;
-  subjects: Subject[] = [];
+  users: User[] = [];
 
   constructor(private route: ActivatedRoute, private apiService: ApiService, private location: Location) { }
 
   ngOnInit(): void {
     this.getCategoryBySlug();
 
-    this.getSubjects();
+    this.getUsers();
+   /*  this.getSubjects(); */
   }
 
   getCategoryBySlug(): void {
@@ -31,10 +34,15 @@ export class CategoryComponent {
       .subscribe(category => this.category = category);
   }
 
-  getSubjects() {
+  getUsers() {
+    return this.apiService.getUsers()
+    .subscribe((users: any) => this.users = users['hydra:member']);
+  }
+
+  /* getSubjects() {
     return this.apiService.getSubjects()
     .subscribe((subjects: any) => this.subjects = subjects['hydra:member']);
-  }
+  } */
 
   goBack(): void {
     this.location.back();

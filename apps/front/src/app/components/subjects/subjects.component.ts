@@ -25,11 +25,11 @@ export class SubjectsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getSubjectBySlug();
-    this.getCourses();
+    /* this.getSubjectBySlug();
+    this.getCourses(); */
   }
 
-  getSubjectBySlug(): void {
+  /* getSubjectBySlug(): void {
     const slug = this.route.snapshot.paramMap.get('subject')!;
 
     this.apiService.getSubjectBySlug(slug)
@@ -40,6 +40,8 @@ export class SubjectsComponent implements OnInit {
     return this.apiService.getCourses()
     .subscribe((courses: any) => this.courses = courses['hydra:member']);
   }
+
+  */
 
   goBack(): void {
     this.location.back();
