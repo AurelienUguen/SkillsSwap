@@ -1,7 +1,10 @@
+import { Sheet } from "./sheet";
+
 export interface Category {
   id: number;
+  name: string;
+  parent: Category;
+  Categories: Category;
   slug: string;
-  title: string;
-  type:string;
-  category: string;
+  sheet:Sheet
 }

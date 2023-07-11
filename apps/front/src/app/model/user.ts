@@ -1,11 +1,18 @@
+import { Lesson } from "./lesson";
+import { Sheet } from "./sheet";
+
 export interface User {
   id: number;
   firstname: string;
   lastname: string;
-  city: string;
-  district: string;
   email: string;
   password: string;
   phoneNumber: string;
-  roles: string;
+  district: number;
+  city: string;
+  sheets: Sheet
+  lessons: Lesson;
+  roles: [];
+  description: string;
+  slug: string;
 }

@@ -1,6 +1,6 @@
 <h2>Liste des catégories</h2>
   <div *ngFor="let category of categories" class="category-container d-flex flex-row">
-    <a [routerLink]="['category', category.slug]" class="h4">{{ category.title }}</a>
+    <a [routerLink]="['category', category.slug]" class="h4">{{ category.name }}</a>
   </div>
   <button class="btn btn-primary custom-btn" type="button" (click)="goBack()">Retour</button>
 

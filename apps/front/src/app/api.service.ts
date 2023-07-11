@@ -4,11 +4,10 @@ import { HttpClient } from '@angular/common/http'
 
 import { Category } from './model/category';
 import { User } from './model/user';
-import { Subject } from './model/subject';
-import { Course } from './model/course';
+
 
 import { Observable } from 'rxjs';
-import { Lesson } from './model/lesson';
+
 
 
 @Injectable({
@@ -17,8 +16,6 @@ import { Lesson } from './model/lesson';
 export class ApiService {
 
   private categoriesUrl = 'https://127.0.0.1:8000/api/categories';
-  /* private subjectsUrl = 'https://127.0.0.1:8000/api/subjects';
-  private courseUrl = 'https://127.0.0.1:8000/api/courses'; */
   private usersUrl = 'https://127.0.0.1:8000/api/users'
 
 

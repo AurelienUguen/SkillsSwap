@@ -1,10 +1,9 @@
-import { Course } from "./course";
+import { Sheet } from "./sheet";
+import { User } from "./user";
 
 export interface Lesson {
   id: number;
-  user:string;
-  date: Date;
-  irl: boolean;
-  visio: boolean;
-  course: Course;
+  user: User;
+  sheet: Sheet;
+  bookingDate: Date
 }
