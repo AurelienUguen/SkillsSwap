@@ -9,6 +9,10 @@ import { CoursesComponent } from './components/courses/courses.component';
 import { CategoryComponent } from './components/category/category.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HomeLeftComponent } from './components/home-left/home-left.component';
+import { HomeRightComponent } from './components/home-right/home-right.component';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
 
 
 @NgModule({
@@ -20,12 +24,16 @@ import { HomeComponent } from './components/home/home.component';
     CategoryComponent,
     HeaderComponent,
     HomeComponent,
+    HomeLeftComponent,
+    HomeRightComponent,
+    SearchBarComponent,
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

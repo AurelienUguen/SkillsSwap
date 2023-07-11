@@ -1,0 +1,45 @@
+$primary: #0C5051;
+$primaryWithTransparancy: #0c50516c;
+$hover: #117375;
+
+
+.right-side {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+.top-row .custom-card {
+  margin-right: 30px;
+}
+
+.top-row .custom-card:last-child {
+  margin-right: 0;
+  margin-bottom: 0;
+}
+
+.bottom-row {
+  margin-top: 50px;
+}
+
+.custom-card img {
+  width: 200px;
+}
+
+.bloc-presentation {
+  background-color: white;
+  border-radius: 20px;
+  width: 80%;
+  padding: 10px;
+  box-shadow: 0px 3px 40px $primaryWithTransparancy;
+}
+
+.custom-name {
+  margin: auto;
+  text-align: left;
+}
+
+.custom-lesson {
+  font-size: 0.8em;
+}

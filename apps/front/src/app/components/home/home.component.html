@@ -1,47 +1,6 @@
-<div class="main-container container-fluid">
-  <div class="left-side">
-    <h1 class="title">La passion <br> à votre service</h1>
-    <h2 class="sub-baseline">Trouver le passioné qui vous convient,<br>en ligne ou en face-à-face.</h2>
-    <form role="search" class="me-3 w-50 flex-grow-1 flex-lg-grow-0" class="search-bar d-flex">
-        <input class="form-control" type="search" placeholder="Que souhaitez-vous apprendre ?" aria-label="Search">
-        <button class="btn btn-primary search-btn">Rechercher</button>
-    </form>
-  </div>
-
-  <div class="right-side container-fluid d-flex justify-center align-items-center">
-
-    <div class="d-flex justify-content-between top-row">
-      <div class="custom-card position-relative">
-        <img src="./assets/home_picture_1.png" alt="teacher_picture">
-        <div class="position-absolute top-100 start-50 translate-middle bloc-presentation">
-          <p class="custom-name">Damien
-            <br>
-            <span class="custom-lesson">Batteur</span>
-          </p>
-        </div>
-      </div>
-
-      <div class="custom-card position-relative">
-        <img src="./assets/home_picture_3.png" alt="teacher_picture">
-        <div class="position-absolute top-100 start-50 translate-middle bloc-presentation">
-          <p class="custom-name">Roland
-            <br>
-            <span class="custom-lesson">Chef cuisinier</span>
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div class="custom-card bottom-row position-relative">
-      <img src="./assets/home_picture_2.png" alt="teacher_picture">
-      <div class="position-absolute top-100 start-50 translate-middle bloc-presentation">
-        <p class="custom-name">Christopher
-          <br>
-          <span class="custom-lesson">Développeur</span>
-        </p>
-      </div>
-    </div>
-  </div>
+<div class="main-container">
+  <app-home-left class="left"></app-home-left>
+  <app-home-right class="right"></app-home-right>
 </div>
 
 <!-- <app-categories></app-categories> -->
