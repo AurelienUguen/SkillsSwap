@@ -8,6 +8,7 @@ import { SubjectsComponent } from './components/subjects/subjects.component';
 import { CoursesComponent } from './components/courses/courses.component';
 import { CategoryComponent } from './components/category/category.component';
 import { HeaderComponent } from './components/header/header.component';
+import { HomeComponent } from './components/home/home.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { HeaderComponent } from './components/header/header.component';
     CoursesComponent,
     CategoryComponent,
     HeaderComponent,
+    HomeComponent,
 
   ],
   imports: [

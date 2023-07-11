@@ -1,0 +1,79 @@
+$primary: #0C5051;
+$primaryWithTransparancy: #0c50516c;
+$hover: #0c5051b8;
+
+.main-container {
+  margin-top: 150px;
+  display: flex;
+}
+
+.left-side, .right-side {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.right-side {
+  align-items: end;
+}
+
+.title {
+  font-family: 'Bacasime Antique', serif;
+  font-weight: bolder;
+  color: $primary;
+  font-size: 4em;
+  margin-bottom: 50px;
+}
+
+.sub-baseline {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+}
+
+.search-bar {
+  text-align: center;
+  z-index: 1;
+}
+
+.search-bar input {
+  height: 45px;
+  width: 77%;
+  border: none;
+  box-shadow: 0px 5px 10px $primaryWithTransparancy;
+}
+
+.top-row .custom-card {
+  margin-right: 30px;
+}
+
+.top-row .custom-card:last-child {
+  margin-right: 0;
+  margin-bottom: 0;
+}
+
+.bottom-row {
+  margin-top: 50px;
+}
+
+.custom-card img {
+  width: 200px;
+}
+
+.bloc-presentation {
+  background-color: white;
+  border-radius: 20px;
+  width: 80%;
+  padding: 10px;
+  box-shadow: 0px 3px 40px $primaryWithTransparancy;
+}
+
+.custom-name {
+  margin: auto;
+  text-align: left;
+}
+
+.custom-lesson {
+  font-size: 0.8em;
+}
+
+
