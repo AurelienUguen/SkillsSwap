@@ -3,27 +3,61 @@
 namespace App\Entity;
 
 use App\Repository\CategoryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use ApiPlatform\Metadata as Api;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
+#[Api\ApiResource(
+    normalizationContext:['groups' => ['read_category']],
+    denormalizationContext:['groups' => ['create_category']],
+    operations:[
+        new Api\GetCollection(),
+        new Api\Post(),
+        new Api\Get(),
+        new Api\Put(),
+        new Api\Delete()
+    ]
+)]
 class Category
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['read_category'])]
+    #[Api\ApiProperty(identifier:false)]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['read_category', 'create_category'])]
     private ?string $name = null;
 
-    #[ORM\OneToOne(inversedBy: 'category', targetEntity: self::class, cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'categories')]
+    #[Groups(['read_category', 'create_category'])]
     private ?self $parent = null;
 
-    #[ORM\OneToOne(mappedBy: 'parent', targetEntity: self::class, cascade: ['persist', 'remove'])]
-    private ?self $category = null;
+    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
+    #[Groups(['read_category', 'create_category'])]
+    private Collection $categories;
 
-    #[ORM\OneToOne(mappedBy: 'category', cascade: ['persist', 'remove'])]
-    private ?Sheet $sheet = null;
+    #[ORM\Column(length: 255)]
+    #[Gedmo\Slug(fields:['name'])]
+    #[Groups(['read_category'])]
+    #[Api\ApiProperty(identifier:true)]
+    private ?string $slug = null;
+
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Sheet::class)]
+    #[Groups(['read_category', 'create_category'])]
+    private Collection $sheets;
+
+    public function __construct()
+    {
+        $this->categories = new ArrayCollection();
+        $this->sheets = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -54,41 +88,74 @@ class Category
         return $this;
     }
 
-    public function getCategory(): ?self
+    /**
+     * @return Collection<int, self>
+     */
+    public function getCategories(): Collection
     {
-        return $this->category;
+        return $this->categories;
     }
 
-    public function setCategory(?self $category): static
+    public function addCategory(self $category): static
     {
-        // unset the owning side of the relation if necessary
-        if ($category === null && $this->category !== null) {
-            $this->category->setParent(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($category !== null && $category->getParent() !== $this) {
+        if (!$this->categories->contains($category)) {
+            $this->categories->add($category);
             $category->setParent($this);
         }
-
-        $this->category = $category;
 
         return $this;
     }
 
-    public function getSheet(): ?Sheet
+    public function removeCategory(self $category): static
     {
-        return $this->sheet;
+        if ($this->categories->removeElement($category)) {
+            // set the owning side to null (unless already changed)
+            if ($category->getParent() === $this) {
+                $category->setParent(null);
+            }
+        }
+
+        return $this;
     }
 
-    public function setSheet(Sheet $sheet): static
+    public function getSlug(): ?string
     {
-        // set the owning side of the relation if necessary
-        if ($sheet->getCategory() !== $this) {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): static
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Sheet>
+     */
+    public function getSheets(): Collection
+    {
+        return $this->sheets;
+    }
+
+    public function addSheet(Sheet $sheet): static
+    {
+        if (!$this->sheets->contains($sheet)) {
+            $this->sheets->add($sheet);
             $sheet->setCategory($this);
         }
 
-        $this->sheet = $sheet;
+        return $this;
+    }
+
+    public function removeSheet(Sheet $sheet): static
+    {
+        if ($this->sheets->removeElement($sheet)) {
+            // set the owning side to null (unless already changed)
+            if ($sheet->getCategory() === $this) {
+                $sheet->setCategory(null);
+            }
+        }
 
         return $this;
     }
