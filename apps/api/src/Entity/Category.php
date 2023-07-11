@@ -3,110 +3,92 @@
 namespace App\Entity;
 
 use App\Repository\CategoryRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Metadata as Api;
-use ApiPlatform\Metadata\ApiProperty;
-use Symfony\Component\Serializer\Annotation\Groups;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
-#[Api\ApiResource(
-    normalizationContext:['groups' => ['read_category']],
-    denormalizationContext:['groups' => ['create_category']],
-    
-    operations:[
-        new Api\GetCollection(),
-        new Api\Post(),
-        new Api\Get(),
-        new Api\Put(),
-        new Api\Delete()
-    ]
-)]
 class Category
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[ApiProperty(identifier:false)]
-    #[Groups(['read_category', 'read_subject'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['read_category','create_category'])]
-    private ?string $title = null;
+    private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Subject::class, orphanRemoval: true)]
-    #[Groups(['read_category', 'read_subject'])]
-    private Collection $subjects;
+    #[ORM\OneToOne(inversedBy: 'category', targetEntity: self::class, cascade: ['persist', 'remove'])]
+    private ?self $parent = null;
 
-    #[ORM\Column(length: 255)]
-    #[Groups(['read_category'])]
-    #[Gedmo\Slug(fields:['title'])]
-    #[ApiProperty(identifier:true)]
-    private ?string $slug = null;
+    #[ORM\OneToOne(mappedBy: 'parent', targetEntity: self::class, cascade: ['persist', 'remove'])]
+    private ?self $category = null;
 
-    public function __construct()
-    {
-        $this->subjects = new ArrayCollection();
-    }
+    #[ORM\OneToOne(mappedBy: 'category', cascade: ['persist', 'remove'])]
+    private ?Sheet $sheet = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getName(): ?string
     {
-        return $this->title;
+        return $this->name;
     }
 
-    public function setTitle(string $title): static
+    public function setName(string $name): static
     {
-        $this->title = $title;
+        $this->name = $name;
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, Subject>
-     */
-    public function getSubjects(): Collection
+    public function getParent(): ?self
     {
-        return $this->subjects;
+        return $this->parent;
     }
 
-    public function addSubject(Subject $subject): static
+    public function setParent(?self $parent): static
     {
-        if (!$this->subjects->contains($subject)) {
-            $this->subjects->add($subject);
-            $subject->setCategory($this);
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    public function getCategory(): ?self
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?self $category): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($category === null && $this->category !== null) {
+            $this->category->setParent(null);
         }
 
-        return $this;
-    }
-
-    public function removeSubject(Subject $subject): static
-    {
-        if ($this->subjects->removeElement($subject)) {
-            // set the owning side to null (unless already changed)
-            if ($subject->getCategory() === $this) {
-                $subject->setCategory(null);
-            }
+        // set the owning side of the relation if necessary
+        if ($category !== null && $category->getParent() !== $this) {
+            $category->setParent($this);
         }
 
+        $this->category = $category;
+
         return $this;
     }
 
-    public function getSlug(): ?string
+    public function getSheet(): ?Sheet
     {
-        return $this->slug;
+        return $this->sheet;
     }
 
-    public function setSlug(string $slug): static
+    public function setSheet(Sheet $sheet): static
     {
-        $this->slug = $slug;
+        // set the owning side of the relation if necessary
+        if ($sheet->getCategory() !== $this) {
+            $sheet->setCategory($this);
+        }
+
+        $this->sheet = $sheet;
 
         return $this;
     }

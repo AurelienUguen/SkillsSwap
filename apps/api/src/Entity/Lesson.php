@@ -5,26 +5,10 @@ namespace App\Entity;
 use App\Repository\LessonRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Metadata as Api;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: LessonRepository::class)]
-#[Api\ApiResource(
-    normalizationContext:['groups' => ['read_lesson']],
-    denormalizationContext:['groups' => ['create_lesson']],
-    operations:[
-        new Api\GetCollection(),
-        new Api\Post(),
-        new Api\Get(),
-        new Api\Put(),
-        new Api\Delete()
-    ]
-)]
 class Lesson
 {
-    use TimestampableEntity;
-    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -32,41 +16,18 @@ class Lesson
 
     #[ORM\ManyToOne(inversedBy: 'lessons')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['read_lesson','create_lesson'])]
-    private ?Course $course = null;
-
-    #[ORM\ManyToOne(inversedBy: 'lessons')]
-    #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['read_lesson','create_lesson'])]
     private ?User $user = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Groups(['read_lesson','create_lesson'])]
-    private ?\DateTimeInterface $date = null;
+    #[ORM\OneToOne(inversedBy: 'lesson', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Sheet $sheet = null;
 
-    #[ORM\Column]
-    #[Groups(['read_lesson','create_lesson'])]
-    private ?bool $irl = null;
-
-    #[ORM\Column]
-    #[Groups(['read_lesson','create_lesson'])]
-    private ?bool $visio = null;
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $booking_date = null;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getCourse(): ?Course
-    {
-        return $this->course;
-    }
-
-    public function setCourse(?Course $course): static
-    {
-        $this->course = $course;
-
-        return $this;
     }
 
     public function getUser(): ?User
@@ -81,38 +42,26 @@ class Lesson
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getSheet(): ?Sheet
     {
-        return $this->date;
+        return $this->sheet;
     }
 
-    public function setDate(\DateTimeInterface $date): static
+    public function setSheet(Sheet $sheet): static
     {
-        $this->date = $date;
+        $this->sheet = $sheet;
 
         return $this;
     }
 
-    public function isIrl(): ?bool
+    public function getBookingDate(): ?\DateTimeInterface
     {
-        return $this->irl;
+        return $this->booking_date;
     }
 
-    public function setIrl(bool $irl): static
+    public function setBookingDate(?\DateTimeInterface $booking_date): static
     {
-        $this->irl = $irl;
-
-        return $this;
-    }
-
-    public function isVisio(): ?bool
-    {
-        return $this->visio;
-    }
-
-    public function setVisio(bool $visio): static
-    {
-        $this->visio = $visio;
+        $this->booking_date = $booking_date;
 
         return $this;
     }
