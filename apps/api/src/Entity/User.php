@@ -7,37 +7,64 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
+use ApiPlatform\Metadata as Api;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[Api\ApiResource(
+    normalizationContext:['groups' => ['read_user']],
+    denormalizationContext:['groups' => ['create_user']],
+    operations:[
+        new Api\GetCollection(),
+        new Api\Post(),
+        new Api\Get(),
+        new Api\Put(),
+        new Api\Delete()
+    ]
+)]
 class User
 {
+    use TimestampableEntity;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Api\ApiProperty(identifier:false)]
+    #[Groups(['read_user'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['read_user','create_user'])]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['read_user','create_user'])]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['read_user','create_user'])]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['read_user','create_user'])]
     private ?string $password = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['read_user','create_user'])]
     private ?string $phone_number = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['read_user','create_user'])]
     private ?int $district = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['read_user','create_user'])]
     private ?string $city = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Sheet::class, orphanRemoval: true)]
+    #[Groups(['read_sheet'])]
     private Collection $sheets;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Lesson::class, orphanRemoval: true)]
@@ -47,7 +74,14 @@ class User
     private array $roles = [];
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['read_user','create_user'])]
     private ?string $description = null;
+
+    #[ORM\Column(length: 255)]
+    #[Groups(['read_user'])]
+    #[Gedmo\Slug(fields:['firstname', 'lastname', 'city'])]
+    #[Api\ApiProperty(identifier:true)]
+    private ?string $slug = null;
 
     public function __construct()
     {
@@ -224,6 +258,18 @@ class User
     public function setDescription(?string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
 
         return $this;
     }
