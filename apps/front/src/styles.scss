@@ -1,10 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
-$primary: #0C5051;
+$primary: #4fa2a4;
 
 @import "~bootstrap/dist/css/bootstrap.css";
+@import url('https://fonts.googleapis.com/css2?family=Bacasime+Antique&family=Mansalva&family=Poppins&display=swap');
 
 * {
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 body {
@@ -13,7 +14,7 @@ body {
 }
 
 .custom-container {
-  width: 80%;
+  width: 65%;
   margin-top: 10px;
   margin-bottom: 10px;
   margin-left: auto;
