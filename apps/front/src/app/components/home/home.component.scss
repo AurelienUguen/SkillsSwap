@@ -5,101 +5,10 @@ $hover: #117375;
 .main-container {
   margin-top: 150px;
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.left-side, .right-side {
-  width: 50%;
-  display: flex;
-  flex-direction: column;
+.left, .right {
+  width: 100%;
 }
-
-.right-side {
-  align-items: end;
-}
-
-.title {
-  font-family: 'Bacasime Antique', serif;
-  font-weight: bolder;
-  color: $primary;
-  font-size: 4em;
-  margin-bottom: 50px;
-}
-
-.sub-baseline {
-  font-size: 1.2em;
-  margin-bottom: 30px;
-}
-
-
-input::placeholder {
-  font-style: italic;
-  font-size: 0.9em;
-}
-
-.search-bar {
-  text-align: center;
-}
-
-.search-bar input {
-  height: 60px;
-  width: 77%;
-  border: 2px solid $primary;
-  border-radius: 20px;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  outline:none;
-}
-
-.search-bar input:focus {
-  outline:none
-}
-
-.search-btn {
-  color: white;
-  background-color: $primary;
-  padding: 10px 40px;
-  border-radius: 15px;
-  border: none;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-}
-
-.search-btn:hover {
-  background-color: $hover;
-}
-
-.top-row .custom-card {
-  margin-right: 30px;
-}
-
-.top-row .custom-card:last-child {
-  margin-right: 0;
-  margin-bottom: 0;
-}
-
-.bottom-row {
-  margin-top: 50px;
-}
-
-.custom-card img {
-  width: 200px;
-}
-
-.bloc-presentation {
-  background-color: white;
-  border-radius: 20px;
-  width: 80%;
-  padding: 10px;
-  box-shadow: 0px 3px 40px $primaryWithTransparancy;
-}
-
-.custom-name {
-  margin: auto;
-  text-align: left;
-}
-
-.custom-lesson {
-  font-size: 0.8em;
-}
-
-
