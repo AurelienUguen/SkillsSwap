@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ApiService } from 'src/app/api.service';
-import { Category } from '../../model/category';
+
 
 
 import { Location } from '@angular/common';
+import { Category } from 'src/app/model/category';
 
 @Component({
   selector: 'app-categories',

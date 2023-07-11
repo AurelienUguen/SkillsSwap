@@ -7,4 +7,5 @@ export interface Category {
   Categories: Category;
   slug: string;
   sheet:Sheet
+  isParent: boolean;
 }
