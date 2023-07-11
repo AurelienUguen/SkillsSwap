@@ -5,86 +5,53 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
-use ApiPlatform\Metadata as Api;
-use ApiPlatform\Metadata\ApiProperty;
-use Symfony\Component\Serializer\Annotation\Groups;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[Api\ApiResource(
-    normalizationContext:['groups' => ['read_user']],
-    denormalizationContext:['groups' => ['create_user']],
-    operations:[
-        new Api\GetCollection(),
-        new Api\Post(),
-        new Api\Get(),
-        new Api\Put(),
-        new Api\Delete()
-    ]
-)]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User
 {
-    use TimestampableEntity;
-    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[ApiProperty(identifier:false)]
     private ?int $id = null;
 
-    #[ORM\Column(length: 180, unique: true)]
-    #[Groups(['read_user','create_user'])]
+    #[ORM\Column(length: 255)]
     private ?string $firstname = null;
 
-    #[ORM\Column]
-    private array $roles = [];
-
-    /**
-     * @var string The hashed password
-     */
-    #[ORM\Column]
-    #[Groups(['read_user','create_user'])]
-    private ?string $password = null;
+    #[ORM\Column(length: 255)]
+    private ?string $lastname = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['read_user','create_user'])]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['read_user','create_user'])]
-    private ?string $lastname = null;
+    private ?string $password = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['read_user','create_user'])]
-    private ?string $phoneNumber = null;
+    private ?string $phone_number = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['read_user','create_user'])]
+    #[ORM\Column(nullable: true)]
     private ?int $district = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['read_user','create_user'])]
     private ?string $city = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Course::class, orphanRemoval: true)]
-    private Collection $courses;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Sheet::class, orphanRemoval: true)]
+    private Collection $sheets;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Lesson::class, orphanRemoval: true)]
     private Collection $lessons;
 
-    #[ORM\Column(length: 255)]
-    #[Groups(['read_user'])]
-    #[Gedmo\Slug(fields:['firstname','lastname','city','district'])]
-    #[ApiProperty(identifier:true)]
-    private ?string $slug = null;
+    #[ORM\Column]
+    private array $roles = [];
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $description = null;
 
     public function __construct()
     {
-        $this->courses = new ArrayCollection();
+        $this->sheets = new ArrayCollection();
         $this->lessons = new ArrayCollection();
     }
 
@@ -105,57 +72,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
-    public function getUserIdentifier(): string
+    public function getLastname(): ?string
     {
-        return (string) $this->firstname;
+        return $this->lastname;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function getRoles(): array
+    public function setLastname(string $lastname): static
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
-    }
-
-    public function setRoles(array $roles): static
-    {
-        $this->roles = $roles;
+        $this->lastname = $lastname;
 
         return $this;
-    }
-
-    /**
-     * @see PasswordAuthenticatedUserInterface
-     */
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): static
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function eraseCredentials(): void
-    {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
     }
 
     public function getEmail(): ?string
@@ -170,26 +96,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getLastname(): ?string
+    public function getPassword(): ?string
     {
-        return $this->lastname;
+        return $this->password;
     }
 
-    public function setLastname(string $lastname): static
+    public function setPassword(string $password): static
     {
-        $this->lastname = $lastname;
+        $this->password = $password;
 
         return $this;
     }
 
     public function getPhoneNumber(): ?string
     {
-        return $this->phoneNumber;
+        return $this->phone_number;
     }
 
-    public function setPhoneNumber(?string $phoneNumber): static
+    public function setPhoneNumber(?string $phone_number): static
     {
-        $this->phoneNumber = $phoneNumber;
+        $this->phone_number = $phone_number;
 
         return $this;
     }
@@ -219,29 +145,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Course>
+     * @return Collection<int, Sheet>
      */
-    public function getCourses(): Collection
+    public function getSheets(): Collection
     {
-        return $this->courses;
+        return $this->sheets;
     }
 
-    public function addCourse(Course $course): static
+    public function addSheet(Sheet $sheet): static
     {
-        if (!$this->courses->contains($course)) {
-            $this->courses->add($course);
-            $course->setUser($this);
+        if (!$this->sheets->contains($sheet)) {
+            $this->sheets->add($sheet);
+            $sheet->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeCourse(Course $course): static
+    public function removeSheet(Sheet $sheet): static
     {
-        if ($this->courses->removeElement($course)) {
+        if ($this->sheets->removeElement($sheet)) {
             // set the owning side to null (unless already changed)
-            if ($course->getUser() === $this) {
-                $course->setUser(null);
+            if ($sheet->getUser() === $this) {
+                $sheet->setUser(null);
             }
         }
 
@@ -278,14 +204,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getSlug(): ?string
+    public function getRoles(): array
     {
-        return $this->slug;
+        return $this->roles;
     }
 
-    public function setSlug(string $slug): static
+    public function setRoles(array $roles): static
     {
-        $this->slug = $slug;
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
 
         return $this;
     }
