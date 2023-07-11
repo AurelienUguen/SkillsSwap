@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import { Category } from 'src/app/model/category';
 
-import { Subject } from 'src/app/model/subject';
+
 import { User } from 'src/app/model/user';
 
 
