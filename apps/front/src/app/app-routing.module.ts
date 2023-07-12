@@ -1,17 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
-import { CategoriesComponent } from './components/categories/categories.component';
-import { CategoryComponent } from './components/category/category.component';
+import { SheetDetailComponent } from './components/sheet-detail/sheet-detail.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home-components/home/home.component';
 
 
 
- const routes: Routes = [
+  const routes: Routes = [
     { path: '', component: HomeComponent},
-    { path: 'categories', component: CategoriesComponent},
-    { path: 'categories/category/:category', component: CategoryComponent },
+    { path: 'sheet/:sheet', component: SheetDetailComponent },
     { path: 'login', component: LoginComponent },
 ];
 

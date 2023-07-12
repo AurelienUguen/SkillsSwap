@@ -1,0 +1,17 @@
+<div *ngIf="sheet">
+  <h5>{{sheet.title}}</h5>
+  <p>Où ? {{ sheet.user.district }} | {{ sheet.user.city }}</p>
+  <h5>À propos de {{ sheet.user.firstname}}</h5>
+  <p>{{ sheet.user.description }}</p>
+  <h5>À propos du cours</h5>
+  <p>{{ sheet.description }}</p>
+  <div class="custom-container">
+    <form class="row">
+      <input class="form-control input-date col" type="date" [min]="currentDate | date:'yyyy-MM-dd'">
+      <button class="btn btn-primary booking-btn col-4">Réserver!</button>
+    </form>
+  </div>
+</div>
+
+
+

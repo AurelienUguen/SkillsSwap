@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { ApiService } from 'src/app/api.service';
 
-
+import { ActivatedRoute } from '@angular/router';
 
 import { Location } from '@angular/common';
 import { Category } from 'src/app/model/category';
