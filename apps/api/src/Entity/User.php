@@ -79,7 +79,7 @@ class User
 
     #[ORM\Column(length: 255)]
     #[Groups(['read_user'])]
-    #[Gedmo\Slug(fields:['firstname', 'lastname', 'city'])]
+    #[Gedmo\Slug(fields:['district', 'firstname', 'lastname'])]
     #[Api\ApiProperty(identifier:true)]
     private ?string $slug = null;
 
