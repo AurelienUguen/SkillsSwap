@@ -16,8 +16,8 @@
                   <a class="nav-link active" href="#">Déposer une annonce</a>
               </li> -->
               <li class="nav-item">
-                <a class="nav-link active" routerLink="logout"><span class="connexion-btn">Déconnexion</span></a>
-                <a class="nav-link active" routerLink="login"><span class="connexion-btn">Connexion</span></a>
+                <a *ngIf="status === 'connected'" class="nav-link active" routerLink="" (click)="logout()"><span class="connexion-btn">Déconnexion</span></a>
+                <a *ngIf="status === 'disconnected'" class="nav-link active" routerLink="login"><span class="connexion-btn">Connexion</span></a>
               </li>
           </ul>
       </div>
