@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -11,7 +12,6 @@ import { HomeLeftComponent } from './components/home-components/home-left/home-l
 import { HomeRightComponent } from './components/home-components/home-right/home-right.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { LoginComponent } from './components/login/login.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -25,7 +25,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HomeLeftComponent,
     HomeRightComponent,
     SearchBarComponent,
-    LoginComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

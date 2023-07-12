@@ -12,7 +12,7 @@ import { HomeComponent } from './components/home-components/home/home.component'
     { path: '', component: HomeComponent},
     { path: 'categories', component: CategoriesComponent},
     { path: 'categories/category/:category', component: CategoryComponent },
-    { path: 'signin', component: LoginComponent },
+    { path: 'login', component: LoginComponent },
 ];
 
 @NgModule({

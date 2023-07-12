@@ -1,25 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
+
 export class LoginComponent implements OnInit {
 
-  userEmail?: string;
-  userPassword?: string;
+  public loginForm!: FormGroup
 
-  constructor(private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
+    this.loginForm = this.formBuilder.group({
+      userEmail: [null, [Validators.required]],
+      userPassword: [null, [Validators.required]]
+    })
   }
-
-  onSubmitForm(form: NgForm) {
-    console.log(this.userEmail);
-    console.log(this.userPassword);
-    console.log(form.value);
-}
 }
