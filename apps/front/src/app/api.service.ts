@@ -1,23 +1,17 @@
 import { Injectable } from '@angular/core';
-
 import { HttpClient } from '@angular/common/http'
-
 import { Category } from './model/category';
 import { User } from './model/user';
-
-
 import { Observable } from 'rxjs';
-
-
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class ApiService {
 
   private categoriesUrl = 'https://127.0.0.1:8000/api/categories';
-  private usersUrl = 'https://127.0.0.1:8000/api/users'
-
+  private usersUrl = 'https://127.0.0.1:8000/api/users';
 
   constructor(private http: HttpClient) { }
 
@@ -33,7 +27,6 @@ export class ApiService {
   }
 
   getUsers() {
-
     return this.http.get<User>(this.usersUrl);
   }
 
