@@ -10,6 +10,8 @@ import { HomeComponent } from './components/home-components/home/home.component'
 import { HomeLeftComponent } from './components/home-components/home-left/home-left.component';
 import { HomeRightComponent } from './components/home-components/home-right/home-right.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { LoginComponent } from './components/login/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -23,11 +25,14 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
     HomeLeftComponent,
     HomeRightComponent,
     SearchBarComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
