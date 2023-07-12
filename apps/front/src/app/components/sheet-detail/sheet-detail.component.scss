@@ -1,24 +1,3 @@
-$primary: #0C5051;
-$primaryWithTransparancy: #0c50516c;
-$hover: #117375;
-
-.input-date {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  border: 2px solid $primary;
-}
-
-.custom-container {
-  height: 200px;
-}
-
-.form-control:focus {
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0), 0 0 8px rgba(255, 255, 255, 0);
-}
-
-.booking-btn {
-  background-color: $primary;
-  border: none;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
+.booking-date-container {
+  width: 70%;
 }
