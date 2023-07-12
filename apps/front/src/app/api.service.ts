@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http'
 import { Category } from './model/category';
 import { User } from './model/user';
 import { Observable } from 'rxjs';
+import { Sheet } from './model/sheet';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +15,8 @@ export class ApiService {
 
   private categoriesUrl = 'https://127.0.0.1:8000/api/categories';
   private usersUrl = 'https://127.0.0.1:8000/api/users';
+  private sheetUrl = 'https://127.0.0.1:8000/api/sheets';
+
 
   constructor(private http: HttpClient) { }
 
@@ -36,31 +41,14 @@ export class ApiService {
     return this.http.get<User>(url);
   }
 
-  /* getSubjects() {
+  getSheets() {
 
-    return this.http.get<Subject>(this.subjectsUrl);
+    return this.http.get<Sheet>(this.sheetUrl);
   }
 
-  getSubjectBySlug(slug: string): Observable<Subject> {
-    const url = `${this.subjectsUrl}/${slug}`;
+  getSheetBySlug(slug: string): Observable<Sheet> {
+    const url = `${this.sheetUrl}/${slug}`;
 
-    return this.http.get<Subject>(url);
+    return this.http.get<Sheet>(url);
   }
-
-  getCourses() {
-
-    return this.http.get<Course>(this.courseUrl);
-  }
-
-  getCourseBySlug(slug: string): Observable<Course> {
-    const url = `${this.courseUrl}/${slug}`;
-
-    return this.http.get<Course>(url);
-  }
-
-  getLessons() {
-
-    return this.http.get<Lesson>(this.lessonUrl);
-  } */
-
 }

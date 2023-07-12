@@ -11,6 +11,9 @@ import { HomeComponent } from './components/home-components/home/home.component'
 import { HomeLeftComponent } from './components/home-components/home-left/home-left.component';
 import { HomeRightComponent } from './components/home-components/home-right/home-right.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { SheetComponent } from './components/sheet/sheet.component';
+import { SheetDetailComponent } from './components/sheet-detail/sheet-detail.component';
+import { DatePipe } from '@angular/common';
 import { LoginComponent } from './components/login/login.component';
 
 
@@ -25,6 +28,8 @@ import { LoginComponent } from './components/login/login.component';
     HomeLeftComponent,
     HomeRightComponent,
     SearchBarComponent,
+    SheetComponent,
+    SheetDetailComponent,
     LoginComponent
   ],
   imports: [
@@ -34,7 +39,7 @@ import { LoginComponent } from './components/login/login.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [DatePipe],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

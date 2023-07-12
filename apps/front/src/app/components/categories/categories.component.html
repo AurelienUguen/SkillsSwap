@@ -2,10 +2,10 @@
 
   <h2 class="title">Nos catégories</h2>
 
-  <div *ngFor="let category of categories" class="category-container d-flex flex-row" >
-
-      <p *ngIf="category.isParent">{{ category.name }}</p>
-
+  <div *ngFor="let category of categories" class="d-flex flex-row">
+    <div *ngIf="category.isParent">
+      <a>{{ category.name }}</a>
+    </div>
   </div>
 
 </div>
