@@ -82,6 +82,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Lesson::class, orphanRemoval: true)]
     private Collection $lessons;
 
+
     #[ORM\Column(length: 255)]
     #[Gedmo\Slug(fields:['firstname','lastname'])]
     #[Api\ApiProperty(identifier:true)]

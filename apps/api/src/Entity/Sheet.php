@@ -36,7 +36,7 @@ class Sheet
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['read_sheet', 'create_sheet'])]
+    #[Groups(['read_sheet','read_user', 'create_sheet'])]
     private ?string $title = null;
 
     #[ORM\ManyToOne(inversedBy: 'sheets')]
@@ -49,11 +49,11 @@ class Sheet
     private ?Category $category = null;
 
     #[ORM\Column]
-    #[Groups(['read_sheet', 'create_sheet'])]
+    #[Groups(['read_sheet', 'read_user', 'create_sheet'])]
     private ?bool $irl = null;
 
     #[ORM\Column]
-    #[Groups(['read_sheet', 'create_sheet'])]
+    #[Groups(['read_sheet', 'read_user', 'create_sheet'])]
     private ?bool $visio = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -61,7 +61,7 @@ class Sheet
     private ?string $description = null;
 
     #[ORM\ManyToMany(targetEntity: Language::class, inversedBy: 'sheets')]
-    #[Groups(['read_sheet', 'create_sheet'])]
+    #[Groups(['read_sheet', 'read_user', 'create_sheet'])]
     private Collection $language;
 
     #[ORM\OneToMany(mappedBy: 'sheet', targetEntity: Lesson::class, orphanRemoval: true)]
