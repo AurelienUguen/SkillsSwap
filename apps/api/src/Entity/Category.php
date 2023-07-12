@@ -32,7 +32,7 @@ class Category
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['read_category', 'create_category'])]
+    #[Groups(['read_category', 'create_category', 'read_sheet'])]
     private ?string $name = null;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'categories')]
@@ -40,7 +40,7 @@ class Category
     private ?self $parent = null;
 
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
-    #[Groups(['read_category', 'create_category'])]
+    #[Groups(['read_category', 'create_category', 'read_sheet'])]
     private Collection $categories;
 
     #[ORM\Column(length: 255)]
