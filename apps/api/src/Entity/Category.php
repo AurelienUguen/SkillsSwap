@@ -53,6 +53,10 @@ class Category
     #[Groups(['read_category', 'create_category'])]
     private Collection $sheets;
 
+    #[ORM\Column]
+    #[Groups(['read_category'])]
+    private ?bool $isParent = null;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -156,6 +160,18 @@ class Category
                 $sheet->setCategory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isIsParent(): ?bool
+    {
+        return $this->isParent;
+    }
+
+    public function setIsParent(bool $isParent): static
+    {
+        $this->isParent = $isParent;
 
         return $this;
     }
