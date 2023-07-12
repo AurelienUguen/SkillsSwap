@@ -6,7 +6,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 })
 export class LoginService {
 
-  //private isConnected: Subject<string> = new BehaviorSubject<string>('OFF');
+  //private isConnected: Subject<string> = new BehaviorSubject<string>('disconnected');
   private isConnected: Subject<string> = new Subject<string>;
 
 
