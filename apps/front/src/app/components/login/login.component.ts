@@ -45,15 +45,10 @@ export class LoginComponent implements OnInit, OnDestroy  {
           this.loginForm.value.userEmail === hydras[i].email
           /*&& this.loginForm.value.userPassword === hydras[i].password*/
           ){
-          localStorage.setItem('id',hydras[i].id);
-          localStorage.setItem('firstname',hydras[i].firstname);
-          localStorage.setItem('lastname',hydras[i].lastname);
-          localStorage.setItem('slug',hydras[i].slug);
-          localStorage.setItem('district',hydras[i].district);
-          localStorage.setItem('city',hydras[i].city);
-          localStorage.setItem('email',hydras[i].email);
-          localStorage.setItem('description',hydras[i].description);
-          localStorage.setItem('password',hydras[i].password);
+            for (const prop in hydras[i]){
+              localStorage.setItem(prop,hydras[i][prop]);
+              console.log(localStorage.getItem(prop));
+            }
         }
       }
       if(localStorage.getItem('id')){
