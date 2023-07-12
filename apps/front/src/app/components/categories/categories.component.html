@@ -1,12 +1,10 @@
 <div class="categories-component">
 
-  <h2>Nos catégories</h2>
+  <h2 class="title">Nos catégories</h2>
 
   <div *ngFor="let category of categories" class="category-container d-flex flex-row">
-    <!-- <h2>{{ category.name }}</h2> -->
-    <!-- <p>{{ category.parent.id | json}}</p> -->
     <div *ngIf="category.isParent">
-      <a>{{ category.name }}</a>
+      <p>{{ category.name }}</p>
     </div>
   </div>
 
