@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-
 import { ApiService } from 'src/app/api.service';
 import { LoginService } from 'src/app/services/login.service';
 import { User } from 'src/app/model/user';
@@ -22,11 +21,9 @@ export class LoginComponent implements OnInit, OnDestroy  {
   private subscription: Subscription;
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router, private api: ApiService, private isConnected: LoginService) {
-
     this.subscription = this.isConnected.getStatusObservable().subscribe((status: string) => {
       this.status = status;
     });
-
   }
 
   ngOnInit(): void {
