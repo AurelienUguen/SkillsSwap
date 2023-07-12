@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-header',
@@ -7,8 +9,27 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 
-  constructor(){}
+  public status?: string;
+  private subscription: Subscription;
 
-  ngOnInit(){}
+  constructor(private isConnected: LoginService){
+    this.subscription = this.isConnected.getStatusObservable().subscribe((status: string) => {
+      this.status = status;
+    });
+  }
 
+  ngOnInit(){
+    this.isConnected.updateStatus('disconnected');
+    console.log(this.status);
+  }
+
+  logout(){
+    localStorage.clear();
+    this.isConnected.updateStatus('disconnected');
+    console.log("ByBye !!")
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }
