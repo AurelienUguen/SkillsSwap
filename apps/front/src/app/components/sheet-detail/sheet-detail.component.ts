@@ -12,8 +12,6 @@ import { DatePipe } from '@angular/common';
 export class SheetDetailComponent implements OnInit {
 
   sheet?: Sheet;
-  currentDate: number = Date.now();
-
 
   constructor(private route: ActivatedRoute, private apiService: ApiService) {
 

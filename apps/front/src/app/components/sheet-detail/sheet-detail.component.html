@@ -5,12 +5,10 @@
   <p>{{ sheet.user.description }}</p>
   <h5>À propos du cours</h5>
   <p>{{ sheet.description }}</p>
-  <div class="custom-container">
-    <form class="row">
-      <input class="form-control input-date col" type="date" [min]="currentDate | date:'yyyy-MM-dd'">
-      <button class="btn btn-primary booking-btn col-4">Réserver!</button>
-    </form>
+  <div class="booking-date-container">
+    <app-form-date></app-form-date>
   </div>
+
 </div>
 
 
