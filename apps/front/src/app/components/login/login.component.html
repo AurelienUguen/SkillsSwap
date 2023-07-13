@@ -13,7 +13,7 @@
 
         <div class="mb-3">
           <label for="email" class="form-label">Email*</label>
-          <input type="email" id="email" class="form-control" name="userEmail" formControlName="userEmail">
+          <input type="email" id="email" class="form-control" name="userEmail" formControlName="userEmail" placeholder="admin@admin.com">
           <div class="invalid-feedback" *ngIf="email.touched && email.invalid && email.errors">
             <ng-container *ngIf="email.errors['required']">
               eMail is needed !
@@ -26,13 +26,25 @@
 
         <div class="mb-3">
           <label for="password" class="form-label">Mot de passe*</label>
-          <input type="password" id="password" class="form-control" name="userPassword" formControlName="userPassword">
+          <input type="text" id="password" class="form-control" name="userPassword" formControlName="userPassword" placeholder="Password0">
           <div class="invalid-feedback" *ngIf="password.touched && password.invalid && password.errors">
             <ng-container *ngIf="password.errors['required']">
-              Password is needed !
+              Password is needed !<br>
             </ng-container>
-            <ng-container *ngIf="password.errors['pattern']">
-              Le mot de pass doit comporter au moins 8 caractères dont au minimum :<br>une majuscule,<br>une minuscule,<br>un chiffre<br>un caractères spécial
+            <ng-container *ngIf="password.errors['minLength']">
+              Le mot de passe doit contenir au moins 8 caractères.<br>
+            </ng-container>
+            <ng-container *ngIf="password.errors['uppercase']">
+              Le mot de passe doit contenir au moins une majuscule.<br>
+            </ng-container>
+            <ng-container *ngIf="password.errors['lowercase']">
+              Le mot de passe doit contenir au moins une minuscule.<br>
+            </ng-container>
+            <ng-container *ngIf="password.errors['digits']">
+              Le mot de passe doit contenir au moins un chiffre.<br>
+            </ng-container>
+            <ng-container *ngIf="password.errors['special']">
+              Le mot de passe doit contenir au moins un caractère spécial.
             </ng-container>
           </div>
         </div>

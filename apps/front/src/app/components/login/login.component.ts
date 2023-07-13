@@ -16,7 +16,12 @@ import { User } from 'src/app/model/user';
 export class LoginComponent implements OnInit, OnDestroy  {
 
   users: User[] = [];
-  passwordRegEx!: RegExp;
+  //regexPassword!: RegExp;
+  regexUppercase!: RegExp;
+  regexLowercase!: RegExp;
+  regexDigits!: RegExp;
+  regexSpecial!: RegExp;
+  regexLength!: RegExp;
 
   private subscription: Subscription;
 
@@ -37,11 +42,27 @@ export class LoginComponent implements OnInit, OnDestroy  {
     this.getScreenWidth = window.innerWidth;
     this.getScreenHeight = window.innerHeight;
 
-    this.passwordRegEx = /(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,<.>]).{8,}/;
+    //this.regexPassword = /(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%&^*+-=_\;:,.(){}<>]).{8,}/;
+
+    this.regexUppercase = /(?=.*[A-Z]).{1,}/;
+    this.regexLowercase = /(?=.*[a-z]){1,}/;
+    this.regexDigits = /(?=.*\d).{1,}/;
+    this.regexSpecial = /(?=.*[!@#$%&^*+-=_\;:,.(){}<>]).{1,}/;
 
     this.loginForm = this.formBuilder.group({
-      userEmail: [null, [Validators.required, Validators.email]],
-      userPassword: [null, [Validators.required, Validators.pattern(this.passwordRegEx)]]
+      userEmail: [null, [
+        Validators.required,
+        Validators.email
+      ]],
+      userPassword: [null, [
+        Validators.required,
+        //Validators.pattern(this.regexPassword),
+        this.minLengthValidator.bind(this),
+        this.uppercaseValidator.bind(this),
+        this.lowercaseValidator.bind(this),
+        this.digitsValidator.bind(this),
+        this.specialValidator.bind(this)
+      ]]
     })
   }
 
@@ -51,17 +72,37 @@ export class LoginComponent implements OnInit, OnDestroy  {
     this.getScreenHeight = window.innerHeight;
   }
 
+  minLengthValidator(control: FormControl): { minLength: boolean } | null {
+    const minLength = 8;
+    if (control.value && control.value.length >= minLength) return null;
+    return {minLength: true};
+  }
+  uppercaseValidator(control: FormControl): {uppercase: boolean} | null{
+    if (this.regexUppercase.test(control.value)) return null;
+    return {uppercase: true};
+  }
+  lowercaseValidator(control: FormControl): {lowercase: boolean} | null{
+    if (this.regexLowercase.test(control.value)) return null;
+    return {lowercase: true};
+  }
+  digitsValidator(control: FormControl): {digits: boolean} | null{
+    if (this.regexDigits.test(control.value)) return null;
+    return {digits: true};
+  }
+  specialValidator(control: FormControl): {special: boolean} | null{
+    if (this.regexSpecial.test(control.value)) return null;
+    return {special: true};
+  }
+
   login(){
     this.http.get<any>('https://127.0.0.1:8000/api/users').subscribe((users: any) => {
       const hydras = users['hydra:member'];
       for(let i = 0;i < hydras.length;i++){
-        if(
-          this.loginForm.value.userEmail === hydras[i].email
-          /*&& this.loginForm.value.userPassword === hydras[i].password*/
-          ){
-            for (const prop in hydras[i]){
-              localStorage.setItem(prop,hydras[i][prop]);
-            }
+        if(this.loginForm.value.userEmail === hydras[i].email/* &&
+           this.loginForm.value.userPassword === hydras[i].password*/){
+          for (const prop in hydras[i]){
+            localStorage.setItem(prop,hydras[i][prop]);
+          }
         }
       }
       if(localStorage.getItem('id')){
