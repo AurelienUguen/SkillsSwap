@@ -4,7 +4,7 @@ import { Category } from './model/category';
 import { User } from './model/user';
 import { Observable } from 'rxjs';
 import { Sheet } from './model/sheet';
-import { Lesson } from './model/lesson';
+import { Lesson, LessonPost } from './model/lesson';
 
 
 
@@ -54,7 +54,7 @@ export class ApiService {
     return this.http.get<Sheet>(url);
   }
 
-  /* postLesson() {
-    this.http.post<Lesson>(this.lessonUrl);
-  } */
+  postLesson(lesson : LessonPost) {
+    return this.http.post<LessonPost>(this.lessonUrl, lesson);
+  }
 }

@@ -28,7 +28,7 @@ class Lesson
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['read_lesson'])]
+    #[Groups(['read_lesson', 'create_lesson'])]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'lessons')]
