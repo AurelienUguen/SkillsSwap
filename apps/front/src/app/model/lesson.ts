@@ -11,4 +11,5 @@ export interface Lesson {
 export interface LessonPost {
   user: string;
   sheet: string;
+  bookingDate: string;
 }

@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import { LessonPost } from 'src/app/model/lesson';
 
-
 @Component({
   selector: 'app-form-date',
   templateUrl: './form-date.component.html',
@@ -13,22 +12,21 @@ import { LessonPost } from 'src/app/model/lesson';
 export class FormDateComponent {
 
   localStorageId: string | null = localStorage.getItem('id');
+  userSlug = localStorage.getItem('@id');
   sheetId?: string | null;
 
   currentDate: number = Date.now();
 
   form = new FormGroup({
-    date: new FormControl(null),
+    date: new FormControl(),
   })
 
   constructor(private router: Router, private apiService : ApiService, private activatedRoute: ActivatedRoute) {
     this.sheetId = this.activatedRoute.snapshot.paramMap.get('sheet');
     }
 
-
   onSubmit() {
-    let connectedUserId: number;
-    const userSlug = localStorage.getItem('slug');
+    let userSlug = this.userSlug;
 
     console.log(this.form);
 
@@ -37,18 +35,17 @@ export class FormDateComponent {
       return;
     }
 
-    connectedUserId = parseInt(this.localStorageId);
-
     const newLesson:LessonPost = {
+      bookingDate: this.form.value.date,
       user: `${userSlug}`,
       sheet: `/api/sheets/${this.sheetId}`
     }
 
-    console.log(connectedUserId);
-    console.log(this.sheetId);
+    console.log(this.form.value.date);
 
-    this.apiService.postLesson(newLesson).subscribe();
+    alert('Le cours a bien été enregistré !');
 
+    return this.apiService.postLesson(newLesson).subscribe();
 
   }
 }
