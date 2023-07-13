@@ -15,8 +15,7 @@ import { SheetComponent } from './components/sheet/sheet.component';
 import { SheetDetailComponent } from './components/sheet-detail/sheet-detail.component';
 import { DatePipe } from '@angular/common';
 import { FormDateComponent } from './components/form-date/form-date.component';
-import { FormsModule } from '@angular/forms';import { LoginComponent } from './components/login/login.component';
-
+import { LoginComponent } from './components/login/login.component';
 
 
 @NgModule({
