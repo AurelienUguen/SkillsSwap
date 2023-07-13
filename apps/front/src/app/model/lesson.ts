@@ -7,3 +7,9 @@ export interface Lesson {
   sheet: Sheet;
   bookingDate: Date
 }
+
+export interface LessonPost {
+  userId: number;
+  sheetId: number;
+  bookingDate: Date;
+}
