@@ -1,5 +1,5 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -16,6 +16,7 @@ import { User } from 'src/app/model/user';
 export class LoginComponent implements OnInit, OnDestroy  {
 
   users: User[] = [];
+  passwordRegEx!: RegExp;
 
   private subscription: Subscription;
 
@@ -32,14 +33,15 @@ export class LoginComponent implements OnInit, OnDestroy  {
   }
 
   ngOnInit(): void {
-    console.log(this.status);
 
     this.getScreenWidth = window.innerWidth;
     this.getScreenHeight = window.innerHeight;
 
+    this.passwordRegEx = /(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,<.>]).{8,}/;
+
     this.loginForm = this.formBuilder.group({
-      userEmail: [null, [Validators.required]],
-      userPassword: [null, [Validators.required]]
+      userEmail: [null, [Validators.required, Validators.email]],
+      userPassword: [null, [Validators.required, Validators.pattern(this.passwordRegEx)]]
     })
   }
 
@@ -70,6 +72,14 @@ export class LoginComponent implements OnInit, OnDestroy  {
         console.log("Nooooooo");
       }
     });
+  }
+
+  get password() {
+    return this.loginForm.get('userPassword') as FormControl;
+  }
+
+  get email() {
+    return this.loginForm.get('userEmail') as FormControl;
   }
 
   ngOnDestroy() {

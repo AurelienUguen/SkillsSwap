@@ -10,16 +10,39 @@
       </div>
 
       <div class="card-body">
-        <label for="email" class="form-label">Email*</label>
-        <input type="email" id="email" class="form-control" name="userEmail" formControlName="userEmail">
-        <label for="password" class="form-label">Mot de passe*</label>
-        <input type="password" id="password" class="form-control" name="userPassword" formControlName="userPassword">
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Email*</label>
+          <input type="email" id="email" class="form-control" name="userEmail" formControlName="userEmail">
+          <div class="invalid-feedback" *ngIf="email.touched && email.invalid && email.errors">
+            <ng-container *ngIf="email.errors['required']">
+              eMail is needed !
+            </ng-container>
+            <ng-container *ngIf="email.errors['email']">
+              Bad email
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Mot de passe*</label>
+          <input type="password" id="password" class="form-control" name="userPassword" formControlName="userPassword">
+          <div class="invalid-feedback" *ngIf="password.touched && password.invalid && password.errors">
+            <ng-container *ngIf="password.errors['required']">
+              Password is needed !
+            </ng-container>
+            <ng-container *ngIf="password.errors['pattern']">
+              Le mot de pass doit comporter au moins 8 caractères dont au minimum :<br>une majuscule,<br>une minuscule,<br>un chiffre<br>un caractères spécial
+            </ng-container>
+          </div>
+        </div>
+
       </div>
 
-        <div class="card-footer w-100 mt-3">
-          <button class="btn btn-dark mt-3 w-100 mb-3" type="submit" (click)="login()"
-            [disabled]="loginForm.invalid">Connexion</button>
-        </div>
+      <div class="card-footer w-100 mt-3">
+        <button class="btn btn-dark mt-3 w-100 mb-3" type="submit" (click)="login()" [disabled]="loginForm.invalid">Connexion</button>
+      </div>
+
     </div>
   </form>
 </div>
