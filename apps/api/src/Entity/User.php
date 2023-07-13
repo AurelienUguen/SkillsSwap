@@ -33,7 +33,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['read_user'])]
+    #[Groups(['read_user', 'read_sheet'])]
     #[Api\ApiProperty(identifier:false)]
     private ?int $id = null;
 
@@ -49,11 +49,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['read_user', 'create_user'])]
+    #[Groups(['read_user','read_sheet', 'create_user'])]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['read_user', 'create_user'])]
+    #[Groups(['read_user','read_sheet', 'create_user'])]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 255)]
@@ -65,15 +65,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $phone_number = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['read_user', 'create_user'])]
+    #[Groups(['read_user','read_sheet', 'create_user'])]
     private ?string $city = null;
 
     #[ORM\Column]
-    #[Groups(['read_user', 'create_user'])]
+    #[Groups(['read_user','read_sheet', 'create_user'])]
     private ?int $district = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    #[Groups(['read_user', 'create_user'])]
+    #[Groups(['read_user','read_sheet', 'create_user'])]
     private ?string $description = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Sheet::class, orphanRemoval: true)]
@@ -86,6 +86,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     #[Gedmo\Slug(fields:['firstname','lastname'])]
     #[Api\ApiProperty(identifier:true)]
+    #[Groups(['read_sheet'])]
     private ?string $slug = null;
 
     public function __construct()
