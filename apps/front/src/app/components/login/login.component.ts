@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -16,9 +16,14 @@ import { User } from 'src/app/model/user';
 export class LoginComponent implements OnInit, OnDestroy  {
 
   users: User[] = [];
+
+  private subscription: Subscription;
+
+  public getScreenWidth: any;
+  public getScreenHeight: any;
+  
   public loginForm!: FormGroup;
   public status?: string;
-  private subscription: Subscription;
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router, private api: ApiService, private isConnected: LoginService) {
     this.subscription = this.isConnected.getStatusObservable().subscribe((status: string) => {
@@ -28,10 +33,20 @@ export class LoginComponent implements OnInit, OnDestroy  {
 
   ngOnInit(): void {
     console.log(this.status);
+
+    this.getScreenWidth = window.innerWidth;
+    this.getScreenHeight = window.innerHeight;
+
     this.loginForm = this.formBuilder.group({
       userEmail: [null, [Validators.required]],
       userPassword: [null, [Validators.required]]
     })
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize() {
+    this.getScreenWidth = window.innerWidth;
+    this.getScreenHeight = window.innerHeight;
   }
 
   login(){
@@ -44,7 +59,6 @@ export class LoginComponent implements OnInit, OnDestroy  {
           ){
             for (const prop in hydras[i]){
               localStorage.setItem(prop,hydras[i][prop]);
-              console.log(localStorage.getItem(prop));
             }
         }
       }

@@ -30,6 +30,7 @@ export class HeaderComponent {
   }
 
   ngOnDestroy() {
+    localStorage.clear();
     this.subscription.unsubscribe();
   }
 }
