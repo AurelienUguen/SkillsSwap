@@ -7,9 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use ApiPlatform\Metadata as Api;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use ApiPlatform\Metadata as Api;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -24,62 +26,64 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new Api\Delete()
     ]
 )]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use TimestampableEntity;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Api\ApiProperty(identifier:false)]
     #[Groups(['read_user'])]
+    #[Api\ApiProperty(identifier:false)]
     private ?int $id = null;
 
+    #[ORM\Column]
+    #[Groups(['read_user', 'create_user'])]
+    private array $roles = [];
+
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column]
+    #[Groups(['read_user', 'create_user'])]
+    private ?string $password = null;
+
     #[ORM\Column(length: 255)]
-    #[Groups(['read_user','create_user'])]
+    #[Groups(['read_user', 'create_user'])]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['read_user','create_user'])]
+    #[Groups(['read_user', 'create_user'])]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['read_user','create_user'])]
+    #[Groups(['read_user', 'create_user'])]
     private ?string $email = null;
 
-    #[ORM\Column(length: 255)]
-    #[Groups(['read_user','create_user'])]
-    private ?string $password = null;
-
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['read_user','create_user'])]
+    #[Groups(['read_user', 'create_user'])]
     private ?string $phone_number = null;
 
-    #[ORM\Column(nullable: true)]
-    #[Groups(['read_user','create_user'])]
-    private ?int $district = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['read_user','create_user'])]
+    #[ORM\Column(length: 255)]
+    #[Groups(['read_user', 'create_user'])]
     private ?string $city = null;
 
+    #[ORM\Column]
+    #[Groups(['read_user', 'create_user'])]
+    private ?int $district = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['read_user', 'create_user'])]
+    private ?string $description = null;
+
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Sheet::class, orphanRemoval: true)]
-    #[Groups(['read_sheet'])]
     private Collection $sheets;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Lesson::class, orphanRemoval: true)]
     private Collection $lessons;
 
-    #[ORM\Column]
-    private array $roles = [];
-
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    #[Groups(['read_user','create_user'])]
-    private ?string $description = null;
-
     #[ORM\Column(length: 255)]
-    #[Groups(['read_user'])]
-    #[Gedmo\Slug(fields:['district', 'firstname', 'lastname'])]
+    #[Gedmo\Slug(fields:['firstname','lastname'])]
     #[Api\ApiProperty(identifier:true)]
     private ?string $slug = null;
 
@@ -89,9 +93,69 @@ class User
         $this->lessons = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
+    }
+
+    public function setId(string $id): static
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->id;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): static
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): static
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials(): void
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 
     public function getFirstname(): ?string
@@ -130,38 +194,14 @@ class User
         return $this;
     }
 
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): static
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
     public function getPhoneNumber(): ?string
     {
         return $this->phone_number;
     }
 
-    public function setPhoneNumber(?string $phone_number): static
+    public function setPhoneNumber(string $phone_number): static
     {
         $this->phone_number = $phone_number;
-
-        return $this;
-    }
-
-    public function getDistrict(): ?int
-    {
-        return $this->district;
-    }
-
-    public function setDistrict(?int $district): static
-    {
-        $this->district = $district;
 
         return $this;
     }
@@ -171,9 +211,33 @@ class User
         return $this->city;
     }
 
-    public function setCity(?string $city): static
+    public function setCity(string $city): static
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    public function getDistrict(): ?int
+    {
+        return $this->district;
+    }
+
+    public function setDistrict(int $district): static
+    {
+        $this->district = $district;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
 
         return $this;
     }
@@ -234,30 +298,6 @@ class User
                 $lesson->setUser(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getRoles(): array
-    {
-        return $this->roles;
-    }
-
-    public function setRoles(array $roles): static
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(?string $description): static
-    {
-        $this->description = $description;
 
         return $this;
     }

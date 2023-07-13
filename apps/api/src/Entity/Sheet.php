@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
 use ApiPlatform\Metadata as Api;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: SheetRepository::class)]
@@ -31,8 +31,8 @@ class Sheet
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Api\ApiProperty(identifier:false)]
     #[Groups(['read_sheet'])]
+    #[Api\ApiProperty(identifier:false)]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
@@ -40,13 +40,13 @@ class Sheet
     private ?string $title = null;
 
     #[ORM\ManyToOne(inversedBy: 'sheets')]
-    #[ORM\JoinColumn(nullable: false)]
     #[Groups(['read_sheet', 'create_sheet'])]
     private ?User $user = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\ManyToOne(inversedBy: 'sheets')]
+    #[ORM\JoinColumn(nullable: false)]
     #[Groups(['read_sheet', 'create_sheet'])]
-    private ?string $description = null;
+    private ?Category $category = null;
 
     #[ORM\Column]
     #[Groups(['read_sheet', 'create_sheet'])]
@@ -56,28 +56,26 @@ class Sheet
     #[Groups(['read_sheet', 'create_sheet'])]
     private ?bool $visio = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['read_sheet', 'create_sheet'])]
+    private ?string $description = null;
+
     #[ORM\ManyToMany(targetEntity: Language::class, inversedBy: 'sheets')]
     #[Groups(['read_sheet', 'create_sheet'])]
     private Collection $language;
 
-    #[ORM\OneToOne(mappedBy: 'sheet', cascade: ['persist', 'remove'])]
-    #[Groups(['read_sheet', 'create_sheet'])]
-    private ?Lesson $lesson = null;
-
-    #[ORM\ManyToOne(inversedBy: 'sheets')]
-    #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['read_sheet', 'create_sheet'])]
-    private ?Category $category = null;
+    #[ORM\OneToMany(mappedBy: 'sheet', targetEntity: Lesson::class, orphanRemoval: true)]
+    private Collection $lessons;
 
     #[ORM\Column(length: 255)]
     #[Gedmo\Slug(fields:['title'])]
-    #[Groups(['read_sheet'])]
     #[Api\ApiProperty(identifier:true)]
     private ?string $slug = null;
 
     public function __construct()
     {
         $this->language = new ArrayCollection();
+        $this->lessons = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -109,14 +107,14 @@ class Sheet
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getCategory(): ?Category
     {
-        return $this->description;
+        return $this->category;
     }
 
-    public function setDescription(string $description): static
+    public function setCategory(?Category $category): static
     {
-        $this->description = $description;
+        $this->category = $category;
 
         return $this;
     }
@@ -145,6 +143,18 @@ class Sheet
         return $this;
     }
 
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Language>
      */
@@ -169,19 +179,32 @@ class Sheet
         return $this;
     }
 
-    public function getLesson(): ?Lesson
+    /**
+     * @return Collection<int, Lesson>
+     */
+    public function getLessons(): Collection
     {
-        return $this->lesson;
+        return $this->lessons;
     }
 
-    public function setLesson(Lesson $lesson): static
+    public function addLesson(Lesson $lesson): static
     {
-        // set the owning side of the relation if necessary
-        if ($lesson->getSheet() !== $this) {
+        if (!$this->lessons->contains($lesson)) {
+            $this->lessons->add($lesson);
             $lesson->setSheet($this);
         }
 
-        $this->lesson = $lesson;
+        return $this;
+    }
+
+    public function removeLesson(Lesson $lesson): static
+    {
+        if ($this->lessons->removeElement($lesson)) {
+            // set the owning side to null (unless already changed)
+            if ($lesson->getSheet() === $this) {
+                $lesson->setSheet(null);
+            }
+        }
 
         return $this;
     }
@@ -194,18 +217,6 @@ class Sheet
     public function setSlug(string $slug): static
     {
         $this->slug = $slug;
-
-        return $this;
-    }
-
-    public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?Category $category): static
-    {
-        $this->category = $category;
 
         return $this;
     }

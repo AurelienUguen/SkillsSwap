@@ -5,10 +5,11 @@ namespace App\Entity;
 use App\Repository\LessonRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
 use ApiPlatform\Metadata as Api;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
+#[ORM\Entity(repositoryClass: LessonRepository::class)]
 #[Api\ApiResource(
     normalizationContext:['groups' => ['read_lesson']],
     denormalizationContext:['groups' => ['create_lesson']],
@@ -20,7 +21,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new Api\Delete()
     ]
 )]
-#[ORM\Entity(repositoryClass: LessonRepository::class)]
 class Lesson
 {
     use TimestampableEntity;
@@ -33,12 +33,12 @@ class Lesson
 
     #[ORM\ManyToOne(inversedBy: 'lessons')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['read_lesson'])]
+    #[Groups(['read_lesson', 'create_lesson'])]
     private ?User $user = null;
 
-    #[ORM\OneToOne(inversedBy: 'lesson', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'lessons')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['read_lesson'])]
+    #[Groups(['read_lesson', 'create_lesson'])]
     private ?Sheet $sheet = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
@@ -67,7 +67,7 @@ class Lesson
         return $this->sheet;
     }
 
-    public function setSheet(Sheet $sheet): static
+    public function setSheet(?Sheet $sheet): static
     {
         $this->sheet = $sheet;
 
@@ -79,7 +79,7 @@ class Lesson
         return $this->booking_date;
     }
 
-    public function setBookingDate(?\DateTimeInterface $booking_date): static
+    public function setBookingDate(\DateTimeInterface $booking_date): static
     {
         $this->booking_date = $booking_date;
 

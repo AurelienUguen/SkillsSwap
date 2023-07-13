@@ -49,13 +49,12 @@ class Category
     #[Api\ApiProperty(identifier:true)]
     private ?string $slug = null;
 
-    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Sheet::class)]
-    #[Groups(['read_category', 'create_category'])]
-    private Collection $sheets;
-
     #[ORM\Column]
     #[Groups(['read_category'])]
     private ?bool $isParent = null;
+
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Sheet::class)]
+    private Collection $sheets;
 
     public function __construct()
     {
@@ -134,6 +133,18 @@ class Category
         return $this;
     }
 
+    public function isIsParent(): ?bool
+    {
+        return $this->isParent;
+    }
+
+    public function setIsParent(bool $isParent): static
+    {
+        $this->isParent = $isParent;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Sheet>
      */
@@ -160,18 +171,6 @@ class Category
                 $sheet->setCategory(null);
             }
         }
-
-        return $this;
-    }
-
-    public function isIsParent(): ?bool
-    {
-        return $this->isParent;
-    }
-
-    public function setIsParent(bool $isParent): static
-    {
-        $this->isParent = $isParent;
 
         return $this;
     }
