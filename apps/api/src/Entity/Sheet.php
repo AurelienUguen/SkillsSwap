@@ -70,6 +70,7 @@ class Sheet
     #[ORM\Column(length: 255)]
     #[Gedmo\Slug(fields:['title'])]
     #[Api\ApiProperty(identifier:true)]
+    #[Groups(['read_sheet'])]
     private ?string $slug = null;
 
     public function __construct()

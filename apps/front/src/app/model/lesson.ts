@@ -9,7 +9,6 @@ export interface Lesson {
 }
 
 export interface LessonPost {
-  userId: number;
-  sheetId: number;
-  bookingDate: Date;
+  user: string;
+  sheet: string;
 }
