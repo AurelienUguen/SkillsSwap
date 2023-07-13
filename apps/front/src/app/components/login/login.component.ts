@@ -3,8 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ApiService } from 'src/app/api.service';
-import { LoginService } from 'src/app/services/login.service';
+import { ApiService } from 'src/app/services/api/api.service';
+import { LoginService } from 'src/app/services/login/login.service';
 import { User } from 'src/app/model/user';
 
 @Component({
@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit, OnDestroy  {
 
   public getScreenWidth: any;
   public getScreenHeight: any;
-  
+
   public loginForm!: FormGroup;
   public status?: string;
 
