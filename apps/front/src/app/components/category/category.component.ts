@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ApiService } from 'src/app/api.service';
+import { ApiService } from 'src/app/services/api/api.service';
 import { Category } from 'src/app/model/category';
 
 

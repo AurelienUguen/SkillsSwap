@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApiService } from 'src/app/api.service';
+import { ApiService } from 'src/app/services/api/api.service';
 import { LessonPost } from 'src/app/model/lesson';
 
 @Component({
@@ -9,12 +9,10 @@ import { LessonPost } from 'src/app/model/lesson';
   templateUrl: './form-date.component.html',
   styleUrls: ['./form-date.component.scss']
 })
-export class FormDateComponent {
+export class FormDateComponent implements OnInit {
 
-  localStorageId: string | null = localStorage.getItem('id');
   userSlug = localStorage.getItem('@id');
   sheetId?: string | null;
-
   currentDate: number = Date.now();
 
   form = new FormGroup({
@@ -23,15 +21,18 @@ export class FormDateComponent {
 
   constructor(private router: Router, private apiService : ApiService, private activatedRoute: ActivatedRoute) {
     this.sheetId = this.activatedRoute.snapshot.paramMap.get('sheet');
-    }
+  }
+
+  ngOnInit(){
+    console.log(localStorage.getItem('id'));
+  }
 
   onSubmit() {
+    //console.log(this.form);
     let userSlug = this.userSlug;
 
-    console.log(this.form);
-
-    if (this.localStorageId === null || !this.sheetId) {
-      this.router.navigateByUrl("/login");
+    if (!localStorage.getItem('id') || !this.sheetId) {
+      this.router.navigateByUrl("/signin");
       return;
     }
 
@@ -42,10 +43,9 @@ export class FormDateComponent {
     }
 
     console.log(this.form.value.date);
+    console.log(newLesson);
 
     alert('Le cours a bien été enregistré !');
-
     return this.apiService.postLesson(newLesson).subscribe();
-
   }
 }

@@ -1,8 +1,11 @@
+<div class="container-fluid mt-3">
+  <app-search-bar></app-search-bar>
+</div>
 
   <div class="d-flex main-container row">
     <div *ngFor="let sheet of sheets" class="custom-cards container-fluid">
      <!--  <p class="sheet-language">{{ sheet | json }}</p> -->
-      <a [routerLink]="[sheet.slug]">
+      <a routerLink='/{{ sheet.slug }}'>
         <div class="custom-card col">
           <div class="username position-relative container-fluid">
             <img src="https://source.unsplash.com/random/400x400/?{{ sheet.category.name }}" alt="" class="img-fluid">
@@ -16,5 +19,5 @@
         </div>
       </a>
   </div>
-  </div>
+</div>
 

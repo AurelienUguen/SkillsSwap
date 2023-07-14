@@ -1,19 +1,17 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ApiService } from 'src/app/api.service';
-import { LoginService } from 'src/app/services/login.service';
+import { LoginService } from 'src/app/services/login/login.service';
 import { User } from 'src/app/model/user';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-signin',
+  templateUrl: './signin.component.html',
+  styleUrls: ['./signin.component.scss']
 })
-
-export class LoginComponent implements OnInit, OnDestroy  {
+export class SigninComponent implements OnInit, OnDestroy  {
 
   users: User[] = [];
 
@@ -21,25 +19,34 @@ export class LoginComponent implements OnInit, OnDestroy  {
 
   public getScreenWidth: any;
   public getScreenHeight: any;
-  
+
   public loginForm!: FormGroup;
   public status?: string;
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router, private api: ApiService, private isConnected: LoginService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private http: HttpClient,
+    private router: Router,
+    private isConnected: LoginService,
+    ) {
     this.subscription = this.isConnected.getStatusObservable().subscribe((status: string) => {
       this.status = status;
     });
   }
 
   ngOnInit(): void {
-    console.log(this.status);
 
     this.getScreenWidth = window.innerWidth;
     this.getScreenHeight = window.innerHeight;
 
     this.loginForm = this.formBuilder.group({
-      userEmail: [null, [Validators.required]],
-      userPassword: [null, [Validators.required]]
+      userEmail: [null, [
+        Validators.required,
+        Validators.email
+      ]],
+      userPassword: [null, [
+        Validators.required
+      ]]
     })
   }
 
@@ -53,13 +60,11 @@ export class LoginComponent implements OnInit, OnDestroy  {
     this.http.get<any>('https://127.0.0.1:8000/api/users').subscribe((users: any) => {
       const hydras = users['hydra:member'];
       for(let i = 0;i < hydras.length;i++){
-        if(
-          this.loginForm.value.userEmail === hydras[i].email
-          /*&& this.loginForm.value.userPassword === hydras[i].password*/
-          ){
-            for (const prop in hydras[i]){
-              localStorage.setItem(prop,hydras[i][prop]);
-            }
+        if(this.loginForm.value.userEmail === hydras[i].email/* &&
+           this.loginForm.value.userPassword === hydras[i].password*/){
+          for (const prop in hydras[i]){
+            localStorage.setItem(prop,hydras[i][prop]);
+          }
         }
       }
       if(localStorage.getItem('id')){
@@ -70,6 +75,14 @@ export class LoginComponent implements OnInit, OnDestroy  {
         console.log("Nooooooo");
       }
     });
+  }
+
+  get password() {
+    return this.loginForm.get('userPassword') as FormControl;
+  }
+
+  get email() {
+    return this.loginForm.get('userEmail') as FormControl;
   }
 
   ngOnDestroy() {

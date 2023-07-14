@@ -6,9 +6,9 @@
       </form> -->
       <div class="collapse navbar-collapse flex-grow-0 text-center" id="navbarsExample05">
           <ul class="navbar-nav mb-2 mb-lg-0">
-              <!-- <li class="nav-item">
-                <a routerLink="categories">Catégories</a>
-              </li> -->
+            <!--<li class="nav-item">
+              <a routerLink="categories">Catégories</a>
+            </li>-->
               <!--  <li class="nav-item">
                   <a class="nav-link active" href="#">Recherche</a>
               </li>
@@ -16,14 +16,15 @@
                   <a class="nav-link active" href="#">Déposer une annonce</a>
               </li> -->
               <li class="nav-item">
+                <a class="nav-link active" href="sin">Déposer une annonce</a>
+            </li>
+              <li class="nav-item">
                 <a *ngIf="status === 'connected'" class="nav-link active" routerLink="" (click)="logout()"><span class="connexion-btn">Déconnexion</span></a>
-                <a *ngIf="status === 'disconnected'" class="nav-link active" routerLink="login"><span class="connexion-btn">Connexion</span></a>
+                <a *ngIf="status === 'disconnected'" class="nav-link active" routerLink="signup"><span class="connexion-btn">Connexion</span></a>
               </li>
           </ul>
       </div>
-      <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
-          data-bs-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false"
-          aria-label="Toggle navigation">
+      <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
       </button>
   </div>

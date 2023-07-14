@@ -1,0 +1,86 @@
+<div class="container-fluid position-relative mt-5 p-0">
+  <form class="d-flex w-50 p-0 position-absolute start-50 translate-middle-x" [formGroup]="loginForm" [ngClass]="{ 'w-100' : getScreenWidth < 1000}">
+    <div class="card m-auto" [ngClass]="{ 'w-100' : getScreenWidth < 1000}">
+      <div class="card-header">
+        <div class="container text-center mt-3">
+          <p class="fw-bolder h5">Welcome to <span class="h4 fw-bolder company-title">SkillSwap</span></p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="d-grid">
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <label for="lastname" class="form-label">nom*</label>
+              <input type="lastname" id="lastname" class="form-control" name="userLastname" formControlName="userLastname">
+              <div class="invalid-feedback" *ngIf="lastname.touched && lastname.invalid && lastname.errors">
+                <ng-container *ngIf="lastname.errors['required']">Lastname is needed !</ng-container>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <label for="firstname" class="form-label">Prénom*</label>
+              <input type="firstname" id="firstname" class="form-control" name="userFirstname" formControlName="userFirstname">
+              <div class="invalid-feedback" *ngIf="firstname.touched && firstname.invalid && firstname.errors">
+                <ng-container *ngIf="firstname.errors['required']">Firstname is needed !</ng-container>
+              </div>
+            </div>
+          </div>
+<!--
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <label for="city" class="form-label">Ville</label>
+              <input type="city" id="city" class="form-control" name="userCity" formControlName="userCity">
+            </div>
+            <div class="col-12 col-md-6">
+              <label for="disctrict" class="form-label">Département</label>
+              <input type="disctrict" id="disctrict" class="form-control" name="userDisctrict" formControlName="userDisctrict">
+            </div>
+          </div>
+-->
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <label for="email" class="form-label">Email*</label>
+              <input type="email" id="email" class="form-control" name="userEmail" formControlName="userEmail">
+              <div class="invalid-feedback" *ngIf="email.touched && email.invalid && email.errors">
+                <ng-container *ngIf="email.errors['required']">eMail is needed !</ng-container>
+                <ng-container *ngIf="email.errors['email']">Bad email</ng-container>
+              </div>
+            </div>
+<!--
+            <div class="col-12 col-md-6">
+              <label for="phone" class="form-label">File ton 06</label>
+              <input type="phone" id="phone" class="form-control" name="userPhone" formControlName="userPhone">
+            </div>
+-->
+          </div>
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <label for="password" class="form-label">Mot de passe*</label>
+              <input type="text" id="password" class="form-control" name="userPassword" formControlName="userPassword">
+              <div class="invalid-feedback" *ngIf="password.touched && password.invalid && password.errors">
+                <ng-container *ngIf="password.errors['required']">Password is needed !<br></ng-container>
+                <ng-container *ngIf="password.errors['minLength']">Au moins 8 caractères.<br></ng-container>
+                <ng-container *ngIf="password.errors['uppercase']">Au moins une majuscule.<br></ng-container>
+                <ng-container *ngIf="password.errors['lowercase']">Au moins une minuscule.<br></ng-container>
+                <ng-container *ngIf="password.errors['digits']">Au moins un chiffre.<br></ng-container>
+                <ng-container *ngIf="password.errors['special']">Au moins un caractère spécial.</ng-container>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <label for="passTest" class="form-label">Retaper mot de passe*</label>
+              <input type="text" id="passTest" class="form-control" name="userPassTest" formControlName="userPassTest">
+              <div class="invalid-feedback" *ngIf="passTest.touched && passTest.invalid && passTest.errors">
+                <ng-container *ngIf="passTest.errors['required']">PassTest is needed !<br></ng-container>
+                <ng-container *ngIf="passTest.errors['special']">Les mots de passe ne correspondent pas</ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer text-center w-100 mt-3">
+        <button class="btn btn-dark mt-3 w-100 mb-3" type="submit" (click)="login()"
+          [disabled]="loginForm.invalid">Connexion</button>
+        <a routerLink="/signin">Déjà inscrit ?</a>
+      </div>
+    </div>
+  </form>
+</div>
