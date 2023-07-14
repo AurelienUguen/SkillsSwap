@@ -1,12 +1,18 @@
-<div class="mt-5" *ngIf="sheet">
-  <h5>{{sheet.title}}</h5>
+<div *ngIf="sheet" class="main-container">
+  <h5 class="display-6 title">{{sheet.title}}</h5>
   <div>
-    <h5>Comment ?</h5>
-    <div *ngIf="sheet.irl">
-      <p>En face-à-face</p>
-      <p>Où ? {{ sheet.user.district }} | {{ sheet.user.city }}</p>
+    <div class="d-flex">
+      <div *ngIf="sheet.irl">
+        <div class="irl">
+          <img src="./assets/parlant.png" alt="" class="logo">
+          <p class="test">{{ sheet.user.district }} - {{ sheet.user.city }}</p>
+        </div>
+      </div>
+      <div *ngIf="sheet.visio" class="visio">
+        <img src="./assets/webcam.png" alt="" class="logo">
+        <p>Webcam</p>
+      </div>
     </div>
-    <p *ngIf="sheet.visio">À distance</p>
   </div>
 
   <h5>À propos de {{ sheet.user.firstname}}</h5>

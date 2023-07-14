@@ -74,7 +74,7 @@ class SheetFixtures extends Fixture implements DependentFixtureInterface
         $sheet5->setDescription("Ceci est un test de buzuki");
         $sheet5->setIrl(1);
         $sheet5->setVisio(1);
-        $sheet5->getLanguage($this->getReference(LanguageFixtures::DE));
+        $sheet5->addLanguage($this->getReference(LanguageFixtures::DE));
         $this->addReference(self::SHEET5, $sheet5);
         $manager->persist($sheet5);
 
