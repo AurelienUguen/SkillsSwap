@@ -28,7 +28,7 @@ export class FormDateComponent {
   onSubmit() {
     let userSlug = this.userSlug;
 
-    console.log(this.form);
+    //console.log(this.form);
 
     if (this.localStorageId === null || !this.sheetId) {
       this.router.navigateByUrl("/login");
@@ -42,6 +42,7 @@ export class FormDateComponent {
     }
 
     console.log(this.form.value.date);
+    console.log(newLesson);
 
     alert('Le cours a bien été enregistré !');
 
