@@ -66,7 +66,7 @@
               </div>
             </div>
             <div class="col-12 col-md-6">
-              <label for="passTest" class="form-label">Retaper votre mot de passe*</label>
+              <label for="passTest" class="form-label">Retaper mot de passe*</label>
               <input type="text" id="passTest" class="form-control" name="userPassTest" formControlName="userPassTest">
               <div class="invalid-feedback" *ngIf="passTest.touched && passTest.invalid && passTest.errors">
                 <ng-container *ngIf="passTest.errors['required']">PassTest is needed !<br></ng-container>

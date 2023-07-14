@@ -1,10 +1,11 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { LoginService } from 'src/app/services/login/login.service';
-import { User } from 'src/app/model/user';
+import { User, UserPost } from 'src/app/model/user';
+import { ApiService } from 'src/app/services/api/api.service';
 
 @Component({
   selector: 'app-signup',
@@ -34,6 +35,8 @@ export class SignupComponent implements OnInit, OnDestroy  {
     private http: HttpClient,
     private router: Router,
     private isConnected: LoginService,
+    private apiService : ApiService,
+    private activatedRoute: ActivatedRoute
     ) {
     this.subscription = this.isConnected.getStatusObservable().subscribe((status: string) => {
       this.status = status;
@@ -78,6 +81,8 @@ export class SignupComponent implements OnInit, OnDestroy  {
         Validators.required,
         //this.testValidator.bind(this)
       ]]
+    }, {
+      updateOn: 'blur'
     });
   }
 
@@ -116,11 +121,25 @@ export class SignupComponent implements OnInit, OnDestroy  {
   }
 
   login(){
+
+    const newUser: UserPost = {
+      roles:["ROLE_USER"],
+      firstname: this.loginForm.value.userFirstname,
+      lastname: this.loginForm.value.userLastname,
+      email: this.loginForm.value.userEmail,
+      password: this.loginForm.value.userPassword,
+      district: 0,
+      city: ""
+    }
+    console.log(newUser);
+    this.apiService.postUser(newUser).subscribe();
+
     this.http.get<any>('https://127.0.0.1:8000/api/users').subscribe((users: any) => {
       const hydras = users['hydra:member'];
       for(let i = 0;i < hydras.length;i++){
-        if(this.loginForm.value.userEmail === hydras[i].email/* &&
-           this.loginForm.value.userPassword === hydras[i].password*/){
+        if(this.loginForm.value.userEmail === hydras[i].email// &&
+           //this.loginForm.value.userPassword === hydras[i].password
+           ){
           for (const prop in hydras[i]){
             localStorage.setItem(prop,hydras[i][prop]);
           }

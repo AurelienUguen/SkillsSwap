@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Category } from '../../model/category';
-import { User } from '../../model/user';
+import { User, UserPost } from '../../model/user';
 import { Observable } from 'rxjs';
 import { Sheet } from '../../model/sheet';
 import { Lesson, LessonPost } from '../../model/lesson';
@@ -56,5 +56,9 @@ export class ApiService {
 
   postLesson(lesson : LessonPost) {
     return this.http.post<LessonPost>(this.lessonUrl, lesson);
+  }
+
+  postUser(user : UserPost) {
+    return this.http.post<UserPost>(this.usersUrl, user);
   }
 }

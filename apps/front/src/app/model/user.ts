@@ -12,14 +12,17 @@ export interface User {
   city: string;
   sheets: Sheet
   lessons: Lesson;
-  roles: [];
+  roles:string[];
   description: string;
   slug: string;
 }
 
 export interface UserPost {
+  roles:string[];
   firstname: string;
   lastname: string;
   email: string;
   password: string;
+  district: number;
+  city: string;
 }
