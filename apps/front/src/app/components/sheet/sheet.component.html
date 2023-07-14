@@ -1,12 +1,17 @@
 
   <div class="d-flex main-container row">
-    <div *ngFor="let sheet of sheets" class="custom-cards">
-      <a [routerLink]="['sheet', sheet.slug]">
+    <div *ngFor="let sheet of sheets" class="custom-cards container-fluid">
+     <!--  <p class="sheet-language">{{ sheet | json }}</p> -->
+      <a [routerLink]="[sheet.slug]">
         <div class="custom-card col">
-          <img src="./assets/placeholder_1.jpg" alt="" width="250px">
-          <div class="text-bloc">
-            <h4>{{ sheet.title }}</h4>
-            <p>De {{ sheet.user.firstname }}</p>
+          <div class="username position-relative container-fluid">
+            <img src="https://source.unsplash.com/random/400x400/?{{ sheet.category.name }}" alt="" class="img-fluid">
+            <p class="h2 name position-absolute top-0 start-0">{{ sheet.user.firstname }}</p>
+          </div>
+          <div class="text-bloc container-fluid">
+            <p class="sheet-category">{{ sheet.category.name }}</p>
+            <p class="sheet-title">{{ sheet.title }}</p>
+            <p class="sheet-language"></p>
           </div>
         </div>
       </a>

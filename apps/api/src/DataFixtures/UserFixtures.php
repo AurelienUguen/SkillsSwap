@@ -30,7 +30,7 @@ class UserFixtures extends Fixture
             $user[$i]->setDistrict(75);
             $user[$i]->setCity('Paris');
             $user[$i]->setDescription('blabla');
-           $this->setReference(self::USERARRAY[$i - 1], $user[$i]);
+            $this->setReference(self::USERARRAY[$i - 1], $user[$i]);
             $manager->persist($user[$i]);
         }
 /* 
