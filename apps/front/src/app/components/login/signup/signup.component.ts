@@ -74,9 +74,9 @@ export class SignupComponent implements OnInit, OnDestroy  {
       ]],
       userPassTest: [null, [
         Validators.required,
-        this.TestValidator.bind(this)
+        //this.testValidator.bind(this)
       ]]
-    })
+    });
   }
 
   @HostListener('window:resize', ['$event'])
@@ -106,9 +106,11 @@ export class SignupComponent implements OnInit, OnDestroy  {
     if (this.regexSpecial.test(control.value)) return null;
     return {special: true};
   }
-  TestValidator(control: FormControl): {special: boolean} | null{
-    if (this.regexSpecial.test(control.value)) return null;
-    return {special: true};
+  testValidator(): {test: boolean} | null{
+    const password = this.loginForm.get('userPassword')?.value;
+    const passtest = this.loginForm.get('userPassTest')?.value;
+    if (passtest === password) return null;
+    return {test: true};
   }
 
   login(){
