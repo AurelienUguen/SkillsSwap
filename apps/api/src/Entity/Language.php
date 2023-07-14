@@ -30,7 +30,7 @@ class Language
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['read_lang'])]
+    #[Groups(['read_lang', 'read_sheet'])]
     private ?string $name = null;
 
     #[ORM\ManyToMany(targetEntity: Sheet::class, mappedBy: 'language')]

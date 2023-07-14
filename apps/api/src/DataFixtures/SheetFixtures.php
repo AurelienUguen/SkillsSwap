@@ -15,7 +15,8 @@ class SheetFixtures extends Fixture implements DependentFixtureInterface
     const SHEET2 = 'sheet2';
     const SHEET3 = 'sheet3';
     const SHEET4 = 'sheet4';
-    const SHEETARRAY = [self::SHEET1, self::SHEET2, self::SHEET3, self::SHEET4];
+    const SHEET5 = 'sheet5';
+    const SHEETARRAY = [self::SHEET1, self::SHEET2, self::SHEET3, self::SHEET4, self::SHEET5];
 
     public function load(ObjectManager $manager): void
     {
@@ -65,6 +66,17 @@ class SheetFixtures extends Fixture implements DependentFixtureInterface
         $sheet4->addLanguage($this->getReference(LanguageFixtures::DE));
         $this->addReference(self::SHEET4, $sheet4);
         $manager->persist($sheet4);
+
+        $sheet5 = new Sheet();
+        $sheet5->setTitle('Cours de bouzouki');
+        $sheet5->setUser($this->getReference(UserFixtures::USER2));
+        $sheet5->setCategory($this->getReference(CategoryFixtures::MUSIC));
+        $sheet5->setDescription("Ceci est un test de buzuki");
+        $sheet5->setIrl(1);
+        $sheet5->setVisio(1);
+        $sheet5->getLanguage($this->getReference(LanguageFixtures::DE));
+        $this->addReference(self::SHEET5, $sheet5);
+        $manager->persist($sheet5);
 
         $manager->flush();
     }

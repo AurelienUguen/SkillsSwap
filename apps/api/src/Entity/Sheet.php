@@ -61,7 +61,7 @@ class Sheet
     private ?string $description = null;
 
     #[ORM\ManyToMany(targetEntity: Language::class, inversedBy: 'sheets')]
-    #[Groups(['read_sheet', 'read_user', 'create_sheet'])]
+    #[Groups(['read_sheet','read_lang', 'read_user', 'create_sheet'])]
     private Collection $language;
 
     #[ORM\OneToMany(mappedBy: 'sheet', targetEntity: Lesson::class, orphanRemoval: true)]
