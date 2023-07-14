@@ -16,3 +16,10 @@ export interface User {
   description: string;
   slug: string;
 }
+
+export interface UserPost {
+  firstname: string;
+  lastname: string;
+  email: string;
+  password: string;
+}

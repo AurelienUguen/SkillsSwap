@@ -59,6 +59,8 @@ export class SignupComponent implements OnInit, OnDestroy  {
       userFirstname: [null, [
         Validators.required
       ]],
+      userCity: [null],
+      userDistrict: [null],
       userEmail: [null, [
         Validators.required,
         Validators.email
@@ -144,6 +146,10 @@ export class SignupComponent implements OnInit, OnDestroy  {
 
   get email() {
     return this.loginForm.get('userEmail') as FormControl;
+  }
+
+  get phone() {
+    return this.loginForm.get('userPhone') as FormControl;
   }
 
   get password() {

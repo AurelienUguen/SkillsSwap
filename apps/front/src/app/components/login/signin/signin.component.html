@@ -1,7 +1,7 @@
-<div class="container-fluid position-relative" style="height: 70vh;">
-  <form class="d-flex flex-column" [formGroup]="loginForm">
+<div class="container-fluid position-relative mt-5 p-0">
+  <form class="d-flex p-0 position-absolute start-50 translate-middle-x" [formGroup]="loginForm" [ngClass]="{ 'w-100' : getScreenWidth < 768}">
 
-    <div class="card position-absolute top-50 start-50 translate-middle minWidthLoginCard" [ngClass]="{ 'w-50' : getScreenWidth < 1000}" [ngClass]="{ 'w-100' : getScreenWidth < 1000}">
+    <div class="card m-auto" [ngClass]="{ 'w-100' : getScreenWidth < 576}">
 
       <div class="card-header">
         <div class="container text-center mt-3">

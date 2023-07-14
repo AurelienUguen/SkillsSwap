@@ -64,11 +64,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['read_user', 'create_user'])]
     private ?string $phone_number = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     #[Groups(['read_user','read_sheet', 'create_user'])]
     private ?string $city = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     #[Groups(['read_user','read_sheet', 'create_user'])]
     private ?int $district = null;
 
