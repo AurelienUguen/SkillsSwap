@@ -16,44 +16,25 @@ a:hover {
 }
 
 .custom-cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: rgb(255, 255, 255);
-  width: 30%;
-  display: flex;
-  flex-direction: row;
-  margin-top: 100px;
-  margin: 10px;
-  border-radius: 50px;
-  height: auto;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid $primary;
+  width: 25%;
+  margin: 15px;
+  border: 1px solid $primary;
   border-bottom: 10px solid $primary;
-}
-
-.custom-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: justify;
-}
-
-.custom-card img {
-  width: 400px;
-  height: 400px;
-  object-fit: cover;
-  border-radius: 49px;
 }
 
 
 .text-bloc {
-  width: 100%;
-  border-bottom-left-radius: 50px;
-  border-bottom-right-radius: 50px;
+  /* background-color: #0c50517d; */
 }
 
 .main-container {
-  margin-top: 100px;
+  margin-top: 120px;
+  display: flex;
+  justify-content: center;
 }
 
 

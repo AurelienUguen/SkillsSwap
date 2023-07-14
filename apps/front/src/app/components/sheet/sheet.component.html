@@ -3,7 +3,7 @@
     <div *ngFor="let sheet of sheets" class="custom-cards">
       <a [routerLink]="['sheet', sheet.slug]">
         <div class="custom-card col">
-          <img src="./assets/placeholder_1.jpg" alt="">
+          <img src="./assets/placeholder_1.jpg" alt="" width="250px">
           <div class="text-bloc">
             <h4>{{ sheet.title }}</h4>
             <p>De {{ sheet.user.firstname }}</p>

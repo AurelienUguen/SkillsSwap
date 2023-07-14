@@ -1,6 +1,14 @@
 <div *ngIf="sheet">
   <h5>{{sheet.title}}</h5>
-  <p>Où ? {{ sheet.user.district }} | {{ sheet.user.city }}</p>
+  <div>
+    <h5>Comment ?</h5>
+    <div *ngIf="sheet.irl">
+      <p>En face-à-face</p>
+      <p>Où ? {{ sheet.user.district }} | {{ sheet.user.city }}</p>
+    </div>
+    <p *ngIf="sheet.visio">À distance</p>
+  </div>
+
   <h5>À propos de {{ sheet.user.firstname}}</h5>
   <p>{{ sheet.user.description }}</p>
   <h5>À propos du cours</h5>

@@ -3,3 +3,9 @@ $primaryWithTransparancy: #0c50516c;
 $hover: #117375;
 
 @import "~bootstrap/dist/css/bootstrap.css";
+
+.custom-container {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
