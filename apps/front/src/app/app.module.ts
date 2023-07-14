@@ -17,7 +17,6 @@ import { DatePipe } from '@angular/common';
 import { FormDateComponent } from './components/form-date/form-date.component';
 import { SignupComponent } from './components/login/signup/signup.component';
 import { SigninComponent } from './components/login/signin/signin.component';
-import { SinComponent } from './components/login/sin/sin.component';
 
 
 @NgModule({
@@ -34,8 +33,7 @@ import { SinComponent } from './components/login/sin/sin.component';
     SheetDetailComponent,
     FormDateComponent,
     SignupComponent,
-    SigninComponent,
-    SinComponent
+    SigninComponent
   ],
   imports: [
     BrowserModule,
