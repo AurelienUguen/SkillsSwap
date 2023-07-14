@@ -15,7 +15,7 @@ class LessonFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Faker\Factory::create('fr_FR');
 
-        for ($i = 1; $i <= 4; $i++) {
+        for ($i = 1; $i <= count(UserFixtures::USERARRAY); $i++) {
             $lesson[$i] = new Lesson();
             $lesson[$i]->setUser($this->getReference(UserFixtures::USERARRAY[$i - 1]));
             $lesson[$i]->setSheet($this->getReference(SheetFixtures::SHEETARRAY[$i - 1]));
