@@ -40,7 +40,7 @@ class Category
     private ?self $parent = null;
 
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
-    #[Groups(['read_category', 'create_category'])]
+    #[Groups(['read_category', 'create_category', 'read_sheet'])]
     private Collection $categories;
 
     #[ORM\Column(length: 255)]
