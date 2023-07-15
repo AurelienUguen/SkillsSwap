@@ -41,9 +41,9 @@ class Lesson
     #[Groups(['read_lesson', 'create_lesson'])]
     private ?Sheet $sheet = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['read_lesson', 'create_lesson'])]
-    private ?string $bookingDate = null;
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups(['read_lesson', 'create_lesson', 'read_sheet'])]
+    private ?\DateTimeInterface $bookingDate = null;
 
     public function getId(): ?int
     {
@@ -74,12 +74,12 @@ class Lesson
         return $this;
     }
 
-    public function getBookingDate(): ?string
+    public function getBookingDate(): ?\DateTimeInterface
     {
         return $this->bookingDate;
     }
 
-    public function setBookingDate(?string $bookingDate): static
+    public function setBookingDate(\DateTimeInterface $bookingDate): static
     {
         $this->bookingDate = $bookingDate;
 

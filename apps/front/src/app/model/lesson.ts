@@ -5,7 +5,7 @@ export interface Lesson {
   id: number;
   user: User;
   sheet: Sheet;
-  bookingDate: Date
+  bookingDate: Date;
 }
 
 export interface LessonPost {

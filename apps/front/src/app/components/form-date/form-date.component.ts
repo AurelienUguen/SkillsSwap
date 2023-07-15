@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api/api.service';
 import { LessonPost } from 'src/app/model/lesson';
+import '@angular/common/locales/global/fr';
 
 @Component({
   selector: 'app-form-date',
@@ -13,7 +14,7 @@ export class FormDateComponent implements OnInit {
 
   userSlug = localStorage.getItem('@id');
   sheetId?: string | null;
-  currentDate: number = Date.now();
+  currentDate: Date = new Date();
 
   form = new FormGroup({
     date: new FormControl(),
@@ -42,7 +43,6 @@ export class FormDateComponent implements OnInit {
       sheet: `/api/sheets/${this.sheetId}`
     }
 
-    console.log(this.form.value.date);
     console.log(newLesson);
 
     alert('Le cours a bien été enregistré !');

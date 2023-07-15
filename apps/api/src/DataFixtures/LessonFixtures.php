@@ -3,6 +3,9 @@
 namespace App\DataFixtures;
 
 use App\Entity\Lesson;
+use DateTime;
+use DateTimeImmutable;
+use DateTimeZone;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker;
@@ -19,7 +22,7 @@ class LessonFixtures extends Fixture implements DependentFixtureInterface
             $lesson[$i] = new Lesson();
             $lesson[$i]->setUser($this->getReference(UserFixtures::USERARRAY[$i - 1]));
             $lesson[$i]->setSheet($this->getReference(SheetFixtures::SHEETARRAY[$i - 1]));
-            $lesson[$i]->setBookingDate($faker->date('Y-m-d'));
+            $lesson[$i]->setBookingDate(new DateTime($faker->date('Y-m-d')));
             $manager->persist($lesson[$i]);
         }
 
