@@ -4,8 +4,6 @@ namespace App\DataFixtures;
 
 use App\Entity\Lesson;
 use DateTime;
-use DateTimeImmutable;
-use DateTimeZone;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker;
