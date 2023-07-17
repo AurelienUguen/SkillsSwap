@@ -30,4 +30,34 @@ ul li {
   background-color: $hover;
 }
 
+.personnal-space-btn {
+  margin-right: 0;
+  background-color: white;
+  color: $primary;
+  padding: 10px 40px;
+  border-radius: 30px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.deconnexion-btn {
+  margin-left: 0;
+  color: white;
+  background-color: $primary;
+  padding: 10px 40px;
+  border-radius: 30px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.add-course {
+  padding: 5px 12px;
+  margin-right: 10px;
+  border-radius: 50%;
+  border: 2px solid $primary;
+}
+
+.add-course:hover {
+  opacity: 0.5;
+}
 
