@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api/api.service';
 import { Sheet } from 'src/app/model/sheet';
-import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-sheet-detail',
   templateUrl: './sheet-detail.component.html',
   styleUrls: ['./sheet-detail.component.scss']
 })
-export class SheetDetailComponent implements OnInit {
+export class SheetDetailComponent implements OnInit, OnDestroy {
 
   sheet?: Sheet;
 
@@ -27,4 +26,9 @@ export class SheetDetailComponent implements OnInit {
     this.apiService.getSheetBySlug(slug)
       .subscribe(sheet => this.sheet = sheet);
   }
+
+  ngOnDestroy(): void {
+    console.log('IMDESTROY');
+  }
+
 }

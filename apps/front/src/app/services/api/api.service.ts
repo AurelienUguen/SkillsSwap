@@ -54,6 +54,10 @@ export class ApiService {
     return this.http.get<Sheet>(url);
   }
 
+  getLessons(){
+    return this.http.get<User>(this.lessonUrl);
+  }
+
   postLesson(lesson : LessonPost) {
     return this.http.post<LessonPost>(this.lessonUrl, lesson);
   }

@@ -1,1 +1,25 @@
-<p>personal-space works!</p>
+<ng-container *ngIf="user">
+  <h2>Mes infos</h2>
+  <p>{{ userFirstname }} {{ userLastname }}</p>
+  <p> {{ userEmail }}</p>
+  <p>{{ userDistrict }} - {{ userCity }}</p>
+
+  <h2>Mes cours</h2>
+
+  <div *ngFor="let sheet of sheets">
+    <div *ngIf="sheet.user.id == userId">
+      <a routerLink="/{{ sheet.slug }}">{{ sheet.title }}</a>
+    </div>
+  </div>
+
+  <h2>Mes réservations</h2>
+
+  <div *ngFor="let lesson of lessons">
+    <div *ngIf="lesson.user.id == userId">
+      <a routerLink="/{{lesson.sheet.slug}}">{{lesson.sheet.title}}</a>
+      <p>{{lesson.bookingDate}}</p>
+    </div>
+  </div>
+</ng-container>
+
+

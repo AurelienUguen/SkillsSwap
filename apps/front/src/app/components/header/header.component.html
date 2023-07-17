@@ -7,7 +7,7 @@
                 <a class="add-course" href="sin">+</a>
               </li>
               <li class="nav-item">
-                <a *ngIf="status === 'connected'" routerLink="#" class="personnal-space-btn">Mon espace</a>
+                <a *ngIf="status === 'connected'" routerLink="my-space/{{userSlug}}" class="personnal-space-btn">Mon espace</a>
               </li>
               <li class="nav-item">
                 <a *ngIf="status === 'connected'" routerLink="" (click)="logout()"><span class="deconnexion-btn">Déconnexion</span></a>
