@@ -32,8 +32,12 @@ a:hover {
   transform: translate(20%, -30%);
   color: rgb(255, 255, 255);
   font-weight: bolder;
-  font-size: 2vw;
+  font-size: 1.5vw;
   transform: translate(30%, 30%);
+  background-color: #0c505167;
+  padding: 10px;
+  border-radius: 20px;
+  text-align: center;
 }
 
 .sheet-title {
