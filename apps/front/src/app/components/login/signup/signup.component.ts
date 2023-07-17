@@ -129,7 +129,8 @@ export class SignupComponent implements OnInit, OnDestroy  {
       email: this.loginForm.value.userEmail,
       password: this.loginForm.value.userPassword,
       district: 0,
-      city: ""
+      city: "",
+      slug: "",
     }
     console.log(newUser);
     this.apiService.postUser(newUser).subscribe();

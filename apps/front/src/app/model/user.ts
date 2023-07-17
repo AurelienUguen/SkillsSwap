@@ -25,4 +25,5 @@ export interface UserPost {
   password: string;
   district: number;
   city: string;
+  slug: string;
 }
