@@ -7,6 +7,7 @@ import { SheetComponent } from './components/sheet/sheet.component';
 import { SigninComponent } from './components/login/signin/signin.component';
 import { SignupComponent } from './components/login/signup/signup.component';
 import { PersonalSpaceComponent } from './components/personal-space/personal-space.component';
+import { SheetFormComponent } from './components/sheet-form/sheet-form.component';
 
 
 
@@ -22,6 +23,7 @@ const userRoutes: Routes = [
 ];
 
   const customRoutes: Routes = [
+    { path: 'add-sheet', component: SheetFormComponent},
     { path: 'sheet', component: SheetComponent },
     { path: ':sheet', component: SheetDetailComponent },
 ];

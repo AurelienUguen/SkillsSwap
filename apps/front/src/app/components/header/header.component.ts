@@ -12,6 +12,7 @@ export class HeaderComponent {
   public status?: string;
   private subscription: Subscription;
   public userSlug = localStorage.getItem('slug');
+  public userFirstname = localStorage.getItem('firstname');
 
   constructor(private isConnected: LoginService){
     this.subscription = this.isConnected.getStatusObservable().subscribe((status: string) => {

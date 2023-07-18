@@ -4,7 +4,8 @@
       <div class="collapse navbar-collapse flex-grow-0 text-center" id="navbarsExample05">
           <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="add-course" href="sin">+</a>
+                <a *ngIf="status === 'connected'" class="add-course" routerLink="add-sheet">+</a>
+                <a *ngIf="status === 'disconnected'" class="add-course" routerLink="signup">+</a>
               </li>
               <li class="nav-item">
                 <a *ngIf="status === 'connected'" routerLink="my-space/{{userSlug}}" class="personnal-space-btn">Mon espace</a>

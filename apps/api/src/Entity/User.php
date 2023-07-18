@@ -33,7 +33,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['read_user', 'read_sheet'])]
+    #[Groups(['read_user', 'read_sheet', 'read_lesson'])]
     #[Api\ApiProperty(identifier:false)]
     private ?int $id = null;
 
@@ -49,7 +49,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['read_user','read_sheet', 'create_user'])]
+    #[Groups(['read_user','read_sheet', 'create_user', 'read_lesson'])]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
@@ -86,7 +86,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     #[Gedmo\Slug(fields:['firstname','lastname'])]
     #[Api\ApiProperty(identifier:true)]
-    #[Groups(['read_sheet'])]
+    #[Groups(['read_sheet', 'read_user'])]
     private ?string $slug = null;
 
     public function __construct()

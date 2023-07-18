@@ -18,6 +18,7 @@ import { FormDateComponent } from './components/form-date/form-date.component';
 import { SignupComponent } from './components/login/signup/signup.component';
 import { SigninComponent } from './components/login/signin/signin.component';
 import { PersonalSpaceComponent } from './components/personal-space/personal-space.component';
+import { SheetFormComponent } from './components/sheet-form/sheet-form.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { PersonalSpaceComponent } from './components/personal-space/personal-spa
     FormDateComponent,
     SignupComponent,
     SigninComponent,
-    PersonalSpaceComponent
+    PersonalSpaceComponent,
+    SheetFormComponent
   ],
   imports: [
     BrowserModule,

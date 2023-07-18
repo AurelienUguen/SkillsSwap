@@ -31,21 +31,21 @@ class Sheet
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['read_sheet'])]
+    #[Groups(['read_sheet', 'read_user'])]
     #[Api\ApiProperty(identifier:false)]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['read_sheet','read_user', 'create_sheet'])]
+    #[Groups(['read_sheet','read_user', 'create_sheet', 'read_lesson'])]
     private ?string $title = null;
 
     #[ORM\ManyToOne(inversedBy: 'sheets')]
-    #[Groups(['read_sheet', 'create_sheet'])]
+    #[Groups(['read_sheet', 'create_sheet', 'read_lesson'])]
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'sheets')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['read_sheet', 'create_sheet'])]
+    #[Groups(['read_sheet', 'create_sheet', 'read_lesson'])]
     private ?Category $category = null;
 
     #[ORM\Column]
@@ -61,7 +61,7 @@ class Sheet
     private ?string $description = null;
 
     #[ORM\ManyToMany(targetEntity: Language::class, inversedBy: 'sheets')]
-    #[Groups(['read_sheet', 'create_sheet', 'read_user', 'read_lang'])]
+    #[Groups(['read_sheet', 'create_sheet', 'read_user'])]
     private Collection $language;
 
     #[ORM\OneToMany(mappedBy: 'sheet', targetEntity: Lesson::class, orphanRemoval: true)]
@@ -70,7 +70,7 @@ class Sheet
     #[ORM\Column(length: 255)]
     #[Gedmo\Slug(fields:['title'])]
     #[Api\ApiProperty(identifier:true)]
-    #[Groups(['read_sheet'])]
+    #[Groups(['read_sheet', 'read_lesson'])]
     private ?string $slug = null;
 
     public function __construct()

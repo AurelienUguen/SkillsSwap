@@ -17,7 +17,8 @@
   <div *ngFor="let lesson of lessons">
     <div *ngIf="lesson.user.id == userId">
       <a routerLink="/{{lesson.sheet.slug}}">{{lesson.sheet.title}}</a>
-      <p>{{lesson.bookingDate}}</p>
+      <p>avec {{ lesson.sheet.user.firstname}}</p>
+      <p>Le {{lesson.bookingDate | date }}</p>
     </div>
   </div>
 </ng-container>
