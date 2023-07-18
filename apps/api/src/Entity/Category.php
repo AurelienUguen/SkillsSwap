@@ -27,7 +27,6 @@ class Category
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['read_category'])]
     #[Api\ApiProperty(identifier:false)]
     private ?int $id = null;
 
@@ -45,7 +44,7 @@ class Category
 
     #[ORM\Column(length: 255)]
     #[Gedmo\Slug(fields:['name'])]
-    #[Groups(['read_category'])]
+    #[Groups(['read_category', 'read_sheet'])]
     #[Api\ApiProperty(identifier:true)]
     private ?string $slug = null;
 
