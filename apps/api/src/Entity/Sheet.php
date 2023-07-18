@@ -11,6 +11,7 @@ use ApiPlatform\Metadata as Api;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints\Json;
 
 #[ORM\Entity(repositoryClass: SheetRepository::class)]
 #[Api\ApiResource(
@@ -60,9 +61,6 @@ class Sheet
     #[Groups(['read_sheet', 'create_sheet'])]
     private ?string $description = null;
 
-    #[ORM\ManyToMany(targetEntity: Language::class, inversedBy: 'sheets')]
-    #[Groups(['read_sheet', 'create_sheet', 'read_user'])]
-    private Collection $language;
 
     #[ORM\OneToMany(mappedBy: 'sheet', targetEntity: Lesson::class, orphanRemoval: true)]
     private Collection $lessons;
@@ -73,9 +71,13 @@ class Sheet
     #[Groups(['read_sheet', 'read_lesson'])]
     private ?string $slug = null;
 
+    #[ORM\Column(type: Types::JSON, nullable: true)]
+    #[Groups(['read_sheet', 'read_lesson'])]
+    private array $language = [];
+
     public function __construct()
     {
-        $this->language = new ArrayCollection();
+    
         $this->lessons = new ArrayCollection();
     }
 
@@ -156,30 +158,7 @@ class Sheet
         return $this;
     }
 
-    /**
-     * @return Collection<int, Language>
-     */
-    public function getLanguage(): Collection
-    {
-        return $this->language;
-    }
-
-    public function addLanguage(Language $language): static
-    {
-        if (!$this->language->contains($language)) {
-            $this->language->add($language);
-        }
-
-        return $this;
-    }
-
-    public function removeLanguage(Language $language): static
-    {
-        $this->language->removeElement($language);
-
-        return $this;
-    }
-
+   
     /**
      * @return Collection<int, Lesson>
      */
@@ -218,6 +197,18 @@ class Sheet
     public function setSlug(string $slug): static
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getLanguage(): array
+    {
+        return $this->language;
+    }
+
+    public function setLanguage(?array $language): static
+    {
+        $this->language = $language;
 
         return $this;
     }

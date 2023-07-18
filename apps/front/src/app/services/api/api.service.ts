@@ -5,7 +5,6 @@ import { User, UserPost } from '../../model/user';
 import { Observable } from 'rxjs';
 import { Sheet, sheetPost } from '../../model/sheet';
 import { LessonPost } from '../../model/lesson';
-import { Language } from 'src/app/model/language';
 
 
 
@@ -19,7 +18,6 @@ export class ApiService {
   private usersUrl = 'https://127.0.0.1:8000/api/users';
   private sheetUrl = 'https://127.0.0.1:8000/api/sheets';
   private lessonUrl = 'https://127.0.0.1:8000/api/lessons';
-  private languageUrl = 'https://127.0.0.1:8000/api/languages';
 
 
   constructor(private http: HttpClient) { }
@@ -58,11 +56,6 @@ export class ApiService {
 
   getLessons(){
     return this.http.get<User>(this.lessonUrl);
-  }
-
-  getLanguages() {
-
-    return this.http.get<Language>(this.languageUrl);
   }
 
   postSheet(sheet: sheetPost) {

@@ -1,5 +1,4 @@
 import { Category } from "./category";
-import { Language } from "./language";
 import { Lesson } from "./lesson";
 import { User } from "./user";
 
@@ -10,7 +9,7 @@ export interface Sheet {
   description: string;
   irl: boolean;
   visio: boolean;
-  language: Language;
+  language: [];
   lesson: Lesson;
   category: Category;
   slug: string;
@@ -23,5 +22,5 @@ export interface sheetPost {
   description: string;
   irl: boolean;
   visio: boolean;
-  language: string;
+  language: [];
 }

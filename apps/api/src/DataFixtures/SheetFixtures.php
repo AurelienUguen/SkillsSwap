@@ -28,7 +28,7 @@ class SheetFixtures extends Fixture implements DependentFixtureInterface
         $sheet1->setDescription("Ceci n'est pas un cours de bouzouki");
         $sheet1->setIrl(1);
         $sheet1->setVisio(0);
-        $sheet1->addLanguage($this->getReference(LanguageFixtures::DE));
+        $sheet1->setLanguage(['Français', 'Anglais']);
         $this->addReference(self::SHEET1, $sheet1);
         $manager->persist($sheet1);
 
@@ -39,8 +39,7 @@ class SheetFixtures extends Fixture implements DependentFixtureInterface
         $sheet2->setDescription("Ceci n'est pas une cheville");
         $sheet2->setIrl(1);
         $sheet2->setVisio(0);
-        $sheet2->addLanguage($this->getReference(LanguageFixtures::FR));
-        $sheet2->addLanguage($this->getReference(LanguageFixtures::EN));
+        $sheet2->setLanguage(['Français']);
         $this->addReference(self::SHEET2, $sheet2);
         $manager->persist($sheet2);
 
@@ -51,7 +50,7 @@ class SheetFixtures extends Fixture implements DependentFixtureInterface
         $sheet3->setDescription("Ceci est la méthode argile");
         $sheet3->setIrl(1);
         $sheet3->setVisio(0);
-        $sheet3->addLanguage($this->getReference(LanguageFixtures::EN));
+        $sheet3->setLanguage(['Français', 'Espagnol', 'Italien']);
         $this->addReference(self::SHEET3, $sheet3);
         $manager->persist($sheet3);
 
@@ -62,8 +61,7 @@ class SheetFixtures extends Fixture implements DependentFixtureInterface
         $sheet4->setDescription("Comment mixer vos fruits en un tour de main");
         $sheet4->setIrl(0);
         $sheet4->setVisio(1);
-        $sheet4->addLanguage($this->getReference(LanguageFixtures::FR));
-        $sheet4->addLanguage($this->getReference(LanguageFixtures::DE));
+        $sheet4->setLanguage(['Anglais']);
         $this->addReference(self::SHEET4, $sheet4);
         $manager->persist($sheet4);
 
@@ -74,7 +72,7 @@ class SheetFixtures extends Fixture implements DependentFixtureInterface
         $sheet5->setDescription("Ceci est un test de buzuki");
         $sheet5->setIrl(1);
         $sheet5->setVisio(1);
-        $sheet5->addLanguage($this->getReference(LanguageFixtures::DE));
+        $sheet5->setLanguage(['Français', 'Anglais', 'Japonais', 'Mandarin', 'Serbe']);
         $this->addReference(self::SHEET5, $sheet5);
         $manager->persist($sheet5);
 
@@ -86,7 +84,6 @@ class SheetFixtures extends Fixture implements DependentFixtureInterface
         return [
             UserFixtures::class,
             CategoryFixtures::class,
-            LanguageFixtures::class,
         ];
     }
 }

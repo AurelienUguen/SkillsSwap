@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Category } from 'src/app/model/category';
-import { Language } from 'src/app/model/language';
 import { Sheet, sheetPost } from 'src/app/model/sheet';
 import { ApiService } from 'src/app/services/api/api.service';
 
@@ -14,11 +13,11 @@ export class SheetFormComponent implements OnInit {
 
   sheet: Sheet[] = []
   categories: Category[] = [];
-  languages: Language[] = [];
-
   userId = Number(localStorage.getItem('id'));
   userSlug = localStorage.getItem('@id');
 
+  isIrlChecked = false;
+  isVisioChecked = false;
 
   form = new FormGroup({
     category: new FormControl(),
@@ -35,7 +34,6 @@ export class SheetFormComponent implements OnInit {
 
   ngOnInit() {
     this.getCategories();
-    this.getLanguages();
   }
 
   getCategories() {
@@ -43,18 +41,12 @@ export class SheetFormComponent implements OnInit {
     .subscribe((categories: any) => this.categories = categories['hydra:member']);
   }
 
-  getLanguages() {
-    return this.apiService.getLanguages()
-    .subscribe((languages: any) => this.languages = languages['hydra:member']);
-  }
-
   onSubmit() {
-    console.log(this.form);
 
     let userSlug = this.userSlug;
 
     const newSheet: sheetPost = {
-      category: this.form.value.category,
+      category: `/api/categories/${this.form.value.category}`,
       title: this.form.value.title,
       user: `${userSlug}`,
       description: this.form.value.description,
@@ -63,12 +55,10 @@ export class SheetFormComponent implements OnInit {
       language: this.form.value.language,
     }
 
-    console.log(newSheet);
-
     this.apiService.postSheet(newSheet).subscribe();
 
-
-
+    console.log(newSheet);
+    alert('Le cours a bien été enregistré !')
   }
 
 }
