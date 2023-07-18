@@ -1,0 +1,18 @@
+<div class="custom-container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <select formControlName="category" class="form-control" >
+      <option>Choisir une catégorie</option>
+      <option *ngFor="let category of categories" value="{{ category.slug }}">{{category.name}}</option>
+    </select>
+    <input formControlName="title" type="text" class="form-control input-time col" placeholder="titre">
+    <label for="">Face-à-face</label>
+    <input formControlName="irl" type="checkbox">
+    <label for="">A distance</label>
+    <input formControlName="visio" type="checkbox">
+    <input formControlName="description" type="text" class="form-control" placeholder="description">
+    <select formControlName="language" class="form-control">
+      <option *ngFor="let language of languages" value="{{ language.slug }}">{{ language.name }}</option>
+    </select>
+    <button class="btn btn-primary booking-btn col-4">Réserver!</button>
+  </form>
+</div>

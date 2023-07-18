@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata as Api;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: LanguageRepository::class)]
@@ -23,18 +25,29 @@ use Symfony\Component\Serializer\Annotation\Groups;
 )]
 class Language
 {
+
+    use TimestampableEntity;
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['read_lang'])]
+    #[Groups(['read_lang', 'read_sheet'])]
+    #[Api\ApiProperty(identifier:false)]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['read_lang', 'read_sheet'])]
+    #[Groups(['read_lang', 'read_sheet', 'create_sheet'])]
     private ?string $name = null;
 
     #[ORM\ManyToMany(targetEntity: Sheet::class, mappedBy: 'language')]
+    #[Groups(['read_lang'])]
     private Collection $sheets;
+
+    #[ORM\Column(length: 255)]
+    #[Gedmo\Slug(fields:['name'])]
+    #[Api\ApiProperty(identifier:true)]
+    #[Groups(['read_lang','read_sheet'])]
+    private ?string $slug = null;
 
     public function __construct()
     {
@@ -81,6 +94,18 @@ class Language
         if ($this->sheets->removeElement($sheet)) {
             $sheet->removeLanguage($this);
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): static
+    {
+        $this->slug = $slug;
 
         return $this;
     }

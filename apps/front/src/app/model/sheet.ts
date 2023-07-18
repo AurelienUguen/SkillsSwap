@@ -15,3 +15,13 @@ export interface Sheet {
   category: Category;
   slug: string;
 }
+
+export interface sheetPost {
+  category: string;
+  title: string;
+  user: string;
+  description: string;
+  irl: boolean;
+  visio: boolean;
+  language: string;
+}
