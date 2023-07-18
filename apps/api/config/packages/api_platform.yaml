@@ -1,2 +1,7 @@
 api_platform:
-    patch_format:[]
+    patch_formats: []
+    swagger:
+         api_keys:
+             JWT:
+                name: Authorization
+                type: header
