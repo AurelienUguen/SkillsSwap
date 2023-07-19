@@ -1,0 +1,11 @@
+skillswap.wip {
+	tls internal
+
+	reverse_proxy localhost:4200
+}
+
+api.skillswap.wip {
+	tls internal
+
+	reverse_proxy localhost:8000
+}
