@@ -3,5 +3,5 @@
 node_modules/
 
 ###> lexik/jwt-authentication-bundle ###
-apps/api/config/jwt/*pem
+apps/api/config/jwt/*.pem
 ###< lexik/jwt-authentication-bundle ###
