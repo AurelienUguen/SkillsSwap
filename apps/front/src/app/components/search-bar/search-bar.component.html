@@ -1,4 +1,10 @@
-<form role="search" class="me-3 w-50 flex-grow-1 flex-lg-grow-0" class="search-bar d-flex">
-  <input class="form-control" type="search" placeholder="Que souhaitez-vous apprendre ?" aria-label="Search">
-  <button class="btn btn-primary search-btn" (click)="search()">Rechercher</button>
+<form class="me-3 w-50 flex-grow-1 flex-lg-grow-0" class="search-bar d-flex">
+  <input class="form-control" type="text" name="search" [(ngModel)]="currentSearch" (input)="searchCategory()" placeholder="Que souhaitez-vous apprendre ?" aria-label="Search">
+  <button class="btn btn-primary search-btn" (click)="searchCategory()">Rechercher</button>
 </form>
+
+<div *ngFor="let result of searchResults">
+  <!-- Afficher les propriétés de chaque résultat -->
+  <a [routerLink]="['category', result.slug]">{{ result.name }}</a>
+
+</div>

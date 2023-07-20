@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { FormControl, FormGroup } from '@angular/forms';
+import { ApiService } from 'src/app/services/api/api.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -8,8 +9,25 @@ import { Router } from '@angular/router';
 })
 export class SearchBarComponent {
 
-  constructor(private router: Router){}
-  search(){
-    this.router.navigateByUrl("sheet");
+  currentSearch: string = '';
+  searchResults?: any[];
+
+
+  constructor(private apiService: ApiService) {
+
+  }
+
+  searchCategory() {
+
+    const filterSearch = {
+      name: this.currentSearch,
+    };
+
+    this.apiService.getFilteredCategory(filterSearch)
+      .subscribe((category: any) => {
+        this.searchResults = category['hydra:member'];
+      });
+
+      console.log(this.searchResults)
   }
 }

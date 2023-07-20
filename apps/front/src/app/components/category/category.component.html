@@ -1,13 +1,19 @@
-<h1> Les professeurs de {{ category.name | lowercase}} </h1>
+<ng-container *ngIf="category">
+  <h1>Les professeurs de {{ category.name | lowercase}}</h1>
 
-  <!-- <p> {{ users| json }} </p> -->
-  <div *ngFor="let user of users">
-
-    <p> {{ user.firstname }}  {{ user.lastname }} - {{ user.roles }} - {{ user.email }}</p>
-
-    <!-- <div *ngIf="subject.category.id === category.id">
-      <a [routerLink]="['subject' subject.slug]">{{ subject.title }}</a>
-    </div> -->
+<div *ngFor="let sheet of sheets">
+    <div *ngIf="category.id == sheet.category.id">
+    <a routerLink="/{{ sheet.slug }}">{{ sheet.title }}</a>
   </div>
 
-<button type="button" class="btn btn-primary custom-btn" (click)="goBack()">Retour</button>
+  <div *ngIf="category.isParent && category.id == sheet.category.parent.id">
+    <a routerLink="/{{ sheet.slug }}"> {{ sheet.title }}</a>
+  </div>
+
+</div>
+
+
+</ng-container>
+
+
+<!-- <button type="button" class="btn btn-primary custom-btn" (click)="goBack()">Retour</button> -->

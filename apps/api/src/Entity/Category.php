@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use ApiPlatform\Metadata as Api;
+use ApiPlatform\Metadata\ApiFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
@@ -22,12 +24,15 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new Api\Delete()
     ]
 )]
+#[ApiFilter(SearchFilter::class, properties: ['name' => 'partial'])]
+
 class Category
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     #[Api\ApiProperty(identifier:false)]
+    #[Groups(['read_sheet', 'read_category'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
@@ -35,7 +40,7 @@ class Category
     private ?string $name = null;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'categories')]
-    #[Groups(['read_category', 'create_category'])]
+    #[Groups(['read_category','read_sheet', 'create_category'])]
     private ?self $parent = null;
 
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
