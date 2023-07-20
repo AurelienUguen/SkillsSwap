@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\SheetRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata as Api;
+use ApiPlatform\Metadata\ApiFilter;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -25,6 +27,7 @@ use Symfony\Component\Validator\Constraints\Json;
         new Api\Delete()
     ]
 )]
+#[ApiFilter(SearchFilter::class, properties: ['category' => 'partial'])]
 class Sheet
 {
     use TimestampableEntity;

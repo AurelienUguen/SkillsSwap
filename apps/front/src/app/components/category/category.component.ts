@@ -6,6 +6,7 @@ import { Category } from 'src/app/model/category';
 
 
 import { User } from 'src/app/model/user';
+import { Sheet } from 'src/app/model/sheet';
 
 
 @Component({
@@ -15,16 +16,15 @@ import { User } from 'src/app/model/user';
 })
 export class CategoryComponent {
 
-  category!: Category;
+  category?: Category;
   users: User[] = [];
+  sheets: Sheet[] = [];
 
   constructor(private route: ActivatedRoute, private apiService: ApiService, private location: Location) { }
 
   ngOnInit(): void {
     this.getCategoryBySlug();
-
-    this.getUsers();
-   /*  this.getSubjects(); */
+    this.getSheets();
   }
 
   getCategoryBySlug(): void {
@@ -34,15 +34,11 @@ export class CategoryComponent {
       .subscribe(category => this.category = category);
   }
 
-  getUsers() {
-    return this.apiService.getUsers()
-    .subscribe((users: any) => this.users = users['hydra:member']);
+  getSheets() {
+    return this.apiService.getSheets()
+    .subscribe((sheets: any) => this.sheets = sheets['hydra:member']);
   }
 
-  /* getSubjects() {
-    return this.apiService.getSubjects()
-    .subscribe((subjects: any) => this.subjects = subjects['hydra:member']);
-  } */
 
   goBack(): void {
     this.location.back();
