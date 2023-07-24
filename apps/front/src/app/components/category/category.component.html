@@ -1,19 +1,63 @@
 <ng-container *ngIf="category">
-  <h1>Les professeurs de {{ category.name | lowercase}}</h1>
+  <h1>Les cours de {{ category.name | lowercase }}</h1>
 
-<div *ngFor="let sheet of sheets">
-    <div *ngIf="category.id == sheet.category.id">
-    <a routerLink="/{{ sheet.slug }}">{{ sheet.title }}</a>
+  <div *ngFor="let sheet of sheetsFromParent">
+    {{sheet | json}}
+
+    <br><br>
   </div>
 
-  <div *ngIf="category.isParent && category.id == sheet.category.parent.id">
-    <a routerLink="/{{ sheet.slug }}"> {{ sheet.title }}</a>
+<div class="row">
+  <div *ngFor="let sheet of sheets" class="custom-cards container-fluid">
+    <a routerLink="/{{ sheet.slug }}">
+      <div class="custom-card col">
+        <div class="username position-relative container-fluid">
+          <img
+            src="https://source.unsplash.com/random/400x400/?{{
+              sheet.category.name
+            }}"
+            alt=""
+            class="img-fluid"
+          />
+          <p class="h2 name position-absolute top-0 start-0">
+            {{ sheet.user.firstname }}
+          </p>
+        </div>
+        <div class="text-bloc container-fluid">
+          <p class="sheet-category">{{ category.name }}</p>
+          <p class="sheet-title">{{ sheet.title }}</p>
+        </div>
+      </div>
+    </a>
   </div>
 
 </div>
 
 
+
+        <!-- <a routerLink="/{{ sheet.slug }}">
+          <div class="custom-card col">
+            <div class="username position-relative container-fluid">
+              <img
+                src="https://source.unsplash.com/random/400x400/?{{
+                  sheet.category.name
+                }}"
+                alt=""
+                class="img-fluid"
+              />
+              <p class="h2 name position-absolute top-0 start-0">
+                {{ sheet.user.firstname }}
+              </p>
+            </div>
+            <div class="text-bloc container-fluid">
+              <p class="sheet-category">{{ sheet.category.name }}</p>
+              <p class="sheet-title">{{ sheet.title }}</p>
+            </div>
+          </div>
+        </a> -->
+
+
+
+
 </ng-container>
-
-
 <!-- <button type="button" class="btn btn-primary custom-btn" (click)="goBack()">Retour</button> -->

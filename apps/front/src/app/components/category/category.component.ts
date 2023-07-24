@@ -3,11 +3,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api/api.service';
 import { Category } from 'src/app/model/category';
-
-
-import { User } from 'src/app/model/user';
 import { Sheet } from 'src/app/model/sheet';
-
 
 @Component({
   selector: 'app-category',
@@ -17,14 +13,15 @@ import { Sheet } from 'src/app/model/sheet';
 export class CategoryComponent {
 
   category?: Category;
-  users: User[] = [];
-  sheets: Sheet[] = [];
+  sheets:Sheet[] = [];
+  sheetsFromParent: Category[] = [];
+  Object = Object;
+
 
   constructor(private route: ActivatedRoute, private apiService: ApiService, private location: Location) { }
 
   ngOnInit(): void {
     this.getCategoryBySlug();
-    this.getSheets();
   }
 
   getCategoryBySlug(): void {
@@ -32,13 +29,21 @@ export class CategoryComponent {
 
     this.apiService.getCategoryBySlug(slug)
       .subscribe(category => this.category = category);
+
+    this.getSheets();
   }
 
   getSheets() {
-    return this.apiService.getSheets()
-    .subscribe((sheets: any) => this.sheets = sheets['hydra:member']);
-  }
+    const slug = this.route.snapshot.paramMap.get('category')!;
 
+
+    this.apiService.getCategoryBySlug(slug)
+    .subscribe((category: any) => this.sheets = category.sheets);
+
+
+    this.apiService.getCategoryBySlug(slug)
+    .subscribe((category: any) => console.log(this.sheetsFromParent = category.categories));
+  }
 
   goBack(): void {
     this.location.back();
