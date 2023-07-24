@@ -2,18 +2,15 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\SheetRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata as Api;
-use ApiPlatform\Metadata\ApiFilter;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints\Json;
 
 #[ORM\Entity(repositoryClass: SheetRepository::class)]
 #[Api\ApiResource(
@@ -27,7 +24,7 @@ use Symfony\Component\Validator\Constraints\Json;
         new Api\Delete()
     ]
 )]
-#[ApiFilter(SearchFilter::class, properties: ['category' => 'partial'])]
+
 class Sheet
 {
     use TimestampableEntity;
@@ -35,25 +32,25 @@ class Sheet
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['read_sheet', 'read_user'])]
+    #[Groups(['read_sheet', 'read_user', 'read_category'])]
     #[Api\ApiProperty(identifier:false)]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['read_sheet','read_user', 'create_sheet', 'read_lesson'])]
+    #[Groups(['read_sheet','read_category', 'create_sheet', 'read_lesson'])]
     private ?string $title = null;
 
     #[ORM\ManyToOne(inversedBy: 'sheets')]
-    #[Groups(['read_sheet', 'create_sheet', 'read_lesson'])]
+    #[Groups(['read_sheet', 'create_sheet', 'read_lesson', 'read_category'])]
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'sheets')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['read_sheet', 'create_sheet', 'read_lesson'])]
+    #[Groups(['read_sheet', 'read_category', 'create_sheet', 'read_lesson'])]
     private ?Category $category = null;
 
     #[ORM\Column]
-    #[Groups(['read_sheet', 'read_user', 'create_sheet'])]
+    #[Groups(['read_sheet', 'read_user', 'create_sheet', 'read_category'])]
     private ?bool $irl = null;
 
     #[ORM\Column]
@@ -71,7 +68,7 @@ class Sheet
     #[ORM\Column(length: 255)]
     #[Gedmo\Slug(fields:['title'])]
     #[Api\ApiProperty(identifier:true)]
-    #[Groups(['read_sheet', 'read_lesson'])]
+    #[Groups(['read_sheet', 'read_lesson', 'read_category'])]
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::JSON, nullable: true)]
