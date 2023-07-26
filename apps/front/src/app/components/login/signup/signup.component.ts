@@ -1,7 +1,5 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { LoginService } from 'src/app/services/login/login.service';
 import { User, UserAuth, UserPost } from 'src/app/model/user';
@@ -32,11 +30,8 @@ export class SignupComponent implements OnInit, OnDestroy  {
 
   constructor(
     private formBuilder: FormBuilder,
-    private http: HttpClient,
-    private router: Router,
     private isConnected: LoginService,
-    private apiService : ApiService,
-    private activatedRoute: ActivatedRoute
+    private apiService : ApiService
     ) {
     this.subscription = this.isConnected.getStatusObservable().subscribe((status: string) => {
       this.status = status;
@@ -121,9 +116,6 @@ export class SignupComponent implements OnInit, OnDestroy  {
   }
 
   signUp(){
-    sessionStorage.setItem(`email`, this.loginForm.value.userEmail);
-    sessionStorage.setItem(`password`, this.loginForm.value.userPassword);
-
     const newUser: UserPost = {
       roles:["ROLE_USER"],
       firstname: this.loginForm.value.userFirstname,
@@ -133,10 +125,15 @@ export class SignupComponent implements OnInit, OnDestroy  {
       district: 0,
       city: ""
     }
-    console.log(newUser);
-    
-    this.apiService.postUser(newUser).subscribe();
-    this.router.navigateByUrl("connector");
+    const user: UserAuth = {
+      email: this.loginForm.value.userEmail,
+      password: this.loginForm.value.userPassword
+    }
+    this.apiService.postUser(newUser).subscribe(
+      next => {
+        this.isConnected.authentication(user);
+      }
+    );
   }
 
   get lastname() {
