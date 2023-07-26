@@ -41,9 +41,9 @@ security:
         # - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
 
         # - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/api/categories, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/api/lessons, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/api/sheets, roles: IS_AUTHENTICATED_FULLY }
+        # - { path: ^/api/categories, roles: IS_AUTHENTICATED_FULLY }
+        # - { path: ^/api/lessons, roles: IS_AUTHENTICATED_FULLY }
+        # - { path: ^/api/sheets, roles: IS_AUTHENTICATED_FULLY }
         # - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY }
 
         - { path: ^/$, roles: PUBLIC_ACCESS } # Allows accessing the Swagger UI
@@ -51,9 +51,9 @@ security:
         - { path: ^/auth, roles: PUBLIC_ACCESS }
 
         - { path: ^/api, roles: PUBLIC_ACCESS }
-        # - { path: ^/api/categories, roles: PUBLIC_ACCESS }
-        # - { path: ^/api/lessons, roles: PUBLIC_ACCESS }
-        # - { path: ^/api/sheets, roles: PUBLIC_ACCESS }
+        - { path: ^/api/categories, roles: PUBLIC_ACCESS }
+        - { path: ^/api/lessons, roles: PUBLIC_ACCESS }
+        - { path: ^/api/sheets, roles: PUBLIC_ACCESS }
         - { path: ^/api/users, roles: PUBLIC_ACCESS }
 
         # - { path: ^/admin, roles: ROLE_ADMIN }
