@@ -19,6 +19,7 @@ import { SignupComponent } from './components/login/signup/signup.component';
 import { SigninComponent } from './components/login/signin/signin.component';
 import { PersonalSpaceComponent } from './components/personal-space/personal-space.component';
 import { SheetFormComponent } from './components/sheet-form/sheet-form.component';
+import { ConnectorComponent } from './components/login/signup/connector/connector.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { SheetFormComponent } from './components/sheet-form/sheet-form.component
     SignupComponent,
     SigninComponent,
     PersonalSpaceComponent,
-    SheetFormComponent
+    SheetFormComponent,
+    ConnectorComponent
   ],
   imports: [
     BrowserModule,

@@ -12,9 +12,13 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Metadata as Api;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
+#[UniqueEntity('email')]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\EntityListeners(['App\EntityListener\UserListener'])]
 #[Api\ApiResource(
     normalizationContext:['groups' => ['read_user']],
     denormalizationContext:['groups' => ['create_user']],
@@ -38,26 +42,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Assert\NotNull()]
     #[Groups(['read_user', 'create_user'])]
     private array $roles = [];
+
+    #[Groups(['read_user', 'create_user'])]
+    private ?string $plaintextPassword = null;
 
     /**
      * @var string The hashed password
      */
     #[ORM\Column]
-    #[Groups(['read_user', 'create_user'])]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
     #[Groups(['read_user','read_sheet', 'create_user', 'read_lesson'])]
+    #[Assert\NotNull()]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
     #[Groups(['read_user','read_sheet', 'create_user'])]
+    #[Assert\NotNull()]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 255)]
     #[Groups(['read_user', 'create_user'])]
+    #[Assert\NotNull()]
+    #[Assert\email()]
     private ?string $email = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -132,6 +143,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getPlaintextPassword(): string
+    {
+        return $this->plaintextPassword;
+    }
+
+    public function setPlaintextPassword($plaintextPassword): static
+    {
+        $this->plaintextPassword = $plaintextPassword;
 
         return $this;
     }

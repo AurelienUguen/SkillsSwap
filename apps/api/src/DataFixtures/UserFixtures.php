@@ -26,8 +26,8 @@ class UserFixtures extends Fixture
             $user[$i]->setLastname($faker->lastName);
             $user[$i]->setRoles(['ROLE_USER']);
             $user[$i]->setEmail($faker->email);
-            // Password0 //
-            $user[$i]->setPassword('$2y$13$sR7MHj5S1xUQynO2cVmXX.mRYS/pyCzGuq0OxN7uMRwa1QxLnTf5a');
+            //$user[$i]->setPassword('Password.0');
+            $user[$i]->setPlaintextPassword('Password.0');
             $user[$i]->setDistrict(75);
             $user[$i]->setCity('Paris');
             $user[$i]->setDescription('blabla');
@@ -40,8 +40,8 @@ class UserFixtures extends Fixture
         $user1->setLastname($faker->lastName);
         $user1->setRoles(['ROLE_USER']);
         $user1->setEmail($faker->email);
-        // Password0 //
-        $user1->setPassword('$2y$13$sR7MHj5S1xUQynO2cVmXX.mRYS/pyCzGuq0OxN7uMRwa1QxLnTf5a');
+        // Password.0 //
+        //$admin->setPassword('$2y$13$OajadnGr2PXfUogiBK7lPugQVIiBgTJYLtRgDIck8vv4aTCs1SAym');
         $user1->setDistrict(75);
         $user1->setCity('Paris');
         $user1->setDescription('blabla');
@@ -53,8 +53,8 @@ class UserFixtures extends Fixture
         $user2->setLastname($faker->lastName);
         $user2->setRoles(['ROLE_USER']);
         $user2->setEmail($faker->email);
-        // Password0 //
-        $user2->setPassword('$2y$13$sR7MHj5S1xUQynO2cVmXX.mRYS/pyCzGuq0OxN7uMRwa1QxLnTf5a');
+        // Password.0 //
+        //$admin->setPassword('$2y$13$OajadnGr2PXfUogiBK7lPugQVIiBgTJYLtRgDIck8vv4aTCs1SAym');
         $user2->setDistrict(75);
         $user2->setCity('Paris');
         $user2->setDescription('blabla');
@@ -66,8 +66,8 @@ class UserFixtures extends Fixture
         $user3->setLastname($faker->lastName);
         $user3->setRoles(['ROLE_USER']);
         $user3->setEmail($faker->email);
-        // Password0 //
-        $user3->setPassword('$2y$13$sR7MHj5S1xUQynO2cVmXX.mRYS/pyCzGuq0OxN7uMRwa1QxLnTf5a');
+        // Password.0 //
+        //$admin->setPassword('$2y$13$OajadnGr2PXfUogiBK7lPugQVIiBgTJYLtRgDIck8vv4aTCs1SAym');
         $user3->setDistrict(75);
         $user3->setCity('Paris');
         $user3->setDescription('blabla');
@@ -79,8 +79,8 @@ class UserFixtures extends Fixture
         $user4->setLastname($faker->lastName);
         $user4->setRoles(['ROLE_USER']);
         $user4->setEmail($faker->email);
-        // Password0 //
-        $user4->setPassword('$2y$13$sR7MHj5S1xUQynO2cVmXX.mRYS/pyCzGuq0OxN7uMRwa1QxLnTf5a');
+        // Password.0 //
+        //$admin->setPassword('$2y$13$OajadnGr2PXfUogiBK7lPugQVIiBgTJYLtRgDIck8vv4aTCs1SAym');
         $user4->setDistrict(75);
         $user4->setCity('Paris');
         $user4->setDescription('blabla');
@@ -93,7 +93,10 @@ class UserFixtures extends Fixture
         $admin->setRoles(['ROLE_USER','ROLE_ADMIN']);
         $admin->setEmail('admin@admin.com');
         // Password0 //
-        $admin->setPassword('$2y$13$sR7MHj5S1xUQynO2cVmXX.mRYS/pyCzGuq0OxN7uMRwa1QxLnTf5a');
+        //$admin->setPassword('$2y$13$sR7MHj5S1xUQynO2cVmXX.mRYS/pyCzGuq0OxN7uMRwa1QxLnTf5a');
+        // Password.0 //
+        //$admin->setPassword('$2y$13$OajadnGr2PXfUogiBK7lPugQVIiBgTJYLtRgDIck8vv4aTCs1SAym');
+        $admin->setPlaintextPassword('Password.0');
         $admin->setDistrict(75);
         $admin->setCity('Paris');
         $admin->setDescription('blabla');

@@ -17,13 +17,17 @@ export interface User {
   slug: string;
 }
 
+export interface UserAuth {
+  email: string | null;
+  password: string | null;
+}
+
 export interface UserPost {
   roles:string[];
   firstname: string;
   lastname: string;
   email: string;
-  password: string;
+  plaintextPassword: string;
   district: number;
   city: string;
-  slug: string;
 }

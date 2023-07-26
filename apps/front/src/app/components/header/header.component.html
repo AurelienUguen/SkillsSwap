@@ -8,11 +8,12 @@
                 <a *ngIf="status === 'disconnected'" class="add-course" routerLink="signup">+</a>
               </li>
               <li class="nav-item">
-                <a *ngIf="status === 'connected'" routerLink="my-space/{{userSlug}}" class="personnal-space-btn">Mon espace</a>
+                <a *ngIf="status === 'connected'" routerLink="my-space/{{userSlug}}" class="personnal-space-btn">{{userFirstname}}</a>
+                <a *ngIf="status === 'disconnected'" routerLink="signup"><span class="personnal-space-btn">Inscription</span></a>
               </li>
               <li class="nav-item">
                 <a *ngIf="status === 'connected'" routerLink="" (click)="logout()"><span class="deconnexion-btn">Déconnexion</span></a>
-                <a *ngIf="status === 'disconnected'" routerLink="signup"><span class="connexion-btn">Connexion</span></a>
+                <a *ngIf="status === 'disconnected'" routerLink="signin"><span class="deconnexion-btn">Connexion</span></a>
               </li>
           </ul>
       </div>

@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { LoginService } from 'src/app/services/login/login.service';
-import { User, UserPost } from 'src/app/model/user';
+import { User, UserAuth, UserPost } from 'src/app/model/user';
 import { ApiService } from 'src/app/services/api/api.service';
 
 @Component({
@@ -120,40 +120,23 @@ export class SignupComponent implements OnInit, OnDestroy  {
     return {test: true};
   }
 
-  login(){
+  signUp(){
+    sessionStorage.setItem(`email`, this.loginForm.value.userEmail);
+    sessionStorage.setItem(`password`, this.loginForm.value.userPassword);
 
     const newUser: UserPost = {
       roles:["ROLE_USER"],
       firstname: this.loginForm.value.userFirstname,
       lastname: this.loginForm.value.userLastname,
       email: this.loginForm.value.userEmail,
-      password: this.loginForm.value.userPassword,
+      plaintextPassword: this.loginForm.value.userPassword,
       district: 0,
-      city: "",
-      slug: "",
+      city: ""
     }
     console.log(newUser);
+    
     this.apiService.postUser(newUser).subscribe();
-
-    this.http.get<any>('https://127.0.0.1:8000/api/users').subscribe((users: any) => {
-      const hydras = users['hydra:member'];
-      for(let i = 0;i < hydras.length;i++){
-        if(this.loginForm.value.userEmail === hydras[i].email// &&
-           //this.loginForm.value.userPassword === hydras[i].password
-           ){
-          for (const prop in hydras[i]){
-            localStorage.setItem(prop,hydras[i][prop]);
-          }
-        }
-      }
-      if(localStorage.getItem('id')){
-        console.log("Wheeeeee");
-        this.isConnected.updateStatus("connected");
-        this.router.navigateByUrl("/");
-      }else{
-        console.log("Nooooooo");
-      }
-    });
+    this.router.navigateByUrl("connector");
   }
 
   get lastname() {

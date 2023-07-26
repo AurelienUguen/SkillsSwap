@@ -9,29 +9,35 @@ import { LoginService } from 'src/app/services/login/login.service';
 })
 export class HeaderComponent {
 
-  public status?: string;
   private subscription: Subscription;
-  public userSlug = localStorage.getItem('slug');
-  public userFirstname = localStorage.getItem('firstname');
+
+  public status?: string;
+  public userSlug?:string | null;
+  public userFirstname?:string | null;
 
   constructor(private isConnected: LoginService){
     this.subscription = this.isConnected.getStatusObservable().subscribe((status: string) => {
       this.status = status;
+      if(status === "connected"){
+        this.userSlug = localStorage.getItem('slug');
+        this.userFirstname = localStorage.getItem('firstname');
+      }
     });
   }
 
   ngOnInit(){
     this.isConnected.updateStatus('disconnected');
-    console.log(this.status);
   }
 
   logout(){
+    sessionStorage.clear();
     localStorage.clear();
     this.isConnected.updateStatus('disconnected');
     console.log("ByBye !!")
   }
 
   ngOnDestroy() {
+    sessionStorage.clear();
     localStorage.clear();
     this.subscription.unsubscribe();
   }
