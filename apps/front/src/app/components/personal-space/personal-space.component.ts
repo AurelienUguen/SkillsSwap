@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Lesson } from 'src/app/model/lesson';
 import { Sheet } from 'src/app/model/sheet';
-import { User } from 'src/app/model/user';
+import { User, userConnected } from 'src/app/model/user';
 import { ApiService } from 'src/app/services/api/api.service';
+import { mySpaceService } from 'src/app/services/mySpaceObserver/mySpaceObserver.service';
 
 @Component({
   selector: 'app-personal-space',
@@ -12,34 +13,36 @@ import { ApiService } from 'src/app/services/api/api.service';
 })
 export class PersonalSpaceComponent {
 
-  user?: User
+  private mySpace: Subscription;
+  private slug!: string;
 
-  userId = Number(localStorage.getItem('id'));
-  userFirstname = localStorage.getItem('firstname');
-  userLastname = localStorage.getItem('lastname');
-  userEmail = localStorage.getItem('email');
-  userCity = localStorage.getItem('city');
-  userDistrict = localStorage.getItem('district');
+  public user?: User
+  public sheets: Sheet[] = [];
+  public lessons: Lesson[] = [];
 
-  sheets: Sheet[] = [];
-  lessons: Lesson[] = [];
+  constructor(
+    private apiService: ApiService,
+    private mySpaceObs: mySpaceService
+    ){
+      this.mySpace = this.mySpaceObs.getStatusObservable().subscribe((user: userConnected) => {
+        this.slug = user.slug;
+      });
+    }
 
-  constructor(private route: ActivatedRoute, private apiService: ApiService) {
 
-  }
-
-
-  ngOnInit(): void {
+  ngOnInit() {
     this.getUserBySlug();
     this.getSheets();
     this.getLessons();
+    console.log(this.getUserBySlug());
   }
 
-  getUserBySlug(): void {
-    const slug = this.route.snapshot.paramMap.get('user')!;
-
-    this.apiService.getUserBySlug(slug)
-      .subscribe(user => this.user = user);
+  getUserBySlug() {
+    this.apiService.getUserBySlug(this.slug)
+      .subscribe(user => {
+        this.user = user;
+        console.log(this.user);
+      });
   }
 
   getSheets() {
@@ -51,5 +54,4 @@ export class PersonalSpaceComponent {
     return this.apiService.getLessons()
     .subscribe((lessons: any) => this.lessons = lessons['hydra:member']);
   }
-
 }
