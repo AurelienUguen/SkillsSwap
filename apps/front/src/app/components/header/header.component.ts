@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { userConnected } from 'src/app/model/user';
 import { LoginService } from 'src/app/services/login/login.service';
+import { mySpaceService } from 'src/app/services/mySpaceObserver/mySpaceObserver.service';
 
 @Component({
   selector: 'app-header',
@@ -10,18 +12,22 @@ import { LoginService } from 'src/app/services/login/login.service';
 export class HeaderComponent {
 
   private subscription: Subscription;
+  private mySpace: Subscription;
 
   public status?: string;
-  public userSlug?:string | null;
-  public userFirstname?:string | null;
+  public slug?: string;
+  public userName?: string;
 
-  constructor(private isConnected: LoginService){
+  constructor(
+    private isConnected: LoginService,
+    private mySpaceObs: mySpaceService
+    ){
     this.subscription = this.isConnected.getStatusObservable().subscribe((status: string) => {
       this.status = status;
-      if(status === "connected"){
-        this.userSlug = localStorage.getItem('slug');
-        this.userFirstname = localStorage.getItem('firstname');
-      }
+    });
+    this.mySpace = this.mySpaceObs.getStatusObservable().subscribe((user: userConnected) => {
+      this.slug = user.slug;
+      this.userName = user.firstname;
     });
   }
 

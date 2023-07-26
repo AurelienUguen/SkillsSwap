@@ -30,7 +30,6 @@ export class SigninComponent implements OnInit, OnDestroy  {
   }
 
   ngOnInit(): void {
-
     this.getScreenWidth = window.innerWidth;
     this.getScreenHeight = window.innerHeight;
 
@@ -52,7 +51,6 @@ export class SigninComponent implements OnInit, OnDestroy  {
   }
 
   signIn(){
-    
     let user = {
       email : this.loginForm.value.userEmail,
       password : this.loginForm.value.userPassword

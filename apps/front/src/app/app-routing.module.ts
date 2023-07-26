@@ -9,16 +9,13 @@ import { SignupComponent } from './components/login/signup/signup.component';
 import { PersonalSpaceComponent } from './components/personal-space/personal-space.component';
 import { SheetFormComponent } from './components/sheet-form/sheet-form.component';
 import { CategoryComponent } from './components/category/category.component';
-import { ConnectorComponent } from './components/login/signup/connector/connector.component';
-
 
 
   const routes: Routes = [
     { path: '', component: HomeComponent},
     { path: 'categories', component: CategoriesComponent },
     { path: 'signin', component: SigninComponent },
-    { path: 'signup', component: SignupComponent },
-    { path: 'connector', component: ConnectorComponent },
+    { path: 'signup', component: SignupComponent }
 ];
 
 const userRoutes: Routes = [

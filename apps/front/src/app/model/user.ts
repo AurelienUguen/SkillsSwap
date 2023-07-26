@@ -22,6 +22,11 @@ export interface UserAuth {
   password: string | null;
 }
 
+export interface userConnected {
+  slug: string;
+  firstname: string;
+}
+
 export interface UserPost {
   roles:string[];
   firstname: string;
