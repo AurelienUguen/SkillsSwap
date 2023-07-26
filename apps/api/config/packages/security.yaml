@@ -38,13 +38,24 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
+        # - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
+
+        # - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+        # - { path: ^/api/categories, roles: IS_AUTHENTICATED_FULLY }
+        # - { path: ^/api/lessons, roles: IS_AUTHENTICATED_FULLY }
+        # - { path: ^/api/sheets, roles: IS_AUTHENTICATED_FULLY }
+        # - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY }
+
         - { path: ^/$, roles: PUBLIC_ACCESS } # Allows accessing the Swagger UI
         - { path: ^/docs, roles: PUBLIC_ACCESS } # Allows accessing the Swagger UI docs
         - { path: ^/auth, roles: PUBLIC_ACCESS }
+
+        - { path: ^/api, roles: PUBLIC_ACCESS }
+        - { path: ^/api/categories, roles: PUBLIC_ACCESS }
+        - { path: ^/api/lessons, roles: PUBLIC_ACCESS }
         - { path: ^/api/sheets, roles: PUBLIC_ACCESS }
         - { path: ^/api/users, roles: PUBLIC_ACCESS }
-        - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
-        # - { path: ^/user, roles: PUBLIC_ACCESS }
+
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
