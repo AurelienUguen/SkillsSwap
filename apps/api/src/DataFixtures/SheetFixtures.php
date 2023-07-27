@@ -16,8 +16,9 @@ class SheetFixtures extends Fixture implements DependentFixtureInterface
     const SHEET3 = 'sheet3';
     const SHEET4 = 'sheet4';
     const SHEET5 = 'sheet5';
-    const SHEET6= 'sheet6';
-    const SHEETARRAY = [self::SHEET1, self::SHEET2, self::SHEET3, self::SHEET4, self::SHEET5, self::SHEET6];
+    const SHEET6 = 'sheet6';
+    const SHEET7 = 'sheet7';
+    const SHEETARRAY = [self::SHEET1, self::SHEET2, self::SHEET3, self::SHEET4, self::SHEET5, self::SHEET6, self::SHEET7];
 
     public function load(ObjectManager $manager): void
     {
@@ -87,6 +88,17 @@ class SheetFixtures extends Fixture implements DependentFixtureInterface
         $sheet6->setLanguage(['Anglais', 'Chypriote', 'Serbe']);
         $this->addReference(self::SHEET6, $sheet6);
         $manager->persist($sheet6);
+
+        $sheet7 = new Sheet();
+        $sheet7->setTitle('La bureautique Office pour les nuls');
+        $sheet7->setUser($this->getReference(UserFixtures::USER4));
+        $sheet7->setCategory($this->getReference(CategoryFixtures::CAT_INFORMATIQUE));
+        $sheet7->setDescription("Des points virgules partout la ou il faut !");
+        $sheet7->setIrl(1);
+        $sheet7->setVisio(0);
+        $sheet7->setLanguage(['Anglais']);
+        $this->addReference(self::SHEET7, $sheet7);
+        $manager->persist($sheet7);
 
         $manager->flush();
     }

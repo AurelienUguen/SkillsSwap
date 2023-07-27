@@ -50,7 +50,7 @@ class Sheet
     private ?Category $category = null;
 
     #[ORM\Column]
-    #[Groups(['read_sheet', 'read_user', 'create_sheet', 'read_category'])]
+    #[Groups(['read_sheet', 'read_user', 'create_sheet'])]
     private ?bool $irl = null;
 
     #[ORM\Column]

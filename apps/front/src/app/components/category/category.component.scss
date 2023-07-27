@@ -20,7 +20,6 @@ a:hover {
 
 
 .custom-cards {
-
   justify-content: center;
   align-items: center;
   background-color: rgb(255, 255, 255);
@@ -68,10 +67,8 @@ a:hover {
 }
 
 
-.test {
-  background-color: aquamarine;
-}
-
-.text {
-  background-color: coral;
+.main-container {
+  margin-top: 120px;
+  display: flex;
+  justify-content: center;
 }

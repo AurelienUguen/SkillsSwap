@@ -4,8 +4,8 @@ export interface Category {
   id: number;
   name: string;
   parent: Category;
-  categories: Category;
+  categories: Category[];
   slug: string;
-  sheets: Sheet;
+  sheets: Sheet[];
   isParent: boolean;
 }

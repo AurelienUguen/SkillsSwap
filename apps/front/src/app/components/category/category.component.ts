@@ -13,36 +13,59 @@ import { Sheet } from 'src/app/model/sheet';
 export class CategoryComponent {
 
   category?: Category;
+  categorySlug?: string;
   sheets:Sheet[] = [];
-  sheetsFromParent: Category[] = [];
-  Object = Object;
+  categories: Category[] = [];
 
+  constructor(private route: ActivatedRoute, private apiService: ApiService, private location: Location) {
 
-  constructor(private route: ActivatedRoute, private apiService: ApiService, private location: Location) { }
+    }
 
   ngOnInit(): void {
-    this.getCategoryBySlug();
+    this.categorySlug = this.getCategorySlug();
+    this.getCategoryBySlug(this.categorySlug);
+    this.getCategories();
+
+    setTimeout(() => {
+      if(this.category) {
+        this.sheets = this.getCategoryAndSubCategoriesSheets(this.category);
+        console.log(this.sheets);
+      }
+    }, 1000);
   }
 
-  getCategoryBySlug(): void {
-    const slug = this.route.snapshot.paramMap.get('category')!;
+  getCategorySlug() {
+    const slug = this.route.snapshot.paramMap.get('category');
 
-    this.apiService.getCategoryBySlug(slug)
-      .subscribe(category => this.category = category);
-
-    this.getSheets();
+    if (!slug) {
+      throw new Error('Category slug is not defined');
+    }
+    return slug;
   }
 
-  getSheets() {
-    const slug = this.route.snapshot.paramMap.get('category')!;
+  getCategoryBySlug(categorySlug: string): void {
 
+    this.apiService.getCategoryBySlug(categorySlug)
+    .subscribe((category: Category) => {
+      this.category = category;
+    });
+  }
 
-    this.apiService.getCategoryBySlug(slug)
-    .subscribe((category: any) => this.sheets = category.sheets);
+  getCategoryAndSubCategoriesSheets(category: Category): Sheet[] {
+    let sheets: Sheet[] = [];
 
+    category.categories.forEach((subCategory: Category) => {
+      sheets = [...sheets, ...this.getCategoryAndSubCategoriesSheets(subCategory)];
+    });
 
-    this.apiService.getCategoryBySlug(slug)
-    .subscribe((category: any) => console.log(this.sheetsFromParent = category.categories));
+    sheets = [...sheets, ...category.sheets];
+
+    return sheets;
+  }
+
+  getCategories(){
+    this.apiService.getCategories()
+    .subscribe((categories: any) => this.categories = categories['hydra:member'])
   }
 
   goBack(): void {

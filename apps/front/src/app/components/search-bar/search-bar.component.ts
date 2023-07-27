@@ -27,7 +27,5 @@ export class SearchBarComponent {
       .subscribe((category: any) => {
         this.searchResults = category['hydra:member'];
       });
-
-      console.log(this.searchResults)
   }
 }
