@@ -72,3 +72,13 @@ a:hover {
   display: flex;
   justify-content: center;
 }
+
+
+.title {
+  font-family: 'Bacasime Antique', serif;
+  font-weight: bolder;
+  color: $primary;
+  font-size: 4em;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
