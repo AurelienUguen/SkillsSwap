@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Lesson } from 'src/app/model/lesson';
 import { Sheet } from 'src/app/model/sheet';
 import { User, userConnected } from 'src/app/model/user';
 import { ApiService } from 'src/app/services/api/api.service';
+import { LoginService } from 'src/app/services/login/login.service';
 import { mySpaceService } from 'src/app/services/mySpaceObserver/mySpaceObserver.service';
 
 @Component({
@@ -13,17 +15,24 @@ import { mySpaceService } from 'src/app/services/mySpaceObserver/mySpaceObserver
 })
 export class PersonalSpaceComponent implements OnInit {
 
+  private subscription: Subscription;
   private mySpace: Subscription;
   private slug!: string;
 
-  public user?: User
+  public status?: string;
+  public user?: User;
   public sheets: Sheet[] = [];
   public lessons: Lesson[] = [];
 
   constructor(
     private apiService: ApiService,
-    private mySpaceObs: mySpaceService
+    private isConnected: LoginService,
+    private mySpaceObs: mySpaceService,
+    private router: Router
     ){
+      this.subscription = this.isConnected.getStatusObservable().subscribe((status: string) => {
+        this.status = status;
+      });
       this.mySpace = this.mySpaceObs.getStatusObservable().subscribe((user: userConnected) => {
         this.slug = user.slug;
       });
@@ -36,16 +45,23 @@ export class PersonalSpaceComponent implements OnInit {
     this.getLessons();
   }
 
-  kill(url: string, victim: string | number):void{
+  kill(url: string, victim: string | number,deco: boolean = false):void{
     const target = `https://api.skillswap.wip/api/${url}/${victim}`;
     this.apiService.laBroyeuse(target).subscribe(
       () => {
+        alert(`${victim} a été supprimé avec succès`);
         console.log('Suppression réussie !');
       },(error) => {
         console.error('Erreur lors de la suppression :', error);
       }
     );
-        console.log(target);
+    if(deco){
+      sessionStorage.clear();
+      localStorage.clear();
+      this.isConnected.updateStatus('disconnected');
+      console.log("ByBye !!")
+      this.router.navigateByUrl("/");
+    }
   }
 
   getUserBySlug() {
