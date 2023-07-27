@@ -11,7 +11,8 @@ import { Sheet } from 'src/app/model/sheet';
 export class SheetDetailComponent implements OnInit {
 
   sheet?: Sheet;
-  toggle = true;
+  languageToggle = true;
+  positionToggle = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,6 +31,10 @@ export class SheetDetailComponent implements OnInit {
   }
 
   showLanguage() {
-    this.toggle = !this.toggle;
+    this.languageToggle = !this.languageToggle;
+  }
+
+  showPosition() {
+    this.positionToggle = !this.positionToggle;
   }
 }
