@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Lesson } from 'src/app/model/lesson';
 import { Sheet } from 'src/app/model/sheet';
@@ -17,7 +16,6 @@ export class PersonalSpaceComponent implements OnInit {
   private mySpace: Subscription;
   private slug!: string;
 
-  public killForm!: FormGroup;
   public user?: User
   public sheets: Sheet[] = [];
   public lessons: Lesson[] = [];
@@ -38,10 +36,16 @@ export class PersonalSpaceComponent implements OnInit {
     this.getLessons();
   }
 
-  kill(victim: string):void{
-    console.log(victim);
-    this.apiService.deleteSheet(victim);
-    console.log(`Ca marche pas T_T`)
+  kill(url: string, victim: string | number):void{
+    const target = `https://api.skillswap.wip/api/${url}/${victim}`;
+    this.apiService.laBroyeuse(target).subscribe(
+      () => {
+        console.log('Suppression réussie !');
+      },(error) => {
+        console.error('Erreur lors de la suppression :', error);
+      }
+    );
+        console.log(target);
   }
 
   getUserBySlug() {

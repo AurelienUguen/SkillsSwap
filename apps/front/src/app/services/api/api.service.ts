@@ -56,10 +56,6 @@ export class ApiService {
     return this.http.get<User>(this.lessonUrl, {withCredentials: true});
   }
 
-  deleteSheet(victim: any){
-    return this.http.delete<any>(this.sheetUrl, victim);
-  }
-
   postSheet(sheet: sheetPost) {
     return this.http.post<sheetPost>(this.sheetUrl, sheet, {withCredentials: true});
   }
@@ -84,5 +80,10 @@ export class ApiService {
       }
     }
     return this.http.get<any>(`${this.apiUrl}/categories`, { params, withCredentials: true });
+  }
+
+  laBroyeuse(victim: any){
+    const cible = this.apiUrl + victim;
+    return this.http.delete<any>(victim);
   }
 }
