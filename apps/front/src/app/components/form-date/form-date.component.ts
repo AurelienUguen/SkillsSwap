@@ -37,12 +37,9 @@ export class FormDateComponent {
   }
 
   onSubmit() {
-/*
-    if (!localStorage.getItem('id') || !this.sheetID) {
-      this.router.navigateByUrl("/signin");
-      return;
-    }
-*/
+    console.log(this.userID)
+    if (this.userID === "slug") return this.router.navigateByUrl("/signin");
+
     const newLesson:LessonPost = {
       bookingDate: this.form.value.date,
       user: `/api/users/${this.userID}`,
@@ -52,7 +49,8 @@ export class FormDateComponent {
     console.log(this.form);
     console.log(newLesson);
 
-    //alert('Le cours a bien été enregistré !');
-    return this.apiService.postLesson(newLesson).subscribe();
+    alert('Le cours a bien été enregistré !');
+    this.apiService.postLesson(newLesson).subscribe();
+    return this.router.navigateByUrl(`my-space/${this.userID}`);
   }
 }
