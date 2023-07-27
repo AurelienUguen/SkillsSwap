@@ -1,7 +1,7 @@
 <div class="custom-container">
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="row">
     <input formControlName="date" class="form-control input-date col" type="date" [min]="currentDate | date:'yyyy-MM-dd'">
-    <input type="time" class="form-control input-time col" >
+    <!-- <input type="time" class="form-control input-time col" > -->
     <button class="btn btn-primary booking-btn col-4">Réserver!</button>
   </form>
 </div>

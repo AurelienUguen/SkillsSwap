@@ -1,44 +1,72 @@
-<div class="left-side">
-  <div *ngIf="sheet" class="main-container">
-    <h5 class="display-6 title">{{ sheet.title }}</h5>
-    <div>
-      <div class="d-flex justify-content-center how-to-learn">
-        <div *ngIf="sheet.irl" class="irl">
-          <img src="./assets/parlant.png" alt="" class="logo" />
-          <span>{{ sheet.user.district }} - {{ sheet.user.city }}</span>
+<div class="container-custom">
+  <div class="left-side">
+    <div *ngIf="sheet" class="main-container">
+      <h5 class="display-6 title">{{ sheet.title }}</h5>
+
+      <div class="about-user">
+        <h5 class="description-title">
+          À propos de {{ sheet.user.firstname }}
+        </h5>
+        <p class="description">{{ sheet.user.description }}</p>
+      </div>
+
+      <div class="about-lesson">
+        <h5 class="description-title">À propos du cours</h5>
+        <div class="buttons">
+          <button
+            (click)="showPosition()"
+            class="btn btn-primary toggle-btn"
+            [ngClass]="{ 'toggle-btn-focus': !positionToggle }"
+          >
+            Où apprendre ?
+          </button>
+          <button
+            (click)="showLanguage()"
+            class="btn btn-primary toggle-btn"
+            [ngClass]="{ 'toggle-btn-focus': !languageToggle }"
+          >
+            Quelle langue ?
+          </button>
         </div>
 
-        <div *ngIf="sheet.visio" class="visio d-flex align-items-center">
-          <img src="./assets/webcam.png" alt="" class="logo" />
-          <span>Webcam</span>
+        <div [hidden]="positionToggle">
+          <div class="d-flex justify-content-center how-to-learn">
+            <div *ngIf="sheet.irl" class="irl">
+              <img src="./assets/parlant.png" alt="" class="logo" />
+              <span>{{ sheet.user.district }} - {{ sheet.user.city }}</span>
+            </div>
+
+            <div *ngIf="sheet.visio" class="visio d-flex align-items-center">
+              <img src="./assets/webcam.png" alt="" class="logo" />
+              <span>Webcam</span>
+            </div>
+          </div>
         </div>
+
+        <div [hidden]="languageToggle" *ngFor="let lang of sheet.language">
+          <span class="language-span" style="margin-right: 1em">{{
+            lang
+          }}</span>
+        </div>
+
+        <p class="description sheet-description">{{ sheet.description }}</p>
+      </div>
+
+      <div class="booking-date-container">
+        <app-form-date></app-form-date>
       </div>
     </div>
+  </div>
 
-    <div class="about-user">
-      <h5 class="description-title">À propos de {{ sheet.user.firstname }}</h5>
-      <p class="description">{{ sheet.user.description }}</p>
-    </div>
-
-    <div class="about-lesson">
-      <h5 class="description-title">À propos du cours</h5>
-      <button
-        (click)="showLanguage()"
-        class="btn btn-primary toggle-btn"
-        [ngClass]="{ 'toggle-btn-focus': !toggle }"
-      >
-        Langues du cours
-      </button>
-      <div class="language-custom">
-        <div [hidden]="toggle" *ngFor="let lang of sheet.language">
-          <span class="language-span" style="margin-right: 1em">{{ lang }}</span>
-        </div>
+  <div class="right-side">
+    <div *ngIf="sheet" class="main-container">
+      <div class="user-card">
+          <img class="user-picture" src="https://source.unsplash.com/random/200x200/?{{
+            sheet.user.city
+          }}" alt="">
+          <h3 class="user-name">{{sheet.user.firstname}}</h3>
+          <button class="btn btn-primary contact-btn">Contacter</button>
       </div>
-      <p class="description">{{ sheet.description }}</p>
-    </div>
-
-    <div class="booking-date-container">
-      <app-form-date></app-form-date>
     </div>
   </div>
 </div>

@@ -1,0 +1,20 @@
+$primary: #0C5051;
+$primaryWithTransparancy: #0c50513f;
+$hover: #117375;
+
+
+.footer {
+  margin-top: 135px;
+  height: 200px;
+  background-color: $primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  font-family: 'Bacasime Antique', serif;
+  font-weight: bolder;
+  color: white;
+  font-size: 5vw;
+}
