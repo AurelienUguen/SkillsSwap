@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Category } from 'src/app/model/category';
 import { Sheet, sheetPost } from 'src/app/model/sheet';
@@ -36,7 +37,8 @@ export class SheetFormComponent implements OnInit {
 
   constructor(
     private apiService: ApiService,
-    private mySpaceObs: mySpaceService
+    private mySpaceObs: mySpaceService,
+    private router: Router
     ){
       this.sheetForm = this.mySpaceObs.getStatusObservable().subscribe((user: userConnected) => {
         this.slug = user.slug;
@@ -65,7 +67,7 @@ export class SheetFormComponent implements OnInit {
     }
     this.apiService.postSheet(newSheet).subscribe();
     console.log(newSheet);
-    //alert('Le cours a bien été enregistré !')
+    alert('Le cours a bien été enregistré !')
+    return this.router.navigateByUrl(`my-space/${this.slug}`);
   }
-
 }
