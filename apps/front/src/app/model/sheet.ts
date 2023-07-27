@@ -22,5 +22,5 @@ export interface sheetPost {
   description: string;
   irl: boolean;
   visio: boolean;
-  language: [];
+  language: string[];
 }

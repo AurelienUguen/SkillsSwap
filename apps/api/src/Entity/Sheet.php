@@ -86,7 +86,7 @@ class Sheet
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::JSON, nullable: true)]
-    #[Groups(['read_sheet', 'read_lesson'])]
+    #[Groups(['read_sheet', 'create_sheet', 'read_lesson'])]
     private array $language = [];
 
     public function __construct()

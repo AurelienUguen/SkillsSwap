@@ -1,4 +1,4 @@
-<ng-container *ngIf="user" [formGroup]="killForm">
+<ng-container *ngIf="user">
   <h2>Mes infos</h2>
   <p>{{ user.firstname }} {{ user.lastname }}</p>
   <p> {{ user.email }}</p>
@@ -10,7 +10,6 @@
   <div *ngFor="let sheet of sheets">
     <div *ngIf="sheet.user.id == user.id">
       <a routerLink="/{{ sheet.slug }}">{{ sheet.title }}</a>
-      <button (click)="kill(sheet.slug)"> Delete </button>
     </div>
   </div>
 
@@ -19,7 +18,6 @@
   <div *ngFor="let lesson of lessons">
     <div *ngIf="lesson.user.id == user.id">
       <a routerLink="/{{lesson.sheet.slug}}">{{lesson.sheet.title}}</a>
-      <button > Delete </button>
       <p>avec {{ lesson.sheet.user.firstname}}</p>
       <p>Le {{lesson.bookingDate | date }}</p>
     </div>
