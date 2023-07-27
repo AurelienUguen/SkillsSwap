@@ -17,8 +17,8 @@ input::placeholder {
   width: 100%;
   border: 2px solid $primary;
   border-radius: 20px;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+  /* border-top-right-radius: 0;
+  border-bottom-right-radius: 0; */
   outline:none;
 }
 
@@ -43,4 +43,35 @@ input::placeholder {
 
 .search-btn:hover {
   background-color: $hover;
+}
+
+.search-result {
+  border: 2px solid $primary;
+  background-color: white;
+  border-bottom: none;
+  border-top: none;
+  padding: 10px;
+}
+
+.search-result:first-of-type {
+  margin-top: 10px;
+  border-top: 2px solid $primary;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.search-result:last-child {
+  border-bottom: 2px solid $primary;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: $primary;
+  padding: 15px;
+}
+
+a:hover {
+  color: $hover
 }

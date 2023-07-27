@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Location } from '@angular/common';
 import { ApiService } from 'src/app/services/api/api.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class SearchBarComponent {
   searchResults?: any[];
 
 
-  constructor(private apiService: ApiService) {
+  constructor(private apiService: ApiService, private location: Location) {
 
   }
 

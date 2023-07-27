@@ -3,7 +3,7 @@
 
   <div class="row">
     <div *ngFor="let sheet of sheets" class="custom-cards container-fluid">
-      <a  routerLink="/{{ sheet.slug }}">
+      <a routerLink="/{{ sheet.slug }}">
         <div class="custom-card col">
           <div class="username position-relative container-fluid">
             <img
@@ -23,13 +23,7 @@
           </div>
         </div>
       </a>
-
-      <p>{{ sheet.category | json}}</p>
-
     </div>
   </div>
-
-
-
 </ng-container>
 <!-- <button type="button" class="btn btn-primary custom-btn" (click)="goBack()">Retour</button> -->
