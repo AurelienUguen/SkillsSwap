@@ -4,7 +4,7 @@ import { Category } from '../../model/category';
 import { User, UserAuth, UserPost } from '../../model/user';
 import { Observable } from 'rxjs';
 import { Sheet, sheetPost } from '../../model/sheet';
-import { LessonPost } from '../../model/lesson';
+import { Lesson, LessonPost } from '../../model/lesson';
 
 
 
@@ -52,9 +52,12 @@ export class ApiService {
     return this.http.get<Sheet>(url, {withCredentials: true});
   }
 
-
   getLessons(){
     return this.http.get<User>(this.lessonUrl, {withCredentials: true});
+  }
+
+  deleteSheet(victim: any){
+    return this.http.delete<any>(this.sheetUrl, victim);
   }
 
   postSheet(sheet: sheetPost) {

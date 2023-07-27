@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { Category } from 'src/app/model/category';
 import { Sheet, sheetPost } from 'src/app/model/sheet';
+import { userConnected } from 'src/app/model/user';
 import { ApiService } from 'src/app/services/api/api.service';
+import { mySpaceService } from 'src/app/services/mySpaceObserver/mySpaceObserver.service';
 
 @Component({
   selector: 'app-sheet-form',
@@ -10,6 +13,9 @@ import { ApiService } from 'src/app/services/api/api.service';
   styleUrls: ['./sheet-form.component.scss']
 })
 export class SheetFormComponent implements OnInit {
+
+  private sheetForm: Subscription;
+  private slug!: string;
 
   sheet: Sheet[] = []
   categories: Category[] = [];
@@ -28,11 +34,17 @@ export class SheetFormComponent implements OnInit {
     language: new FormControl(),
   })
 
-  constructor(private apiService: ApiService) {
-
-  }
+  constructor(
+    private apiService: ApiService,
+    private mySpaceObs: mySpaceService
+    ){
+      this.sheetForm = this.mySpaceObs.getStatusObservable().subscribe((user: userConnected) => {
+        this.slug = user.slug;
+      });
+    }
 
   ngOnInit() {
+    console.log(this.slug);
     this.getCategories();
   }
 
@@ -42,23 +54,18 @@ export class SheetFormComponent implements OnInit {
   }
 
   onSubmit() {
-
-    let userSlug = this.userSlug;
-
     const newSheet: sheetPost = {
       category: `/api/categories/${this.form.value.category}`,
       title: this.form.value.title,
-      user: `${userSlug}`,
+      user: `/api/users/${this.slug}`,
       description: this.form.value.description,
       irl: this.form.value.irl,
       visio: this.form.value.visio,
-      language: this.form.value.language,
+      language: ["Français"],
     }
-
     this.apiService.postSheet(newSheet).subscribe();
-
     console.log(newSheet);
-    alert('Le cours a bien été enregistré !')
+    //alert('Le cours a bien été enregistré !')
   }
 
 }
