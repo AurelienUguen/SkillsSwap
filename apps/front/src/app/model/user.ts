@@ -10,8 +10,8 @@ export interface User {
   phoneNumber: string;
   district: number;
   city: string;
-  sheets: Sheet
-  lessons: Lesson;
+  sheets: Sheet[];
+  lessons: Lesson[];
   roles:string[];
   description: string;
   slug: string;

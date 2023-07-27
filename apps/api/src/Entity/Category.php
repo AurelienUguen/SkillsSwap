@@ -24,7 +24,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new Api\Delete()
     ]
 )]
-#[ApiFilter(SearchFilter::class, properties: ['name' => 'exact'])]
+#[ApiFilter(SearchFilter::class, properties: ['name' => 'partial'])]
 
 class Category
 {
@@ -40,7 +40,7 @@ class Category
     private ?string $name = null;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'categories')]
-    #[Groups(['read_category','read_sheet', 'create_category'])]
+    #[Groups(['read_category', 'create_category', 'read_sheet'])]
     private ?self $parent = null;
 
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
