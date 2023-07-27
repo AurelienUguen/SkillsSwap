@@ -1,4 +1,3 @@
-import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api/api.service';
@@ -17,21 +16,21 @@ export class CategoryComponent {
   sheets:Sheet[] = [];
   categories: Category[] = [];
 
-  constructor(private route: ActivatedRoute, private apiService: ApiService, private location: Location) {
+  constructor(private route: ActivatedRoute, private apiService: ApiService) {
 
     }
 
   ngOnInit(): void {
     this.categorySlug = this.getCategorySlug();
+
     this.getCategoryBySlug(this.categorySlug);
-    this.getCategories();
 
     setTimeout(() => {
       if(this.category) {
         this.sheets = this.getCategoryAndSubCategoriesSheets(this.category);
         console.log(this.sheets);
       }
-    }, 1000);
+    }, 500);
   }
 
   getCategorySlug() {
@@ -61,14 +60,5 @@ export class CategoryComponent {
     sheets = [...sheets, ...category.sheets];
 
     return sheets;
-  }
-
-  getCategories(){
-    this.apiService.getCategories()
-    .subscribe((categories: any) => this.categories = categories['hydra:member'])
-  }
-
-  goBack(): void {
-    this.location.back();
   }
 }
