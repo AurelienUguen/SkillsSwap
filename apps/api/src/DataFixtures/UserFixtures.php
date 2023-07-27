@@ -72,7 +72,7 @@ class UserFixtures extends Fixture
             $user[$i]->setPlaintextPassword('Password.0');
             $user[$i]->setDistrict(75);
             $user[$i]->setCity('Paris');
-            $user[$i]->setDescription('blabla');
+            $user[$i]->setDescription('Je vous présente ' . $user[$i]->getFirstname() . ', une personne déterminée et passionnée. Dotée d\'une curiosité insatiable et d\'un esprit ouvert, ' . $user[$i]->getFirstname() . ' aime explorer de nouveaux horizons et relever des défis stimulants. Toujours en quête de connaissances, ' . $user[$i]->getFirstname() . ' est un apprenant avide, cherchant à élargir ses compétences et à s\'enrichir personnellement et professionnellement. Sa nature empathique et sa capacité à écouter attentivement font de ' . $user[$i]->getFirstname() . ' un excellent communicateur et un collaborateur précieux dans toute équipe. Qu\'il s\'agisse de résoudre des problèmes complexes ou de s\'engager dans des projets créatifs, ' . $user[$i]->getFirstname() . ' aborde chaque tâche avec engagement et détermination. Toujours prêt à contribuer positivement à son environnement, ' . $user[$i]->getFirstname() . ' est une personne inspirante qui apporte sa passion et son énergie à tout ce qu\'elle entreprend.');
             $this->setReference(self::USERARRAY[$i - 1], $user[$i]);
             $manager->persist($user[$i]);
         }
@@ -130,5 +130,22 @@ class UserFixtures extends Fixture
         $this->addReference(self::USER4, $user4);
         $manager->persist($user4);
  */
+        $admin = new User();
+        $admin->setFirstname('admin');
+        $admin->setLastname('ADMIN');
+        $admin->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
+        $admin->setEmail('admin@admin.com');
+        // Password0 //
+        //$admin->setPassword('$2y$13$sR7MHj5S1xUQynO2cVmXX.mRYS/pyCzGuq0OxN7uMRwa1QxLnTf5a');
+        // Password.0 //
+        //$admin->setPassword('$2y$13$OajadnGr2PXfUogiBK7lPugQVIiBgTJYLtRgDIck8vv4aTCs1SAym');
+        $admin->setPlaintextPassword('Password.0');
+        $admin->setDistrict(75);
+        $admin->setCity('Paris');
+        $admin->setDescription('blabla');
+        $this->addReference(self::ADMIN, $admin);
+        $manager->persist($admin);
+
+        $manager->flush();
     }
 }

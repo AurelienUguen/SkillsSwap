@@ -11,6 +11,7 @@ import { Sheet } from 'src/app/model/sheet';
 export class SheetDetailComponent implements OnInit {
 
   sheet?: Sheet;
+  toggle = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -23,6 +24,12 @@ export class SheetDetailComponent implements OnInit {
 
   getSheetBySlug(): void {
     const slug = this.route.snapshot.paramMap.get('sheet')!;
-    this.apiService.getSheetBySlug(slug).subscribe(sheet => this.sheet = sheet);
+
+    this.apiService.getSheetBySlug(slug)
+      .subscribe(sheet => this.sheet = sheet);
+  }
+
+  showLanguage() {
+    this.toggle = !this.toggle;
   }
 }

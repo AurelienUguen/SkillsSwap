@@ -47,10 +47,14 @@ input::placeholder {
 
 .search-result {
   border: 2px solid $primary;
-  background-color: white;
+  background-color: $primary;
   border-bottom: none;
   border-top: none;
   padding: 10px;
+}
+
+.search-result:hover {
+  background-color: $hover;
 }
 
 .search-result:first-of-type {
@@ -68,10 +72,6 @@ input::placeholder {
 
 a {
   text-decoration: none;
-  color: $primary;
+  color: white;
   padding: 15px;
-}
-
-a:hover {
-  color: $hover
 }

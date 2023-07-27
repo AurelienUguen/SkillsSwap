@@ -114,10 +114,12 @@ class SheetFixtures extends Fixture implements DependentFixtureInterface
         $sheet7->setTitle('La bureautique Office pour les nuls');
         $sheet7->setUser($this->getReference(UserFixtures::USER3));
         $sheet7->setCategory($this->getReference(CategoryFixtures::CAT_INFORMATIQUE));
-        $sheet7->setDescription("Des points virgules partout la ou il faut !");
-        $sheet7->setIrl((bool)mt_rand(0,1));
-        $sheet7->setVisio((bool)mt_rand(0,1));
-        $sheet7->setLanguage(['Polonais','Anglais']);
+        $sheet7->setDescription("Je propose plusieurs cours EXCEL adaptés en fonction du niveau, toujours accompagnés d'une documentation théorique pratique et d'exercices créés par mes soins. Cette documentation est spécialement ciblée pour que la courbe d'apprentissage soit en accord avec le niveau de l'étudiant.
+        Je travaille également sur des points spécifiques tels que le GUIDE DE SOLUTION de problèmes spécifiques.
+        L'amélioration est garantie à 100%.");
+        $sheet7->setIrl(1);
+        $sheet7->setVisio(0);
+        $sheet7->setLanguage(['Anglais']);
         $this->addReference(self::SHEET7, $sheet7);
         $manager->persist($sheet7);
 

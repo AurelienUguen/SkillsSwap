@@ -1,34 +1,44 @@
-<div *ngIf="sheet" class="main-container">
-  <h5 class="display-6 title">{{sheet.title}}</h5>
-  <div>
-    <div class="d-flex">
-      <div *ngIf="sheet.irl">
-        <div class="irl">
-          <img src="./assets/parlant.png" alt="" class="logo">
-          <p class="test">{{ sheet.user.district }} - {{ sheet.user.city }}</p>
+<div class="left-side">
+  <div *ngIf="sheet" class="main-container">
+    <h5 class="display-6 title">{{ sheet.title }}</h5>
+    <div>
+      <div class="d-flex justify-content-center how-to-learn">
+        <div *ngIf="sheet.irl" class="irl">
+          <img src="./assets/parlant.png" alt="" class="logo" />
+          <span>{{ sheet.user.district }} - {{ sheet.user.city }}</span>
+        </div>
+
+        <div *ngIf="sheet.visio" class="visio d-flex align-items-center">
+          <img src="./assets/webcam.png" alt="" class="logo" />
+          <span>Webcam</span>
         </div>
       </div>
-      <div *ngIf="sheet.visio" class="visio">
-        <img src="./assets/webcam.png" alt="" class="logo">
-        <p>Webcam</p>
+    </div>
+
+    <div class="about-user">
+      <h5 class="description-title">À propos de {{ sheet.user.firstname }}</h5>
+      <p class="description">{{ sheet.user.description }}</p>
+    </div>
+
+    <div class="about-lesson">
+      <h5 class="description-title">À propos du cours</h5>
+      <button
+        (click)="showLanguage()"
+        class="btn btn-primary toggle-btn"
+        [ngClass]="{ 'toggle-btn-focus': !toggle }"
+      >
+        Langues du cours
+      </button>
+      <div class="language-custom">
+        <div [hidden]="toggle" *ngFor="let lang of sheet.language">
+          <span class="language-span" style="margin-right: 1em">{{ lang }}</span>
+        </div>
       </div>
+      <p class="description">{{ sheet.description }}</p>
+    </div>
+
+    <div class="booking-date-container">
+      <app-form-date></app-form-date>
     </div>
   </div>
-  <h5>À propos de {{ sheet.user.firstname}}</h5>
-  <p>{{ sheet.user.description }}</p>
-  <p>{{ sheet.user.id }}</p>
-  <h5>À propos du cours</h5>
-  <p>
-    <ng-container *ngFor="let langue of sheet.language; let last = last">
-      <span>{{ langue }}</span>
-      <span *ngIf="!last">, </span>
-    </ng-container>
-  </p>
-  <p>{{ sheet.description }}</p>
-  <div class="booking-date-container">
-    <app-form-date></app-form-date>
-  </div>
 </div>
-
-
-

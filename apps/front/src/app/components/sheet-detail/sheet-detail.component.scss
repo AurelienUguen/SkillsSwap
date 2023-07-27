@@ -3,10 +3,10 @@ $primaryWithTransparancy: #0c50516c;
 $hover: #117375;
 
 .main-container {
-  margin-top: 100px;
+  margin-top: 50px;
 }
 
-.booking-date-container {
+.left-side {
   width: 50%;
 }
 
@@ -14,25 +14,68 @@ $hover: #117375;
   font-family: 'Bacasime Antique', serif;
   font-weight: bolder;
   color: $primary;
-  font-size: 4em;
-  margin-bottom: 50px;
+  font-size: 5vw;
+}
+
+.how-to-learn {
+  margin: 20px 0px 20px 0px;
 }
 
 .visio, .irl {
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: center;
   background-color: white;
-  padding: 10px 100px 10px 100px;
-  margin: 30px;
+  width: 20vw;
+  padding: 10px;
+  margin: 15px;
   border-radius: 50px;
   border: 1px solid #11737580;
 }
-.test {
-  font-size: 1.2vw;
-}
+
 .logo {
   width: 15%;
-  background-color: aqua;
+  margin: 10px;
+}
+
+.description-title {
+  font-family: 'Bacasime Antique', serif;
+  font-weight: bolder;
+  color: $primary;
+  font-size: 2em;
+  margin-bottom: 15px;
+}
+
+.description {
+  text-align: justify;
+}
+
+.booking-date-container {
+  width: 100%;
+}
+
+.toggle-btn {
+  background-color: $primary;
+  border: none;
+  padding: 12px;
+  border-radius: 15px;
+  margin: 10px 0px 10px 10px;
+}
+
+.toggle-btn-focus {
+  color: $primary;
+  background-color: white;
+  border: 2px solid $primary;
+}
+
+.language-custom {
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0px 10px 0px;
+}
+
+.language-span {
+  font-family: 'Bacasime Antique', serif;
+  font-size: 1.4em;
+  color: $primary;
 }
