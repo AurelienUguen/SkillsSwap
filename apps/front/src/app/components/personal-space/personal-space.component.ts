@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Lesson } from 'src/app/model/lesson';
@@ -12,7 +12,7 @@ import { mySpaceService } from 'src/app/services/mySpaceObserver/mySpaceObserver
   templateUrl: './personal-space.component.html',
   styleUrls: ['./personal-space.component.scss']
 })
-export class PersonalSpaceComponent {
+export class PersonalSpaceComponent implements OnInit {
 
   private mySpace: Subscription;
   private slug!: string;
