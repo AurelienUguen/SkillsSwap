@@ -1,4 +1,4 @@
-<ng-container *ngIf="user" [formGroup]="killForm">
+<ng-container *ngIf="user">
   <h2>Mes infos</h2>
   <button (click)="kill('users',user.slug,true)"> supprimer le compte </button>
   <p>{{ user.firstname }} {{ user.lastname }}</p>
