@@ -10,7 +10,7 @@ use Faker;
 
 class SheetFixtures extends Fixture implements DependentFixtureInterface
 {
-    const NB_SHEET = 30;
+    const NB_SHEET = 100;
     const LANGUAGE = [
         "Français",
         "Anglais",
@@ -46,7 +46,7 @@ class SheetFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 1 ; $i <= self::NB_SHEET ; $i++) {
             $sheet[$i] = new Sheet();
             $sheet[$i]->setTitle($faker->catchPhrase);
-            $sheet[$i]->setUser($this->getReference("user".mt_rand(1,(UserFixtures::NB_USER)-1)));
+            $sheet[$i]->setUser($this->getReference("user".mt_rand(2,(UserFixtures::NB_USER))));
             $sheet[$i]->setCategory($this->getReference(CategoryFixtures::CAT_REF[mt_rand(0,count(CategoryFixtures::CAT_REF)-1)]));
             $sheet[$i]->setDescription($faker->realText($maxNbChars = 200, $indexSize = 2));
             $sheet[$i]->setIrl( (bool)mt_rand(0,1) );

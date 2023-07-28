@@ -10,25 +10,11 @@ use Faker;
 class UserFixtures extends Fixture
 {
     const ADMIN = 'ADMIN';
-    const NB_USER = 29;
+    const NB_USER = 100;
 
     public function load(ObjectManager $manager): void
     {
         $faker = Faker\Factory::create('fr_FR');
-
-        for ($i = 1 ; $i <= self::NB_USER ; $i++) {
-            $user[$i] = new User();
-            $user[$i]->setFirstname($faker->firstName);
-            $user[$i]->setLastname($faker->lastName);
-            $user[$i]->setRoles(['ROLE_USER']);
-            $user[$i]->setEmail(strtolower($user[$i]->getFirstname().".".$user[$i]->getLastname()."@skillswap.wip"));
-            $user[$i]->setPlaintextPassword('Password.0');
-            $user[$i]->setDistrict(mt_rand(1,95));
-            $user[$i]->setCity($faker->city);
-            $user[$i]->setDescription($faker->realText($maxNbChars = 200, $indexSize = 2));
-            $this->setReference("user$i", $user[$i]);
-            $manager->persist($user[$i]);
-        }
 
         $admin = new User();
         $admin->setFirstname('admin');
@@ -41,6 +27,20 @@ class UserFixtures extends Fixture
         $admin->setDescription('blabla');
         $this->setReference(self::ADMIN, $admin);
         $manager->persist($admin);
+
+        for ($i = 1 ; $i <= self::NB_USER ; $i++) {
+            $user[$i] = new User();
+            $user[$i]->setFirstname($faker->firstName);
+            $user[$i]->setLastname($faker->lastName);
+            $user[$i]->setRoles(['ROLE_USER']);
+            $user[$i]->setEmail(strtolower(\Transliterator::create('NFD; [:Nonspacing Mark:] Remove; NFC')->transliterate($user[$i]->getFirstname().".".$user[$i]->getLastname()."@skillswap.wip")));
+            $user[$i]->setPlaintextPassword('Password.0');
+            $user[$i]->setDistrict(mt_rand(1,95));
+            $user[$i]->setCity($faker->city);
+            $user[$i]->setDescription($faker->realText($maxNbChars = 200, $indexSize = 2));
+            $this->setReference("user$i", $user[$i]);
+            $manager->persist($user[$i]);
+        }
 
         $manager->flush();
     }
