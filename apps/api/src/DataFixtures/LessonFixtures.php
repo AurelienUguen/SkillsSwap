@@ -11,19 +11,18 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class LessonFixtures extends Fixture implements DependentFixtureInterface
 {
+    const NB_LESSON = 100;
     
     public function load(ObjectManager $manager): void
     {
         $faker = Faker\Factory::create('fr_FR');
-
-        for ($i = 1; $i <= count(UserFixtures::USERARRAY); $i++) {
+        for ($i = 0 ; $i <= self::NB_LESSON ; $i++) {
             $lesson[$i] = new Lesson();
-            $lesson[$i]->setUser($this->getReference(UserFixtures::USERARRAY[$i - 1]));
-            $lesson[$i]->setSheet($this->getReference(SheetFixtures::SHEETARRAY[$i - 1]));
+            $lesson[$i]->setUser($this->getReference("user".mt_rand(1,(UserFixtures::NB_USER)-1)));
+            $lesson[$i]->setSheet($this->getReference("sheet".mt_rand(1,(SheetFixtures::NB_SHEET)-1)));
             $lesson[$i]->setBookingDate(new DateTime($faker->date('Y-m-d')));
             $manager->persist($lesson[$i]);
         }
-
         $manager->flush();
     }
 
@@ -34,5 +33,4 @@ class LessonFixtures extends Fixture implements DependentFixtureInterface
             SheetFixtures::class,
         ];
     }
-
 }
