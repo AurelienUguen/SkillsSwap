@@ -14,17 +14,20 @@
       </div>
     </div>
   </div>
-
   <h5>À propos de {{ sheet.user.firstname}}</h5>
   <p>{{ sheet.user.description }}</p>
   <p>{{ sheet.user.id }}</p>
   <h5>À propos du cours</h5>
-  <p>{{ sheet.language }}</p>
+  <p>
+    <ng-container *ngFor="let langue of sheet.language; let last = last">
+      <span>{{ langue }}</span>
+      <span *ngIf="!last">, </span>
+    </ng-container>
+  </p>
   <p>{{ sheet.description }}</p>
   <div class="booking-date-container">
     <app-form-date></app-form-date>
   </div>
-
 </div>
 
 

@@ -10,16 +10,58 @@ use Faker;
 class UserFixtures extends Fixture
 {
     const ADMIN = 'ADMIN';
+    /*
     const USER1 = 'USER1';
     const USER2 = 'USER2';
     const USER3 = 'USER3';
     const USER4 = 'USER4';
-    const USERARRAY = [self::USER1, self::USER2, self::USER3, self::USER4];
+    const USERARRAY = [
+        self::USER1,
+        self::USER2,
+        self::USER3,
+        self::USER4
+    ];
+    */
+    const NB_USER = 50;
 
     public function load(ObjectManager $manager): void
     {
         $faker = Faker\Factory::create('fr_FR');
 
+        $admin = new User();
+        $admin->setFirstname('admin');
+        $admin->setLastname('ADMIN');
+        $admin->setRoles(['ROLE_USER','ROLE_ADMIN']);
+        $admin->setEmail('admin@admin.com');
+        // Password0 //
+        //$admin->setPassword('$2y$13$sR7MHj5S1xUQynO2cVmXX.mRYS/pyCzGuq0OxN7uMRwa1QxLnTf5a');
+        // Password.0 //
+        //$admin->setPassword('$2y$13$OajadnGr2PXfUogiBK7lPugQVIiBgTJYLtRgDIck8vv4aTCs1SAym');
+        $admin->setPlaintextPassword('Password.0');
+        $admin->setDistrict(75);
+        $admin->setCity('Paris');
+        $admin->setDescription('blabla');
+        $this->addReference(self::ADMIN, $admin);
+        $manager->persist($admin);
+
+        for ($i = 1 ; $i <= self::NB_USER ; $i++) {
+            $user[$i] = new User();
+            $user[$i]->setFirstname($faker->firstName);
+            $user[$i]->setLastname($faker->lastName);
+            $user[$i]->setRoles(['ROLE_USER']);
+            $user[$i]->setEmail($user[$i]->getFirstname().".".$user[$i]->getLastname()."@skillswap.wip");
+            //$user[$i]->setPassword('Password.0');
+            $user[$i]->setPlaintextPassword('Password.0');
+            $user[$i]->setDistrict(mt_rand(1,95));
+            $user[$i]->setCity($faker->city);
+            $user[$i]->setDescription($faker->realText($maxNbChars = 200, $indexSize = 2));
+            $this->setReference("user$i", $user[$i]);
+            $manager->persist($user[$i]);
+        }
+
+        $manager->flush();
+
+        /*
         for ($i = 1; $i <= count(self::USERARRAY); $i++) {
             $user[$i] = new User();
             $user[$i]->setFirstname($faker->firstName);
@@ -34,7 +76,8 @@ class UserFixtures extends Fixture
             $this->setReference(self::USERARRAY[$i - 1], $user[$i]);
             $manager->persist($user[$i]);
         }
-/* 
+        /* 
+
         $user1 = new User();
         $user1->setFirstname($faker->firstName);
         $user1->setLastname($faker->lastName);
@@ -87,22 +130,5 @@ class UserFixtures extends Fixture
         $this->addReference(self::USER4, $user4);
         $manager->persist($user4);
  */
-        $admin = new User();
-        $admin->setFirstname('admin');
-        $admin->setLastname('ADMIN');
-        $admin->setRoles(['ROLE_USER','ROLE_ADMIN']);
-        $admin->setEmail('admin@admin.com');
-        // Password0 //
-        //$admin->setPassword('$2y$13$sR7MHj5S1xUQynO2cVmXX.mRYS/pyCzGuq0OxN7uMRwa1QxLnTf5a');
-        // Password.0 //
-        //$admin->setPassword('$2y$13$OajadnGr2PXfUogiBK7lPugQVIiBgTJYLtRgDIck8vv4aTCs1SAym');
-        $admin->setPlaintextPassword('Password.0');
-        $admin->setDistrict(75);
-        $admin->setCity('Paris');
-        $admin->setDescription('blabla');
-        $this->addReference(self::ADMIN, $admin);
-        $manager->persist($admin);
-
-        $manager->flush();
     }
 }

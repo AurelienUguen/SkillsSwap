@@ -12,12 +12,21 @@ class CategoryFixtures extends Fixture
     const CAT_ARTSPLASTIQUES = 'arts plastiques';
     const CAT_MUSIQUE = 'musique';
     const CAT_INFORMATIQUE = 'informatique';
+    /*
     const CAT_EBENISTERIE = 'ebenisterie';
     const CAT_POTERIE = 'poterie';
     const CAT_BOUZOUKI = 'bouzouki';
     const CAT_INFOGRAPHIE = 'infographie';
     const CAT_BLENDER = 'blenbder';
     const CAT_BATTERIE = 'batterie';
+    */
+
+    const CAT_REF = [
+        self::CAT_BRICOLAGE,
+        self::CAT_ARTSPLASTIQUES,
+        self::CAT_MUSIQUE,
+        self::CAT_INFORMATIQUE
+    ];
 
 
     public function load(ObjectManager $manager): void
@@ -46,6 +55,7 @@ class CategoryFixtures extends Fixture
         $this->addReference(self::CAT_INFORMATIQUE, $category4);
         $manager->persist($category4);
 
+        /*
         $category6 = new Category();
         $category6->setName('Ebénisterie');
         $category6->setParent($category1);
@@ -87,6 +97,7 @@ class CategoryFixtures extends Fixture
         $category10->setIsParent(false);
         $this->addReference(self::CAT_BATTERIE, $category10);
         $manager->persist($category10);
+        */
 
         $manager->flush();
     }
