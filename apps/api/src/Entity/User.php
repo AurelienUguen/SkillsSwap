@@ -23,7 +23,9 @@ use Symfony\Component\Validator\Constraints as Assert;
     normalizationContext:['groups' => ['read_user']],
     denormalizationContext:['groups' => ['create_user']],
     operations:[
-        new Api\GetCollection(),
+        new Api\GetCollection(
+            paginationEnabled: false,// Ceci supprime la limite d'utilisateur de 30 pour le login //
+        ),
         new Api\Post(),
         new Api\Get(),
         new Api\Put(),

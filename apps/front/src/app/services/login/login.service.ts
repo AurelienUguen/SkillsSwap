@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
+import { Subject, Subscription, tap } from 'rxjs';
 import { UserAuth } from 'src/app/model/user';
 import { ApiService } from '../api/api.service';
 import { Router } from '@angular/router';
@@ -36,7 +36,10 @@ export class LoginService {
   authentication(user: UserAuth){
     this.apiService.postAuth(user).subscribe(
       sucess => {
-        this.http.get(this.apiUsers).subscribe((users: any) => {
+        this.http.get(this.apiUsers).pipe(
+          tap(console.log)
+        ).subscribe((users: any) => {
+
           const hydras = users['hydra:member'];
             console.log(hydras);
           for(let i = 0;i < hydras.length;i++){
