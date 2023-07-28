@@ -10,19 +10,34 @@ use Faker;
 
 class SheetFixtures extends Fixture implements DependentFixtureInterface
 {
-    const NB_SHEET = 50;
-    /*
-    const SHEET1 = 'sheet1';
-    const SHEET2 = 'sheet2';
-    const SHEET3 = 'sheet3';
-    const SHEET4 = 'sheet4';
-    const SHEET5 = 'sheet5';
-    const SHEET6 = 'sheet6';
-    const SHEET7 = 'sheet7';
-    const SHEET8 = 'sheet8';
-    const SHEETARRAY = [self::SHEET1, self::SHEET2, self::SHEET3, self::SHEET4, self::SHEET5, self::SHEET6, self::SHEET7, self::SHEET8];
-    */
-    const LANGUAGE = ["Français","Anglais","Belge","Chypriote","Koréen","Congolais"];
+    const NB_SHEET = 30;
+    const LANGUAGE = [
+        "Français",
+        "Anglais",
+        "Belge",
+        "Chypriote",
+        "Koréen",
+        "Congolais"
+    ];
+    const PICS_URL = "https://source.unsplash.com/random/400x400/?";
+    const CAT_PICS = [
+        /*/////////
+        'bricolage',
+        'arts plastiques',
+        'musique',
+        'informatique',
+        /*/////////
+        "lingerie",
+        "heels",
+        'poterie',
+        'infographie',
+        'blender',
+        'batterie',
+        'saucisse',
+        'carton',
+        'meat',
+        "car",
+    ];
 
     public function load(ObjectManager $manager): void
     {
@@ -34,8 +49,13 @@ class SheetFixtures extends Fixture implements DependentFixtureInterface
             $sheet[$i]->setUser($this->getReference("user".mt_rand(1,(UserFixtures::NB_USER)-1)));
             $sheet[$i]->setCategory($this->getReference(CategoryFixtures::CAT_REF[mt_rand(0,count(CategoryFixtures::CAT_REF)-1)]));
             $sheet[$i]->setDescription($faker->realText($maxNbChars = 200, $indexSize = 2));
-            $sheet[$i]->setIrl((bool)mt_rand(0,1));
-            $sheet[$i]->setVisio((bool)mt_rand(0,1));
+            $sheet[$i]->setIrl( (bool)mt_rand(0,1) );
+            ($sheet[$i]->isIrl()) ? $sheet[$i]->setVisio((bool)mt_rand(0,1)) : $sheet[$i]->setVisio((bool)1);
+
+            ( (bool)mt_rand(0,1) )
+                ? $sheet[$i]->setImageURL(self::PICS_URL.(self::CAT_PICS[mt_rand(0,count(self::CAT_PICS)-1)]))
+                : $sheet[$i]->setImageURL(null);
+
             $sheet[$i]->setLanguage([self::LANGUAGE[mt_rand(0,count(self::LANGUAGE)-1)]]);
             $this->addReference("sheet$i", $sheet[$i]);
             $manager->persist($sheet[$i]);
@@ -134,6 +154,10 @@ class SheetFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::SHEET8, $sheet8);
         $manager->persist($sheet8);
         */
+    }
+
+    public function random(){
+        (bool)mt_rand(0,1);
     }
 
     public function getDependencies ()

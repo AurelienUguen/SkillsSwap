@@ -12,6 +12,7 @@ class CategoryFixtures extends Fixture
     const CAT_ARTSPLASTIQUES = 'arts plastiques';
     const CAT_MUSIQUE = 'musique';
     const CAT_INFORMATIQUE = 'informatique';
+
     /*
     const CAT_EBENISTERIE = 'ebenisterie';
     const CAT_POTERIE = 'poterie';
@@ -27,7 +28,6 @@ class CategoryFixtures extends Fixture
         self::CAT_MUSIQUE,
         self::CAT_INFORMATIQUE
     ];
-
 
     public function load(ObjectManager $manager): void
     {

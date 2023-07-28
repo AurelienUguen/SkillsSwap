@@ -89,6 +89,10 @@ class Sheet
     #[Groups(['read_sheet', 'create_sheet', 'read_lesson'])]
     private array $language = [];
 
+    #[Groups(['read_sheet', 'create_sheet', 'read_lesson','read_category'])]
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $imageURL = null;
+
     public function __construct()
     {
     
@@ -223,6 +227,18 @@ class Sheet
     public function setLanguage(?array $language): static
     {
         $this->language = $language;
+
+        return $this;
+    }
+
+    public function getImageURL(): ?string
+    {
+        return $this->imageURL;
+    }
+
+    public function setImageURL(?string $imageURL): static
+    {
+        $this->imageURL = $imageURL;
 
         return $this;
     }
