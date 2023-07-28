@@ -38,6 +38,7 @@ export class LoginService {
       sucess => {
         this.http.get(this.apiUsers).subscribe((users: any) => {
           const hydras = users['hydra:member'];
+            console.log(hydras);
           for(let i = 0;i < hydras.length;i++){
             if(user.email === hydras[i].email){
               const userConnect = {
@@ -45,12 +46,13 @@ export class LoginService {
                 firstname: hydras[i].firstname
               }
               this.mySpaceObs.updateStatus(userConnect);
+              console.log("Wheeeeee");
+              this.updateStatus("connected");
+              this.router.navigateByUrl("/");
             }
           }
         });
-        console.log("Wheeeeee");
-        this.updateStatus("connected");
-        this.router.navigateByUrl("/");
+        console.log(user);
       },
       error => {
         console.log("Nooooooo");

@@ -11,7 +11,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class LessonFixtures extends Fixture implements DependentFixtureInterface
 {
-    const NB_LESSON = 100;
+    const NB_LESSON = 30;
     
     public function load(ObjectManager $manager): void
     {

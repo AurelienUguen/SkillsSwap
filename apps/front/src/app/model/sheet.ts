@@ -12,6 +12,7 @@ export interface Sheet {
   language: [];
   lesson: Lesson;
   category: Category;
+  imageURL: string;
   slug: string;
 }
 

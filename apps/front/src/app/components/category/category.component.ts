@@ -30,7 +30,7 @@ export class CategoryComponent {
         this.sheets = this.getCategoryAndSubCategoriesSheets(this.category);
         console.log(this.sheets);
       }
-    }, 500);
+    }, 5000);
   }
 
   getCategorySlug() {

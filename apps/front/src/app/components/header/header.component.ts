@@ -36,15 +36,15 @@ export class HeaderComponent {
   }
 
   logout(){
-    sessionStorage.clear();
-    localStorage.clear();
+    this.mySpaceObs.updateStatus({
+      slug: "slug",
+      firstname: "firstname",
+    })
     this.isConnected.updateStatus('disconnected');
     console.log("ByBye !!")
   }
 
   ngOnDestroy() {
-    sessionStorage.clear();
-    localStorage.clear();
     this.subscription.unsubscribe();
   }
 }
