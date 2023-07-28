@@ -26,43 +26,43 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   getCategories() {
-    return this.http.get<Category>(this.categoriesUrl);
+    return this.http.get<Category>(this.categoriesUrl, {withCredentials: true});
   }
 
   getCategoryBySlug(slug: string): Observable<Category> {
     const url = `${this.categoriesUrl}/${slug}`;
-    return this.http.get<Category>(url);
+    return this.http.get<Category>(url, {withCredentials: true});
   }
 
   getUsers() {
-    return this.http.get<User>(this.usersUrl);
+    return this.http.get<User>(this.usersUrl, {withCredentials: true});
   }
 
   getUserBySlug(slug: string): Observable<User> {
     const url = `${this.usersUrl}/${slug}`;
-    return this.http.get<User>(url);
+    return this.http.get<User>(url, {withCredentials: true});
   }
 
   getSheets() {
-    return this.http.get<Sheet>(this.sheetUrl);
+    return this.http.get<Sheet>(this.sheetUrl, {withCredentials: true});
   }
 
   getSheetBySlug(slug: string): Observable<Sheet> {
     const url = `${this.sheetUrl}/${slug}`;
-    return this.http.get<Sheet>(url);
+    return this.http.get<Sheet>(url, {withCredentials: true});
   }
 
 
   getLessons(){
-    return this.http.get<User>(this.lessonUrl);
+    return this.http.get<User>(this.lessonUrl, {withCredentials: true});
   }
 
   postSheet(sheet: sheetPost) {
-    return this.http.post<sheetPost>(this.sheetUrl, sheet);
+    return this.http.post<sheetPost>(this.sheetUrl, sheet, {withCredentials: true});
   }
 
   postLesson(lesson : LessonPost) {
-    return this.http.post<LessonPost>(this.lessonUrl, lesson);
+    return this.http.post<LessonPost>(this.lessonUrl, lesson, {withCredentials: true});
   }
 
   postAuth(user : UserAuth) {
@@ -70,7 +70,7 @@ export class ApiService {
   }
 
   postUser(user : UserPost) {
-    return this.http.post<UserPost>(this.usersUrl, user);
+    return this.http.post<UserPost>(this.usersUrl, user, {withCredentials: true});
   }
 
   getFilteredCategory(filterParams: any): Observable<any> {
