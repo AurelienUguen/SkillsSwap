@@ -78,7 +78,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         match: false,
         message: "Le prénom ne peut contenir de chiffres."
     )]
-    #[Groups(['read_user','read_sheet', 'create_user', 'read_lesson'])]
+    #[Groups(['read_user','read_category','read_sheet', 'create_user', 'read_lesson'])]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
