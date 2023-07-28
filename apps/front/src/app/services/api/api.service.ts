@@ -66,7 +66,7 @@ export class ApiService {
   }
 
   postAuth(user : UserAuth) {
-    return this.http.post<UserAuth>(this.authUrl, user);
+    return this.http.post<UserAuth>(this.authUrl, user, {withCredentials: true});
   }
 
   postUser(user : UserPost) {
@@ -80,6 +80,6 @@ export class ApiService {
         params = params.set(key, filterParams[key]);
       }
     }
-    return this.http.get<any>(`${this.apiUrl}/categories`, { params });
+    return this.http.get<any>(`${this.apiUrl}/categories`, { params, withCredentials: true });
   }
 }

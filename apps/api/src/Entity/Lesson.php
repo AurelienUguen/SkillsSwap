@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata as Api;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: LessonRepository::class)]
 #[Api\ApiResource(
@@ -33,6 +34,7 @@ class Lesson
 
     #[ORM\ManyToOne(inversedBy: 'lessons')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotNull()]
     #[Groups(['read_lesson', 'create_lesson'])]
     private ?User $user = null;
 
@@ -42,8 +44,13 @@ class Lesson
     private ?Sheet $sheet = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    // #[Assert\NotNull()]
+    #[Assert\Date(
+        message: "La date n'est pas au format valide",  
+    )]
     #[Groups(['read_lesson', 'create_lesson', 'read_sheet'])]
     private ?\DateTimeInterface $bookingDate = null;
+
 
     public function getId(): ?int
     {

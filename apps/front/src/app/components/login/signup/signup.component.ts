@@ -19,6 +19,7 @@ export class SignupComponent implements OnInit, OnDestroy  {
   regexDigits!: RegExp;
   regexSpecial!: RegExp;
   regexLength!: RegExp;
+  regexWhitespace!: RegExp;
 
   private subscription: Subscription;
 
@@ -43,12 +44,13 @@ export class SignupComponent implements OnInit, OnDestroy  {
     this.getScreenWidth = window.innerWidth;
     this.getScreenHeight = window.innerHeight;
 
-    //this.regexPassword = /(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%&^*+-=_\;:,.(){}<>]).{8,}/;
+    //this.regexPassword = /^(?!.*\s)+(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%&^*+-=_\;:,.(){}<>]).{8,}/;
 
     this.regexUppercase = /(?=.*[A-Z]).{1,}/;
-    this.regexLowercase = /(?=.*[a-z]){1,}/;
+    this.regexLowercase = /(?=.*[a-z]).{1,}/;
     this.regexDigits = /(?=.*\d).{1,}/;
-    this.regexSpecial = /(?=.*[!@#$%&^*+-=_\;:,.(){}<>]).{1,}/;
+    this.regexSpecial = /(?=.*[!@#$%&^*+\-=_\;:,.(){}<>]).{1,}/;
+    this.regexWhitespace = /^(?!.* ).{1,}/;
 
     this.loginForm = this.formBuilder.group({
       userLastname: [null, [
@@ -70,7 +72,8 @@ export class SignupComponent implements OnInit, OnDestroy  {
         this.uppercaseValidator.bind(this),
         this.lowercaseValidator.bind(this),
         this.digitsValidator.bind(this),
-        this.specialValidator.bind(this)
+        this.specialValidator.bind(this),
+        this.whitespaceValidator.bind(this)
       ]],
       userPassTest: [null, [
         Validators.required,
@@ -107,6 +110,10 @@ export class SignupComponent implements OnInit, OnDestroy  {
   specialValidator(control: FormControl): {special: boolean} | null{
     if (this.regexSpecial.test(control.value)) return null;
     return {special: true};
+  }
+  whitespaceValidator(control: FormControl): {whitespace: true} | null{
+    if (this.regexWhitespace.test(control.value)) return null;
+    return {whitespace: true};
   }
   testValidator(): {test: boolean} | null{
     const password = this.loginForm.get('userPassword')?.value;
