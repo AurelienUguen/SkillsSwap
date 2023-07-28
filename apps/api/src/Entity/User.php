@@ -42,8 +42,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column]
-    #[Assert\NotNull()]
     #[Groups(['read_user', 'create_user'])]
+    #[Assert\NotBlank(message: "Ce champs ne peut être nul.")]
+    #[Assert\Choice(
+        choices: ['ROLE_ADMIN', 'ROLE_USER'],
+        multiple: true,
+        message: "Le role de l'utilisateur choisi n'existe pas.",
+    )]
     private array $roles = [];
 
     #[Groups(['read_user', 'create_user'])]
@@ -53,33 +58,69 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Groups(['read_user', 'create_user'])]
+    #[Assert\NotBlank(message: "Ce champs ne peut être nul.")]
+    #[Assert\Length(
+        min: 8,
+        minMessage: "Au moins 8 caractères.",
+    )]
+    #[Assert\Regex(
+        pattern: '/^(?!.*\s)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&^*+\-=_\;:,.(){}<>]).+$/',
+        match: true,
+        message: "Au moins une majuscule, un caractère spécial, un chiffre et sans espaces",
+    )]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Ce champs ne peut être nul.")]
+    #[Assert\Regex(
+        pattern: '/\d/',
+        match: false,
+        message: "Le prénom ne peut contenir de chiffres."
+    )]
     #[Groups(['read_user','read_sheet', 'create_user', 'read_lesson'])]
-    #[Assert\NotNull()]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Ce champs ne peut être nul.")]
+    #[Assert\Regex(
+        pattern: '/\d/',
+        match: false,
+        message: "Le nom ne peut contenir de chiffres."
+    )]
     #[Groups(['read_user','read_sheet', 'create_user'])]
-    #[Assert\NotNull()]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Ce champs ne peut être nul.")]
+    #[Assert\Email(message: "L'adresse mail n'est pas valide.")]
     #[Groups(['read_user', 'create_user'])]
-    #[Assert\NotNull()]
-    #[Assert\Email()]
     private ?string $email = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Regex(
+        pattern: '/^\d{10}$/',
+        match: true,
+        message: "Numéro de tél. à 10 chiffres au format 0XXXXXXXXX ",
+    )]
     #[Groups(['read_user', 'create_user'])]
     private ?string $phone_number = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Regex(
+        pattern: '/^(?=.*\w).+/',
+        match: true,
+    )]
     #[Groups(['read_user','read_sheet', 'create_user'])]
     private ?string $city = null;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\NotBlank(message: "This field cannot be empty.")]
+    #[Assert\Regex(
+        pattern: '/^([02][1-9]|2[AB]|[1345678][0-9]|9[012345]|97[12346])$/',
+        match: true,
+        message: "",
+    )]
     #[Groups(['read_user','read_sheet', 'create_user'])]
     private ?int $district = null;
 

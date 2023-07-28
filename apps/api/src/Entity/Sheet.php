@@ -11,6 +11,7 @@ use ApiPlatform\Metadata as Api;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SheetRepository::class)]
 #[Api\ApiResource(
@@ -32,28 +33,41 @@ class Sheet
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['read_sheet', 'read_user', 'read_category'])]
+    #[Groups(['read_sheet', 'read_user'])]
     #[Api\ApiProperty(identifier:false)]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['read_sheet','read_category', 'create_sheet', 'read_lesson'])]
+    #[Assert\NotBlank(message: "Ce champs ne peut être nul.")]
+    #[Groups(['read_sheet','read_user', 'create_sheet', 'read_lesson'])]
     private ?string $title = null;
 
     #[ORM\ManyToOne(inversedBy: 'sheets')]
-    #[Groups(['read_sheet', 'create_sheet', 'read_lesson', 'read_category'])]
+    #[Assert\NotBlank(message: "Ce champs ne peut être nul.")]
+    #[Groups(['read_sheet', 'create_sheet', 'read_lesson'])]
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'sheets')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['read_sheet', 'read_category', 'create_sheet', 'read_lesson'])]
+    #[Assert\NotBlank(message: "Ce champs ne peut être nul.")]
+    #[Groups(['read_sheet', 'create_sheet', 'read_lesson'])]
     private ?Category $category = null;
 
     #[ORM\Column]
+    #[Assert\Choice(
+        choices: [true, false],
+        multiple: false,
+        message: "Le choix ne correspond pas à une valeur connue.",
+    )]
     #[Groups(['read_sheet', 'read_user', 'create_sheet'])]
     private ?bool $irl = null;
 
     #[ORM\Column]
+    #[Assert\Choice(
+        choices: [true, false],
+        multiple: false,
+        message: "Le choix ne correspond pas à une valeur connue.",
+    )]
     #[Groups(['read_sheet', 'read_user', 'create_sheet'])]
     private ?bool $visio = null;
 
@@ -68,7 +82,7 @@ class Sheet
     #[ORM\Column(length: 255)]
     #[Gedmo\Slug(fields:['title'])]
     #[Api\ApiProperty(identifier:true)]
-    #[Groups(['read_sheet', 'read_lesson', 'read_category'])]
+    #[Groups(['read_sheet', 'read_lesson'])]
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::JSON, nullable: true)]

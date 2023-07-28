@@ -17,5 +17,5 @@ lexik_jwt_authentication:
             lifetime: 2592000
             domain: '%env(COOKIE_DOMAIN)%'
             samesite: 'strict'
-            httpOnly: true
+            httpOnly: false
             secure: true

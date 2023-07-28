@@ -63,6 +63,7 @@
                 <ng-container *ngIf="password.errors['lowercase']">Au moins une minuscule.<br></ng-container>
                 <ng-container *ngIf="password.errors['digits']">Au moins un chiffre.<br></ng-container>
                 <ng-container *ngIf="password.errors['special']">Au moins un caractère spécial.</ng-container>
+                <ng-container *ngIf="password.errors['whitespace']">Les espaces ne sont pas autorisés.</ng-container>
               </div>
             </div>
             <div class="col-12 col-md-6">
