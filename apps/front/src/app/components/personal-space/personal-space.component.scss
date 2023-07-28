@@ -1,0 +1,42 @@
+$primary: #0C5051;
+$primaryWithTransparancy: #0c50516c;
+$hover: #117375;
+
+.title {
+  font-family: 'Bacasime Antique', serif;
+  font-weight: bolder;
+  color: $primary;
+  font-size: 4vw;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.toggle-btn {
+  cursor: pointer;
+}
+
+
+.user-description {
+  text-align: justify;
+}
+
+.table-transparent {
+  background-color:blue;
+}
+
+.link-to-sheet {
+  color: $primary;
+  text-decoration: none;
+}
+
+.delete-btn {
+  background-color: $primary;
+  border: none;
+  color: white;
+  padding: 8px 30px 8px 30px;
+  border-radius: 15px;
+}
+
+.booking-text {
+  color: $primary;
+}

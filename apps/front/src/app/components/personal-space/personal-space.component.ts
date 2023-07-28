@@ -24,6 +24,9 @@ export class PersonalSpaceComponent implements OnInit {
   public sheets: Sheet[] = [];
   public lessons: Lesson[] = [];
 
+  mySheetsToggle = true;
+  myLessonsToggle = true;
+
   constructor(
     private apiService: ApiService,
     private isConnected: LoginService,
@@ -79,5 +82,13 @@ export class PersonalSpaceComponent implements OnInit {
   getLessons() {
     return this.apiService.getLessons()
     .subscribe((lessons: any) => this.lessons = lessons['hydra:member']);
+  }
+
+  showMySheets() {
+    this.mySheetsToggle= !this.mySheetsToggle;
+  }
+
+  showMyLessons() {
+    this.myLessonsToggle = !this.myLessonsToggle;
   }
 }
