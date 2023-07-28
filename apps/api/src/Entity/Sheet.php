@@ -39,18 +39,18 @@ class Sheet
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "Ce champs ne peut être nul.")]
-    #[Groups(['read_sheet','read_user', 'create_sheet', 'read_lesson'])]
+    #[Groups(['read_sheet','read_category', 'read_user', 'create_sheet', 'read_lesson'])]
     private ?string $title = null;
 
     #[ORM\ManyToOne(inversedBy: 'sheets')]
     #[Assert\NotBlank(message: "Ce champs ne peut être nul.")]
-    #[Groups(['read_sheet', 'create_sheet', 'read_lesson'])]
+    #[Groups(['read_sheet','read_category','create_sheet', 'read_lesson'])]
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'sheets')]
     #[ORM\JoinColumn(nullable: false)]
     #[Assert\NotBlank(message: "Ce champs ne peut être nul.")]
-    #[Groups(['read_sheet', 'create_sheet', 'read_lesson'])]
+    #[Groups(['read_sheet','read_category', 'create_sheet', 'read_lesson'])]
     private ?Category $category = null;
 
     #[ORM\Column]
@@ -82,7 +82,7 @@ class Sheet
     #[ORM\Column(length: 255)]
     #[Gedmo\Slug(fields:['title'])]
     #[Api\ApiProperty(identifier:true)]
-    #[Groups(['read_sheet', 'read_lesson'])]
+    #[Groups(['read_sheet','read_category', 'read_lesson'])]
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::JSON, nullable: true)]

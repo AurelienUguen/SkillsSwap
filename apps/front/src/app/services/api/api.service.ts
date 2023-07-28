@@ -85,9 +85,4 @@ export class ApiService {
   laBroyeuse(victim: any){
     return this.http.delete<any>(victim);
   }
-
-  laBroyeuse(victim: any){
-    const cible = this.apiUrl + victim;
-    return this.http.delete<any>(victim);
-  }
 }
