@@ -129,7 +129,7 @@ class UserFixtures extends Fixture
         $user4->setDescription('blabla');
         $this->addReference(self::USER4, $user4);
         $manager->persist($user4);
- */
+ 
         $admin = new User();
         $admin->setFirstname('admin');
         $admin->setLastname('ADMIN');
@@ -147,5 +147,6 @@ class UserFixtures extends Fixture
         $manager->persist($admin);
 
         $manager->flush();
+        */
     }
 }
