@@ -30,7 +30,7 @@ export class CategoryComponent {
         this.sheets = this.getCategoryAndSubCategoriesSheets(this.category);
         console.log(this.sheets);
       }
-    }, 500);
+    }, 2000);
   }
 
   getCategorySlug() {
@@ -55,6 +55,7 @@ export class CategoryComponent {
 
     category.categories.forEach((subCategory: Category) => {
       sheets = [...sheets, ...this.getCategoryAndSubCategoriesSheets(subCategory)];
+      console.log(sheets);
     });
 
     sheets = [...sheets, ...category.sheets];

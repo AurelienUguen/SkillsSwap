@@ -5,17 +5,17 @@ import { ApiService } from '../api/api.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { mySpaceService } from 'src/app/services/mySpaceObserver/mySpaceObserver.service';
-
+​
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-
+​
   private isConnected: Subject<string> = new Subject<string>;
   private apiUsers: string = `https://api.skillswap.wip/api/users`;
   private mySpace: Subscription;
-
-
+​
+​
   constructor(
     private apiService: ApiService,
     private http: HttpClient,
@@ -24,15 +24,15 @@ export class LoginService {
     ){
       this.mySpace = this.mySpaceObs.getStatusObservable().subscribe()
     }
-
+​
   getStatusObservable() {
     return this.isConnected.asObservable();
   }
-
+​
   updateStatus(status: string) {
     this.isConnected.next(status);
   }
-
+​
   authentication(user: UserAuth){
     this.apiService.postAuth(user).subscribe(
       sucess => {
@@ -45,12 +45,13 @@ export class LoginService {
                 firstname: hydras[i].firstname
               }
               this.mySpaceObs.updateStatus(userConnect);
+              console.log("Wheeeeee");
+              this.updateStatus("connected");
+              this.router.navigateByUrl("/");
             }
           }
         });
-        console.log("Wheeeeee");
-        this.updateStatus("connected");
-        this.router.navigateByUrl("/");
+        console.log(user);
       },
       error => {
         console.log("Nooooooo");

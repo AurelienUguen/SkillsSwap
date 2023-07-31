@@ -27,7 +27,7 @@ class UserFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $faker = Faker\Factory::create('fr_FR');
-
+/* 
         $admin = new User();
         $admin->setFirstname('admin');
         $admin->setLastname('ADMIN');
@@ -41,15 +41,15 @@ class UserFixtures extends Fixture
         $admin->setDistrict(75);
         $admin->setCity('Paris');
         $admin->setDescription('blabla');
-        $this->addReference(self::ADMIN, $admin);
-        $manager->persist($admin);
+        $this->setReference(self::ADMIN, $admin);
+        $manager->persist($admin); */
 
         for ($i = 1 ; $i <= self::NB_USER ; $i++) {
             $user[$i] = new User();
             $user[$i]->setFirstname($faker->firstName);
             $user[$i]->setLastname($faker->lastName);
             $user[$i]->setRoles(['ROLE_USER']);
-            $user[$i]->setEmail($user[$i]->getFirstname().".".$user[$i]->getLastname()."@skillswap.wip");
+            $user[$i]->setEmail(strtolower(\Transliterator::create('NFD; [:Nonspacing Mark:] Remove; NFC')->transliterate($user[$i]->getFirstname().".".$user[$i]->getLastname()."@skillswap.wip")));
             //$user[$i]->setPassword('Password.0');
             $user[$i]->setPlaintextPassword('Password.0');
             $user[$i]->setDistrict(mt_rand(1,95));

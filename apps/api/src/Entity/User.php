@@ -23,7 +23,9 @@ use Symfony\Component\Validator\Constraints as Assert;
     normalizationContext:['groups' => ['read_user']],
     denormalizationContext:['groups' => ['create_user']],
     operations:[
-        new Api\GetCollection(),
+        new Api\GetCollection(
+            paginationEnabled: false,
+        ),
         new Api\Post(),
         new Api\Get(),
         new Api\Put(),
@@ -137,7 +139,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     #[Gedmo\Slug(fields:['firstname','lastname'])]
-    #[Api\ApiProperty(identifier:true)]
+    #[Api\ApiProperty(identifier:true, fetchEager: true)]
     #[Groups(['read_sheet', 'read_user'])]
     private ?string $slug = null;
 
