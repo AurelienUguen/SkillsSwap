@@ -45,104 +45,109 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     #[Groups(['read_user', 'create_user'])]
-    #[Assert\NotBlank(message: "Ce champs ne peut être nul.")]
+    #[Assert\NotBlank(message: "Ce champs ne peut être vide.")]
+    #[Assert\NotNull(message: "Ce champs ne peut être nul.")]
     #[Assert\Choice(
         choices: ['ROLE_ADMIN', 'ROLE_USER'],
         multiple: true,
-        message: "Le role de l'utilisateur choisi n'existe pas.",
+        message: "Le rôle choisi n'existe pas.",
     )]
     private array $roles = [];
 
     #[Groups(['read_user', 'create_user'])]
-    private ?string $plaintextPassword = null;
-
-    /**
-     * @var string The hashed password
-     */
-    #[ORM\Column]
-    #[Groups(['read_user', 'create_user'])]
-    #[Assert\NotBlank(message: "Ce champs ne peut être nul.")]
+    #[Assert\NotBlank(message: "Ce champs ne peut être vide.")]
+    #[Assert\NotNull(message: "Ce champs ne peut être nul.")]
     #[Assert\Length(
         min: 8,
-        minMessage: "Au moins 8 caractères.",
+        minMessage: "un mot de passe éfficace doit comporter au moins 8 caractères.",
     )]
     #[Assert\Regex(
         pattern: '/^(?!.*\s)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&^*+\-=_\;:,.(){}<>]).+$/',
         match: true,
-        message: "Au moins une majuscule, un caractère spécial, un chiffre et sans espaces",
+        message: "Le mot de passe doit contenir au moins une majuscule, un caractère spécial et un chiffre et ne peut contenir d'espaces.",
     )]
+    private ?string $plaintextPassword = null;
+   
+    #[ORM\Column]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "Ce champs ne peut être nul.")]
+    #[Groups(['read_user','read_category','read_sheet', 'create_user', 'read_lesson'])]
+    #[Assert\NotBlank(message: "Ce champs ne peut être vide.")]
+    #[Assert\NotNull(message: "Ce champs ne peut être nul.")]
     #[Assert\Regex(
         pattern: '/\d/',
         match: false,
-        message: "Le prénom ne peut contenir de chiffres."
+        message: "Un Prénom ne peut contenir de chiffres."
     )]
-    #[Groups(['read_user','read_category','read_sheet', 'create_user', 'read_lesson'])]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "Ce champs ne peut être nul.")]
+    #[Assert\NotBlank(message: "Ce champs ne peut être vide.")]
+    #[Assert\NotNull(message: "Ce champs ne peut être nul.")]
     #[Assert\Regex(
         pattern: '/\d/',
         match: false,
-        message: "Le nom ne peut contenir de chiffres."
+        message: "Un Nom ne peut contenir de chiffres."
     )]
-    #[Groups(['read_user','read_sheet', 'create_user'])]
+    #[Groups(['read_user', 'read_sheet', 'create_user'])]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "Ce champs ne peut être nul.")]
-    #[Assert\Email(message: "L'adresse mail n'est pas valide.")]
     #[Groups(['read_user', 'create_user'])]
+    #[Assert\NotBlank(message: "Ce champs ne peut être vide.")]
+    #[Assert\NotNull(message: "Ce champs ne peut être nul.")]
+    #[Assert\Email(message: "L'adresse email n'est pas valide.")]
     private ?string $email = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\Regex(
-        pattern: '/^\d{10}$/',
-        match: true,
-        message: "Numéro de tél. à 10 chiffres au format 0XXXXXXXXX ",
-    )]
+    #[ORM\Column(length: 12, nullable: true)]
     #[Groups(['read_user', 'create_user'])]
-    private ?string $phone_number = null;
+    #[Assert\Regex(
+        pattern: '/^\+\d{11}$/',
+        match: true,
+        message: "Numéro de téléphone à 10 chiffres au format +33XXXXXXXXX ",
+    )]
+    private ?string $phone = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['read_user','read_sheet', 'create_user'])]
     #[Assert\Regex(
         pattern: '/^(?=.*\w).+/',
         match: true,
     )]
-    #[Groups(['read_user','read_sheet', 'create_user'])]
     private ?string $city = null;
 
     #[ORM\Column(nullable: true)]
-    #[Assert\NotBlank(message: "This field cannot be empty.")]
+    #[Groups(['read_user','read_sheet', 'create_user'])]
+    #[Assert\NotBlank(message: "Ce champs ne peut être vide.")]
+    #[Assert\NotNull(message: "Ce champs ne peut être nul.")]
     #[Assert\Regex(
         pattern: '/^([02][1-9]|2[AB]|[1345678][0-9]|9[012345]|97[12346])$/',
         match: true,
-        message: "",
+        message: "Ce numéro ce département n'existe pas.",
     )]
-    #[Groups(['read_user','read_sheet', 'create_user'])]
     private ?int $district = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    #[Groups(['read_user','read_sheet', 'create_user'])]
+    #[Groups(['read_user', 'read_sheet', 'create_user'])]
     private ?string $description = null;
-
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Sheet::class, orphanRemoval: true)]
-    private Collection $sheets;
-
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Lesson::class, orphanRemoval: true)]
-    private Collection $lessons;
-
-
+    
     #[ORM\Column(length: 255)]
     #[Gedmo\Slug(fields:['firstname','lastname'])]
     #[Api\ApiProperty(identifier:true)]
     #[Groups(['read_sheet', 'read_user'])]
     private ?string $slug = null;
 
+    #[ORM\Column]
+    #[Groups(['read_user'])]
+    private ?int $tokken = 3;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Sheet::class, orphanRemoval: true)]
+    private Collection $sheets;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Lesson::class, orphanRemoval: true)]
+    private Collection $lessons;
+    
     public function __construct()
     {
         $this->sheets = new ArrayCollection();
@@ -262,14 +267,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPhoneNumber(): ?string
+    public function getPhone(): ?string
     {
-        return $this->phone_number;
+        return $this->phone;
     }
 
-    public function setPhoneNumber(string $phone_number): static
+    public function setPhone(?string $phone): static
     {
-        $this->phone_number = $phone_number;
+        $this->phone = $phone;
 
         return $this;
     }
@@ -378,6 +383,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $lesson->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTokken(): ?int
+    {
+        return $this->tokken;
+    }
+
+    public function setTokken(int $tokken): static
+    {
+        $this->tokken = $tokken;
 
         return $this;
     }

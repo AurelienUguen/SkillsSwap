@@ -128,10 +128,13 @@ export class SignupComponent implements OnInit, OnDestroy  {
       firstname: this.loginForm.value.userFirstname,
       lastname: this.loginForm.value.userLastname,
       email: this.loginForm.value.userEmail,
+      phone: "+00000000000",
       plaintextPassword: this.loginForm.value.userPassword,
-      district: 0,
-      city: ""
+      district: 75,
+      city: "Somewhere on earth",
+      description: "No Description yet"
     }
+    console.log (newUser);
     const user: UserAuth = {
       email: this.loginForm.value.userEmail,
       password: this.loginForm.value.userPassword
