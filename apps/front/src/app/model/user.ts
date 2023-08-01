@@ -7,7 +7,7 @@ export interface User {
   lastname: string;
   email: string;
   password: string;
-  phoneNumber: string;
+  phone: string;
   district: number;
   city: string;
   sheets: Sheet[];
@@ -32,7 +32,9 @@ export interface UserPost {
   firstname: string;
   lastname: string;
   email: string;
+  phone: string;
   plaintextPassword: string;
   district: number;
   city: string;
+  description: string;
 }

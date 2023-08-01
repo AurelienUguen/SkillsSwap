@@ -10,7 +10,7 @@ use Faker;
 
 class SheetFixtures extends Fixture implements DependentFixtureInterface
 {
-    const NB_SHEET = 100;
+    const NB_SHEET = 10;
     const LANGUAGE = [
         "Français",
         "Anglais",
