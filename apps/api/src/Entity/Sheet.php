@@ -18,7 +18,9 @@ use Symfony\Component\Validator\Constraints as Assert;
     normalizationContext:['groups' => ['read_sheet']],
     denormalizationContext:['groups' => ['create_sheet']],
     operations:[
-        new Api\GetCollection(),
+        new Api\GetCollection(
+            paginationEnabled: false,// Ceci supprime la limite d'utilisateur de 30 pour le login //
+        ),
         new Api\Post(),
         new Api\Get(),
         new Api\Put(),
