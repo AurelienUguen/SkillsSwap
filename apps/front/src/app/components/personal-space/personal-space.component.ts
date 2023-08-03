@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, tap } from 'rxjs';
 import { Lesson } from 'src/app/model/lesson';
 import { Sheet } from 'src/app/model/sheet';
 import { User, userConnected, userUpdate } from 'src/app/model/user';
@@ -98,7 +98,7 @@ export class PersonalSpaceComponent implements OnInit {
   }
 
   getLessons() {
-    return this.apiService.getLessons()
+    return this.apiService.getLessons().pipe(tap(console.log))
     .subscribe((lessons: any) => this.lessons = lessons['hydra:member']);
   }
 
