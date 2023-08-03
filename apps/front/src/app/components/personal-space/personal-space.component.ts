@@ -64,8 +64,13 @@ export class PersonalSpaceComponent implements OnInit {
     }, 1000);
   }
 
-  kill(url: string, victim: string | number,deco: boolean = false):void{
+  kill(
+    url: string,
+    victim: string | number,
+    deco: boolean = false
+  ):void{
     const target = `https://api.skillswap.wip/api/${url}/${victim}`;
+
     this.apiService.laBroyeuse(target).subscribe(
       () => {
         alert(`${victim} a été supprimé avec succès`);
@@ -74,12 +79,9 @@ export class PersonalSpaceComponent implements OnInit {
         console.error('Erreur lors de la suppression :', error);
       }
     );
+
     if(deco){
-      sessionStorage.clear();
-      localStorage.clear();
-      this.isConnected.updateStatus('disconnected');
-      console.log("ByBye !!")
-      this.router.navigateByUrl("/");
+      this.isConnected.logout();
     }
   }
 

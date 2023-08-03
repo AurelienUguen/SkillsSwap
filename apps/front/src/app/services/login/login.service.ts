@@ -63,4 +63,12 @@ export class LoginService {
         console.log(error);
       }
     )}
+
+    logout():void{
+      sessionStorage.clear();
+      localStorage.clear();
+      this.updateStatus("disconnected");
+      console.log("ByBye !!")
+      this.router.navigateByUrl("/");
+    }
 }

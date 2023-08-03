@@ -29,12 +29,28 @@ $hover: #117375;
   text-decoration: none;
 }
 
-.delete-btn {
-  background-color: $primary;
+.delete-btn,
+.update-btn {
   border: none;
   color: white;
   padding: 8px 30px 8px 30px;
   border-radius: 15px;
+}
+
+.update-btn {
+  background-color: $primary;
+}
+
+.delete-btn {
+  background-color: tomato//$primaryWithTransparancy;
+}
+
+.update-btn:hover {
+  background-color: $hover;
+}
+
+.delete-btn:hover {
+  background-color: red;
 }
 
 .booking-text {

@@ -40,11 +40,11 @@ export class HeaderComponent {
       slug: "slug",
       firstname: "firstname",
     })
-    this.isConnected.updateStatus('disconnected');
-    console.log("ByBye !!")
+    this.isConnected.logout();
   }
 
   ngOnDestroy() {
+    this.isConnected.logout();
     this.subscription.unsubscribe();
   }
 }

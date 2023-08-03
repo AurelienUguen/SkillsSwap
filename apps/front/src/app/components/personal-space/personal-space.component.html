@@ -7,6 +7,8 @@
     <p>Email : {{user.email}}</p>
     <a [routerLink]="['/update', user.slug]" class="btn btn-primary">Modifier mes infos</a>
   </div>
+  <h4>Ma fortune</h4>
+  <p class="user-description"> {{ user.tokken }} TokkenSwap</p>
 
   <div>
     <h2 class="title toggle-btn" (click)="showMySheets()">Mes cours</h2>
