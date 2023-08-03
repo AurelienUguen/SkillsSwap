@@ -44,7 +44,8 @@ class Lesson
     private ?Sheet $sheet = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    // #[Assert\NotNull()]
+    #[Assert\NotNull()]
+    #[Assert\NotBlank()]
     #[Assert\Date(
         message: "La date n'est pas au format valide",  
     )]

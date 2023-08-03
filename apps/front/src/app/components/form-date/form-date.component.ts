@@ -37,7 +37,6 @@ export class FormDateComponent {
   }
 
   onSubmit() {
-    console.log(this.userID)
     if (this.userID === "slug") return this.router.navigateByUrl("/signin");
 
     const newLesson:LessonPost = {
@@ -45,9 +44,6 @@ export class FormDateComponent {
       user: `/api/users/${this.userID}`,
       sheet: `/api/sheets/${this.sheetID}`
     }
-
-    console.log(this.form);
-    console.log(newLesson);
 
     alert('Le cours a bien été enregistré !');
     this.apiService.postLesson(newLesson).subscribe();

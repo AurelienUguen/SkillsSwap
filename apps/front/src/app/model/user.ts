@@ -3,19 +3,20 @@ import { Sheet } from "./sheet";
 
 export interface User {
   id: number;
+  city: string;
+  district: number;
+  description: string;
+  email: string;
   firstname: string;
   lastname: string;
-  email: string;
   password: string;
   plaintextPassword: string;
   phone: string;
-  district: number;
-  city: string;
-  sheets: Sheet[];
+  slug: string;
+  tokken: number;
   lessons: Lesson[];
   roles:string[];
-  description: string;
-  slug: string;
+  sheets: Sheet[];
 }
 
 export interface userUpdate {
