@@ -20,7 +20,8 @@ class LessonFixtures extends Fixture implements DependentFixtureInterface
             $lesson[$i] = new Lesson();
             $lesson[$i]->setUser($this->getReference("user".mt_rand(2,(UserFixtures::NB_USER))));
             $lesson[$i]->setSheet($this->getReference("sheet".mt_rand(1,(SheetFixtures::NB_SHEET))));
-            $lesson[$i]->setBookingDate(new DateTime($faker->date('Y-m-d')));
+            $lesson[$i]->setBookingDateEntry(($faker->date('Y-m-d')));
+          //$lesson[$i]->setBookingDate(new DateTime($faker->date('Y-m-d')));
             $manager->persist($lesson[$i]);
         }
         $manager->flush();

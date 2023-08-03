@@ -40,9 +40,9 @@ export class FormDateComponent {
     if (this.userID === "slug") return this.router.navigateByUrl("/signin");
 
     const newLesson:LessonPost = {
-      bookingDate: this.form.value.date,
       user: `/api/users/${this.userID}`,
-      sheet: `/api/sheets/${this.sheetID}`
+      sheet: `/api/sheets/${this.sheetID}`,
+      bookingDateEntry: this.form.value.date
     }
 
     alert('Le cours a bien été enregistré !');

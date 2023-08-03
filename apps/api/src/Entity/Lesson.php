@@ -11,6 +11,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: LessonRepository::class)]
+#[ORM\EntityListeners(['App\EntityListener\LessonListener'])]
 #[Api\ApiResource(
     normalizationContext:['groups' => ['read_lesson']],
     denormalizationContext:['groups' => ['create_lesson']],
@@ -43,14 +44,18 @@ class Lesson
     #[Groups(['read_lesson', 'create_lesson'])]
     private ?Sheet $sheet = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Assert\NotNull()]
-    #[Assert\NotBlank()]
-    #[Assert\Date(
-        message: "La date n'est pas au format valide",  
-    )]
-    #[Groups(['read_lesson', 'create_lesson', 'read_sheet'])]
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[Groups(['read_lesson', 'read_sheet'])]
     private ?\DateTimeInterface $bookingDate = null;
+
+    //#[ORM\Column(length: 255, nullable: true)]
+    //#[Assert\NotNull()]
+    //#[Assert\NotBlank()]
+    /*#[Assert\Date(
+        message: "La date n'est pas au format valide",  
+    )]*/
+    #[Groups(['create_lesson'])]
+    private ?string $bookingDateEntry = null;
 
 
     public function getId(): ?int
@@ -90,6 +95,18 @@ class Lesson
     public function setBookingDate(\DateTimeInterface $bookingDate): static
     {
         $this->bookingDate = $bookingDate;
+
+        return $this;
+    }
+
+    public function getBookingDateEntry(): ?string
+    {
+        return $this->bookingDateEntry;
+    }
+
+    public function setBookingDateEntry(?string $bookingDateEntry): static
+    {
+        $this->bookingDateEntry = $bookingDateEntry;
 
         return $this;
     }

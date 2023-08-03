@@ -36,12 +36,9 @@ export class LoginService {
   authentication(user: UserAuth){
     this.apiService.postAuth(user).subscribe(
       sucess => {
-        this.http.get(this.apiUsers).pipe(
-          tap(console.log)
-        ).subscribe((users: any) => {
+        this.http.get(this.apiUsers).subscribe((users: any) => {
 
           const hydras = users['hydra:member'];
-            console.log(hydras);
           for(let i = 0;i < hydras.length;i++){
             if(user.email === hydras[i].email){
               const userConnect = {
@@ -55,7 +52,6 @@ export class LoginService {
             }
           }
         });
-        console.log(user);
       },
       error => {
         console.log("Nooooooo");

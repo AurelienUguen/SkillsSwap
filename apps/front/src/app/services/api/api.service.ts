@@ -61,6 +61,7 @@ export class ApiService {
   }
 
   postLesson(lesson : LessonPost) {
+    console.log(lesson);
     return this.http.post<LessonPost>(this.lessonUrl, lesson, {withCredentials: true});
   }
 
