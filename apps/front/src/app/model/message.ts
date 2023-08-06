@@ -24,8 +24,8 @@ export interface MessageToDisplay {
 export interface MsgPost {
   title: string;
   content: string;
-  owner: User;
-  conversation: Conversation;
+  owner: string;
+  conversation: string;
   is_read: boolean;
   created_at: Date;
 }

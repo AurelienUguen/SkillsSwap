@@ -16,8 +16,9 @@ import { mySpaceService } from 'src/app/services/mySpaceObserver/mySpaceObserver
 export class MessengerListComponent implements OnInit, OnChanges{
 
   private subscription: Subscription;
-  private mySpace: Subscription;
+  private messengerList: Subscription;
 
+  public currentConvId?: number;
   public isActive: boolean = false;
   public slug!: string;
   public status?: string;
@@ -36,7 +37,7 @@ export class MessengerListComponent implements OnInit, OnChanges{
       this.subscription = this.isConnected.getStatusObservable().subscribe((status: string) => {
         this.status = status;
       });
-      this.mySpace = this.mySpaceObs.getStatusObservable().subscribe((user: userConnected) => {
+      this.messengerList = this.mySpaceObs.getStatusObservable().subscribe((user: userConnected) => {
         this.slug = user.slug;
         this.userName = user.firstname;
       });
@@ -70,6 +71,7 @@ export class MessengerListComponent implements OnInit, OnChanges{
       .subscribe((messages: any) => {
         console.log(this.currentMessages = messages['messages']);
       })
+    this.currentConvId = id;
     this.isActive = true;
   }
 

@@ -75,8 +75,7 @@ export class MessengerService {
     return convsArray;
   }
 
-  postMessage(message: Message, sender: User, recipient: User){
-    console.log(message);
+  postMessage(message: MsgPost){
     return this.http.post<MsgPost>(this.linksService.messageUrl, message);
   }
 }
