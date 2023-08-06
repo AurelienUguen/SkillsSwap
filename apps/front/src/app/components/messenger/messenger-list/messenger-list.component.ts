@@ -18,11 +18,11 @@ export class MessengerListComponent implements OnInit, OnChanges{
   private subscription: Subscription;
   private mySpace: Subscription;
 
+  public isActive: boolean = false;
   public slug!: string;
   public status?: string;
   public user!: User;
   public userName?: string;
-
   public userMessages?: Message[];
   public currentMessages?: Message[];
   public userParticipants?: Participant[];
@@ -70,6 +70,7 @@ export class MessengerListComponent implements OnInit, OnChanges{
       .subscribe((messages: any) => {
         console.log(this.currentMessages = messages['messages']);
       })
+    this.isActive = true;
   }
 
   // getMessagesByUser(slug: string) {

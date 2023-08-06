@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { ApiService } from '../api/api.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Message } from 'src/app/model/message';
+import { Message, MsgPost } from 'src/app/model/message';
 import { Conversation } from 'src/app/model/conversation';
 import { LinksService } from '../api/links.service';
 import { Participant } from 'src/app/model/participant';
+import { User } from 'src/app/model/user';
 
 @Injectable({
   providedIn: 'root'
@@ -72,10 +73,10 @@ export class MessengerService {
     }
 
     return convsArray;
-    }
+  }
 
-  /* getMessagesById(id: string): Observable<Message> {
-    const url = `${this.messageUrl}/${id}`;
-    return this.http.get<Message>(url)
-  } */
+  postMessage(message: Message, sender: User, recipient: User){
+    console.log(message);
+    return this.http.post<MsgPost>(this.linksService.messageUrl, message);
+  }
 }

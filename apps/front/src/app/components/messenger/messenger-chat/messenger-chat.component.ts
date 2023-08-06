@@ -22,9 +22,7 @@ export class MessengerChatComponent implements OnChanges{
 
   public slug!: string;
   public status?: string;
-  // public user!: User;
   public userName?: string;
-  // public userConvs?: Conversation;
   public userMessages?: Message[];
   public userParticipants?: Participant[];
 
@@ -44,16 +42,9 @@ export class MessengerChatComponent implements OnChanges{
     }
 
     ngOnChanges(): void {
-      console.log(this.currentMessages);
-      // this.getUserBySlug();
-      // this.getMessagesByUser(this.slug);
-      // this.getParticipantByUser(this.slug);
     }
 
-    // getMessagesByUser(slug: string) {
-    //   this.messenger.getMessagesByUser(slug)
-    //   .subscribe((messages: any) => {
-    //     console.log(this.userMessages = messages['messages']);
-    //   })
-    // }
+    postMessage(){
+
+    }
 }
