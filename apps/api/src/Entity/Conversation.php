@@ -32,7 +32,7 @@ class Conversation
     private ?int $id = null;
 
     #[ORM\OneToMany(mappedBy: 'conversation', targetEntity: Participant::class)]
-    #[Groups(['read_user', 'read_convers', 'read_participant', 'read_message',])]
+    #[Groups(['read_convers', 'read_participant', 'read_message',])]
     private Collection $participants;
 
     #[ORM\OneToMany(mappedBy: 'conversation', targetEntity: Message::class)]

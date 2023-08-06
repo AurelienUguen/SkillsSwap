@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription, delay } from 'rxjs';
 import { Conversation } from 'src/app/model/conversation';
@@ -9,50 +9,57 @@ import { ApiService } from 'src/app/services/api/api.service';
 // import { mySpaceService } from 'src/app/services/mySpaceObserver/mySpaceObserver.service';
 import { MessengerService } from 'src/app/services/messenger/messenger.service';
 import { Participant } from 'src/app/model/participant';
+import { LoginService } from 'src/app/services/login/login.service';
+import { mySpaceService } from 'src/app/services/mySpaceObserver/mySpaceObserver.service';
 
 @Component({
   selector: 'app-messagerie',
   templateUrl: './messenger.component.html',
   styleUrls: ['./messenger.component.scss']
 })
-export class MessengerComponent implements OnInit {
-  private slug!: string;
+export class MessengerComponent {
+  private subscription: Subscription;
+  private mySpace: Subscription;
 
+  public slug!: string;
   public status?: string;
-  public user?: User;
+  public user!: User;
+  public userName?: string;
   public currentUser?: any[];
   public userMessages?: Message[];
   public userParticipants?: Participant[];
 
   constructor(
     private apiService: ApiService,
+    private isConnected: LoginService,
+    private mySpaceObs: mySpaceService,
     private messenger: MessengerService,
-    ){}
-
-    ngOnInit() {
-      // this.getUserBySlug();
-      this.getMessagesByUser(this.slug);
-      this.getParticipantByUser(this.slug);
+    ){
+      this.subscription = this.isConnected.getStatusObservable().subscribe((status: string) => {
+        this.status = status;
+      });
+      this.mySpace = this.mySpaceObs.getStatusObservable().subscribe((user: userConnected) => {
+        this.slug = user.slug;
+        this.userName = user.firstname;
+      });
     }
 
-    // getUserBySlug(): void {
-    //   this.apiService.getUserBySlug(this.slug)
-    //     .subscribe(user => {
-    //       this.user = user;
-    //     });
-    // }
-
-    getMessagesByUser(slug: string) {
-      this.messenger.getMessagesByUser(slug)
-      .subscribe((messages: any) => {
-        console.log(this.userMessages = messages['messages']);
-      })
+    ngOnInit() {
+      // this.getMessagesByUser(this.slug);
+      // this.getParticipantByUser(this.slug);
     }
 
     getParticipantByUser(slug: string) {
       this.messenger.getParticipantByUser(slug)
       .subscribe((participants: any) => {
         console.log(this.userParticipants = participants['participants']);
+      })
+    }
+
+    getMessagesByUser(slug: string) {
+      this.messenger.getMessagesByUser(slug)
+      .subscribe((messages: any) => {
+        console.log(this.userMessages = messages['messages']);
       })
     }
 }

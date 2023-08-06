@@ -1,0 +1,27 @@
+$brd-radius: 10px;
+$border-clr: rgb(48, 85, 52);
+$bg-clr: rgb(255, 255, 255, 0.2);
+
+app-messenger-chat {
+  width: 70%;
+  border-left: 1px solid $border-clr;
+}
+
+.messenger-list {
+  width: 30%;
+  min-height: 100%;
+  border-radius: 5px;
+  overflow-y: scroll;
+  // background-color: rgba(255, 255, 255, 0.4);
+}
+
+.message-info {
+  border: 1px solid #252525;
+  border-radius: $brd-radius;
+  background-color: $bg-clr;
+}
+
+.message-info:hover {
+  cursor: pointer;
+  background-color: darken($color: $bg-clr, $amount: 20);
+}

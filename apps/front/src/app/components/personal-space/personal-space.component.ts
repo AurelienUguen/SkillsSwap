@@ -110,9 +110,7 @@ export class PersonalSpaceComponent implements OnInit {
     this.myLessonsToggle = !this.myLessonsToggle;
   }
 
-  addDescriptionToggle() {
-    this.inputToggle = !this.inputToggle;
+  gotoMessages(slug: string) {
+    this.router.navigate([`/my-space/${slug}/messenger`]);
   }
-
-
 }
