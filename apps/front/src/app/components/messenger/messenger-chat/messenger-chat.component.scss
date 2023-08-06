@@ -27,6 +27,7 @@ $bgcolor: grey;
 }
 
 .msg-content {
+  margin-bottom: 3px;
   background-color: rgba(255, 255, 255, 0.4);
 }
 
@@ -42,4 +43,7 @@ $bgcolor: grey;
 
 .justify-end {
   justify-content: end !important;
+}
+.text-start {
+  text-align: start !important;
 }

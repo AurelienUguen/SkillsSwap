@@ -25,8 +25,8 @@ export interface MsgPost {
   title: string;
   content: string;
   owner: User;
+  conversation: Conversation;
   is_read: boolean;
   created_at: Date;
-  conversation: Conversation;
 }
 

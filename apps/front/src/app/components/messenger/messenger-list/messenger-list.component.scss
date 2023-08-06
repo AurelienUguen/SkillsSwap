@@ -25,3 +25,8 @@ app-messenger-chat {
   cursor: pointer;
   background-color: darken($color: $bg-clr, $amount: 20);
 }
+
+.message-info:focus {
+  color: #fff;
+  background-color: #117375;
+}
