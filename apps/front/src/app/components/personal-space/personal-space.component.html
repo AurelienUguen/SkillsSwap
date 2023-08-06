@@ -84,7 +84,7 @@
   </div>
 
 
-  <button class="messenger-btn" >Ma Messagerie</button>
+  <button class="messenger-btn" (click)="gotoMessages(user.slug)">Ma Messagerie</button>
   <button class="update-btn" (click)="kill('users',user.slug,true)">Mettre à jour le compte</button>
   <button class="delete-btn ms-3" (click)="kill('users',user.slug,true)">Supprimer le compte</button>
 </ng-container>

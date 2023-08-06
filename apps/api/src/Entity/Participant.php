@@ -26,12 +26,12 @@ class Participant
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['read_user','read_participant'])]
+    #[Groups(['read_user','read_participant', 'read_message'])]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'participants')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['read_user', 'read_participant', 'read_message', 'create_message', 'read_convers', 'read_user'])]
+    #[Groups(['read_user', 'read_participant', 'read_message', 'create_message', 'read_convers'])]
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'participants')]

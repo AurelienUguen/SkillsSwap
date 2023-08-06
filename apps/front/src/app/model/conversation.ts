@@ -3,6 +3,6 @@ import { Participant } from "./participant";
 
 export interface Conversation {
   id: number,
-  participants: Participant,
+  participants: Participant[],
   messages: Message[],
 }

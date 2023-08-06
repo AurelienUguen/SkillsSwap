@@ -30,14 +30,16 @@ $hover: #117375;
 }
 
 .delete-btn,
-.update-btn {
+.update-btn,
+.messenger-btn {
   border: none;
   color: white;
   padding: 8px 30px 8px 30px;
   border-radius: 15px;
 }
 
-.update-btn {
+.update-btn,
+.messenger-btn {
   background-color: $primary;
 }
 
@@ -45,7 +47,8 @@ $hover: #117375;
   background-color: tomato//$primaryWithTransparancy;
 }
 
-.update-btn:hover {
+.update-btn:hover,
+.messenger-btn:hover {
   background-color: $hover;
 }
 

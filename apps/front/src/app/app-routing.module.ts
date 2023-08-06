@@ -8,6 +8,7 @@ import { SignupComponent } from './components/login/signup/signup.component';
 import { PersonalSpaceComponent } from './components/personal-space/personal-space.component';
 import { SheetFormComponent } from './components/sheet-form/sheet-form.component';
 import { CategoryComponent } from './components/category/category.component';
+import { MessengerComponent } from './components/messenger/messenger/messenger.component';
 import { UserFormUpdateComponent } from './components/user-form-update/user-form-update.component';
 
   const routes: Routes = [
@@ -18,7 +19,7 @@ import { UserFormUpdateComponent } from './components/user-form-update/user-form
 
   const userRoutes: Routes = [
     { path: 'my-space/:user', component: PersonalSpaceComponent},
-    { path: 'my-space/:user/messenger', component: PersonalSpaceComponent},
+    { path: 'my-space/:user/messenger', component: MessengerComponent},
     { path: 'update/:user', component: UserFormUpdateComponent},
 
 ];

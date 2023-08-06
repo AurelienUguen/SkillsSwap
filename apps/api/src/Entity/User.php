@@ -39,7 +39,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['read_user', 'read_sheet', 'read_lesson'])]
+    #[Groups(['read_user', 'read_sheet', 'read_lesson', 'read_participant', 'read_message'])]
     #[Api\ApiProperty(identifier:false)]
     private ?int $id = null;
 
@@ -73,7 +73,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['read_user','read_category','read_sheet', 'create_user', 'read_lesson'])]
+    #[Groups(['read_user','read_category','read_sheet', 'create_user', 'read_lesson', 'read_participant', 'read_message'])]
     #[Assert\NotBlank(message: "Ce champs ne peut être vide.")]
     #[Assert\NotNull(message: "Ce champs ne peut être nul.")]
     #[Assert\Regex(
@@ -84,6 +84,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['read_user', 'read_sheet', 'create_user', 'read_participant', 'read_message'])]
     #[Assert\NotBlank(message: "Ce champs ne peut être vide.")]
     #[Assert\NotNull(message: "Ce champs ne peut être nul.")]
     #[Assert\Regex(
@@ -91,7 +92,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         match: false,
         message: "Un Nom ne peut contenir de chiffres."
     )]
-    #[Groups(['read_user', 'read_sheet', 'create_user'])]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 255)]
@@ -136,7 +136,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     #[Gedmo\Slug(fields:['firstname','lastname'])]
     #[Api\ApiProperty(identifier:true)]
-    #[Groups(['read_sheet', 'read_user'])]
+    #[Groups(['read_sheet', 'read_user', 'read_participant', 'read_message'])]
     private ?string $slug = null;
 
     #[ORM\Column]
@@ -150,9 +150,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $lessons;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Participant::class)]
+    #[Groups(['read_user'])]
     private Collection $participants;
 
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Message::class, orphanRemoval: true)]
+    #[Groups(['read_user'])]
     private Collection $messages;
     
     public function __construct()

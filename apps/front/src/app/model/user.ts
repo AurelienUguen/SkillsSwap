@@ -1,5 +1,6 @@
 import { Lesson } from "./lesson";
 import { Message } from "./message";
+import { Participant } from "./participant";
 import { Sheet } from "./sheet";
 
 export interface User {
@@ -18,6 +19,7 @@ export interface User {
   lessons: Lesson[];
   roles:string[];
   sheets: Sheet[];
+  participants: Participant[];
   messages: Message[];
 }
 
@@ -53,4 +55,22 @@ export interface UserPost {
   district: number;
   city: string;
   description: string;
+}
+
+export interface UserMessenger {
+  id: number;
+  city: string;
+  district: number;
+  description: string;
+  email: string;
+  firstname: string;
+  lastname: string;
+  password: string;
+  phone: string;
+  slug: string;
+  tokken: number;
+  roles:string[];
+  sheets: Sheet[];
+  participants: Participant[];
+  messages: Message[];
 }
