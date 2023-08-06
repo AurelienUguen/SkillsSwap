@@ -28,6 +28,7 @@ export class MessengerChatComponent implements OnChanges{
   public userName?: string;
   public userMessages?: Message[];
   public userParticipants?: Participant[];
+  public textareaValue?: string;
 
   MessageForm = new FormGroup({
     message: new FormControl(),
@@ -63,7 +64,14 @@ export class MessengerChatComponent implements OnChanges{
         is_read: false,
         created_at: new Date(),
       }
-      this.messenger.postMessage(message).subscribe();
+      this.messenger.postMessage(message).subscribe(
+        sucess => {
+          this.textareaValue = '',
+          alert("Message bien envoyé.");
+        },
+        error => alert('Un problème est survenu.')
+      );
       console.log(message);
+      ;
     }
 }
