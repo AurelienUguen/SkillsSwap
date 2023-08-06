@@ -17,8 +17,10 @@
   </div>
 
   <div class="chat-action-container d-flex flex-column align-items-end">
-    <textarea class="form-control"></textarea>
-    <button type="submit" class="btn btn-primary mt-2">Send</button>
+    <form [formGroup]="MessageForm" (ngSubmit)="onSubmitMsg()" class="form-control">
+      <textarea formControlName="message" class="form-control form-text" placeholder="Votre message..."></textarea>
+      <button type="submit" class="btn btn-primary mt-2">Envoyer</button>
+    </form>
   </div>
 
 </div>

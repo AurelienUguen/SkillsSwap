@@ -1,12 +1,12 @@
 <div class="d-flex ">
   <div class="messenger-list justify-start me-3 pt-2 pe-3 pb-2 ps-2">
     <ng-container *ngIf="user">
-      <div *ngFor="let conv of userParticipants; let index = index" (click)="getMessagesByConversation(conv.conversation.id)"  class="message-info mb-2 pt-1 p pe-2 pb-1 ps-2" tabindex="{{ index }}">
+      <div *ngFor="let conv of userParticipants; let index = index" (click)="getMessagesByConversation(conv.conversation.id)" class="message-info mb-2 pt-1 p pe-2 pb-1 ps-2" tabindex="{{ index }}">
         <h6 class="m-0 msg-info-title">Conversation: {{ conv.conversation.id }}</h6>
         <span>avec: </span>
       </div>
     </ng-container>
   </div>
 
-  <app-messenger-chat [currentMessages]="currentMessages" class=""></app-messenger-chat>
+  <app-messenger-chat [currentMessages]="currentMessages" [currentConversationId]="currentConvId" class=""></app-messenger-chat>
 </div>
