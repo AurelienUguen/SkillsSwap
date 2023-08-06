@@ -1,4 +1,5 @@
 import { Lesson } from "./lesson";
+import { Message } from "./message";
 import { Sheet } from "./sheet";
 
 export interface User {
@@ -17,6 +18,7 @@ export interface User {
   lessons: Lesson[];
   roles:string[];
   sheets: Sheet[];
+  messages: Message[];
 }
 
 export interface userUpdate {
