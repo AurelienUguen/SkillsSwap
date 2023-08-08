@@ -46,7 +46,7 @@ export class MessengerService {
     this.http.get<Participant>(this.linksService.participantUrl)
   }
 
-  getMessagesByConversation(id: number): Observable<Message>{
+  getMessagesByConversation(id: number | undefined): Observable<Message>{
     const url = `${this.linksService.conversationUrl}/${id}`;
     return this.http.get<Message>(url);
   }

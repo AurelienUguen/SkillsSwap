@@ -22,6 +22,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { MessengerComponent } from './components/messenger/messenger/messenger.component';
 import { MessengerListComponent } from './components/messenger/messenger-list/messenger-list.component';
 import { MessengerChatComponent } from './components/messenger/messenger-chat/messenger-chat.component';
+import { MessengerSendFormComponent } from './messenger/messenger-send-form/messenger-send-form.component';
 import { UserFormUpdateComponent } from './components/user-form-update/user-form-update.component';
 
 @NgModule({
@@ -44,7 +45,8 @@ import { UserFormUpdateComponent } from './components/user-form-update/user-form
     MessengerComponent,
     MessengerListComponent,
     MessengerChatComponent,
-    UserFormUpdateComponent
+    UserFormUpdateComponent,
+    MessengerSendFormComponent
   ],
   imports: [
     BrowserModule,

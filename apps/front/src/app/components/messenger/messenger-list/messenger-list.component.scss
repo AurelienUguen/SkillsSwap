@@ -2,9 +2,17 @@ $brd-radius: 10px;
 $border-clr: rgb(48, 85, 52);
 $bg-clr: rgb(255, 255, 255, 0.2);
 
-app-messenger-chat {
+messenger-chat {
   width: 70%;
   border-left: 1px solid $border-clr;
+}
+
+app-messenger-chat {
+  width: 100%;
+}
+
+app-messenger-send-form {
+  width: 100%;
 }
 
 .messenger-list {

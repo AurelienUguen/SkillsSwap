@@ -1,7 +1,5 @@
 <div class="chat-container ps-3">
-
   <div class="chat-display mb-4 p-3">
-
     <ng-container *ngIf="currentMessages">
       <div *ngFor="let message of currentMessages; let index = index" [ngClass]="{'justify-end': index%2 !== 0 }" class="chat-msg-item-container mb-3">
         <div class="msg-details">
@@ -13,14 +11,6 @@
         <span class="bg-white pe-2 ps-2">{{message.content}}</span>
       </div> -->
     </ng-container>
-
   </div>
-
-  <div class="chat-action-container d-flex flex-column align-items-end">
-    <form [formGroup]="MessageForm" (ngSubmit)="onSubmitMsg()" class="form-control">
-      <textarea formControlName="message" class="form-control form-text" placeholder="Votre message..." [value]="textareaValue"></textarea>
-      <button type="submit" class="btn btn-primary mt-2">Envoyer</button>
-    </form>
-  </div>
-
+  <app-messenger-send-form> </app-messenger-send-form>
 </div>

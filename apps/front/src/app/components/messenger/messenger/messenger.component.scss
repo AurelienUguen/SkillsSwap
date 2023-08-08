@@ -3,6 +3,7 @@ $border-clr: rgb(48, 85, 52);
 
 .messenger-container {
   min-height: 400px;
+  // max-height: 480px;
   border: 2px solid $border-clr;
   border-radius: 8px;
 }
