@@ -8,6 +8,7 @@ $bgcolor: grey;
 
 .chat-display {
   min-height: 320px;
+  max-height: 400px;
   display: flex;
   flex-direction: column;
   border-radius: 5px;
