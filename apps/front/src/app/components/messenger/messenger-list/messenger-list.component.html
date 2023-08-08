@@ -7,6 +7,8 @@
       </div>
     </ng-container>
   </div>
-
-  <app-messenger-chat [currentMessages]="currentMessages" [currentConversationId]="currentConvId" class=""></app-messenger-chat>
+  <div class="messenger-chat ps-3">
+    <app-messenger-chat [currentMessages]="currentMessages" ></app-messenger-chat>
+    <app-messenger-send-form [currentConversationId]="currentConvId" > </app-messenger-send-form>
+  </div>
 </div>

@@ -2,7 +2,9 @@ $brd-radius: 10px;
 $border-clr: rgb(48, 85, 52);
 $bg-clr: rgb(255, 255, 255, 0.2);
 
-messenger-chat {
+.messenger-chat {
+  display: flex;
+  flex-direction: column;
   width: 70%;
   border-left: 1px solid $border-clr;
 }
