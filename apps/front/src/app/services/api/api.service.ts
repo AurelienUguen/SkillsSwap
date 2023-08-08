@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { Category } from '../../model/category';
-import { User, UserAuth, UserPost } from '../../model/user';
+import { User, UserAuth, UserPost, userUpdate } from '../../model/user';
 import { Observable } from 'rxjs';
 import { Sheet, sheetPost } from '../../model/sheet';
 import { Lesson, LessonPost } from '../../model/lesson';
@@ -72,6 +72,11 @@ export class ApiService {
     return this.http.post<UserPost>(this.usersUrl, user, {withCredentials: true});
   }
 
+  updateUser(slug: string, user: userUpdate) {
+    const url = `${this.usersUrl}/${slug}`;
+    return this.http.put<userUpdate>(url, user, {withCredentials: true});
+  }
+
   getFilteredCategory(filterParams: any): Observable<any> {
     let params = new HttpParams();
     for (const key in filterParams) {
@@ -85,4 +90,7 @@ export class ApiService {
   laBroyeuse(victim: any){
     return this.http.delete<any>(victim);
   }
+
+
+
 }

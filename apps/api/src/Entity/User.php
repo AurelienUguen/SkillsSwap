@@ -53,7 +53,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         message: "Le rôle choisi n'existe pas.",
     )]
     private array $roles = [];
-
+    
     #[Groups(['read_user', 'create_user'])]
     #[Assert\NotBlank(message: "Ce champs ne peut être vide.")]
     #[Assert\NotNull(message: "Ce champs ne peut être nul.")]
@@ -69,6 +69,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $plaintextPassword = null;
    
     #[ORM\Column]
+    #[Groups(['read_user', 'create_user'])]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]

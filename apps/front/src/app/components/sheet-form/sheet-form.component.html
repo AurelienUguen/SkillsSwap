@@ -1,20 +1,156 @@
-<div class="custom-container">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-control">
-    <select formControlName="category" class="form-select">
-      <option>Choisir une catégorie</option>
-      <option *ngFor="let category of categories" value="{{ category.slug }}">{{category.name}}</option>
-    </select>
-    <input formControlName="title" type="text" class="form-control form-text input-time col" placeholder="titre">
+<ng-container *ngIf="sheetToUpdate">
+  <div class="custom-container">
 
-    <div class="d-flex justify-content-between">
-      <label for="">Face-à-face</label>
-      <input formControlName="irl" type="checkbox" class="form-check" [(ngModel)]="isIrlChecked">
-      <label for="">A distance</label>
-      <input formControlName="visio" type="checkbox" class="form-check" [(ngModel)]="isVisioChecked">
+    <form
+      [formGroup]="updateForm"
+      (ngSubmit)="onUpdate()"
+      class="custom-form-container"
+    >
+
+    <div class="form-group">
+      <label for="title">Nom du cours :</label>
+      <input
+        formControlName="updatetitle"
+        type="text"
+        class="form-control form-text input-time col"
+        [(ngModel)]="sheetToUpdate.title"
+
+      />
+      <div class="invalid-feedback" *ngIf="title.touched && title.invalid && title.errors">
+        <ng-container *ngIf="title.errors['required']">Le titre du cours est requis<br></ng-container>
+        <ng-container *ngIf="title.errors['minLength']">Le titre doit faire plus de 6 caractères<br></ng-container>
+        <ng-container *ngIf="title.errors['maxLength']">Le titre ne doit pas dépasser 45 caractères<br></ng-container>
+      </div>
     </div>
 
-    <textarea formControlName="description" type="text" class="form-control form-text" placeholder="description"></textarea>
+      <div class="form-group">
+        <label for="category">Choisir une catégorie :</label>
+        <select formControlName="updatecategory" class="form-select">
+          <option *ngFor="let category of categories" [(ngModel)]="sheetToUpdate.category.slug">
+            {{ category.name }}
+          </option>
+        </select>
+        <div class="invalid-feedback" *ngIf="category.touched && category.invalid && category.errors">
+          <ng-container *ngIf="category.errors['required']">Veuillez choisir une catégorie</ng-container>
+        </div>
+      </div>
 
-    <button class="btn booking-btn col-4 mt-2">Réserver!</button>
+      <p class="mt-3">Déroulement du cours :</p>
+      <div class="form-check">
+        <label class="form-check-label" for="irl">Face-à-face</label>
+        <input
+          class="form-check-input"
+          formControlName="updateirl"
+          type="checkbox"
+          [(ngModel)]="sheetToUpdate.irl"
+        />
+      </div>
+
+      <div class="form-check">
+        <label class="form-check-label" for="visio">A distance</label>
+        <input
+          formControlName="updatevisio"
+          type="checkbox"
+          class="form-check-input"
+          [(ngModel)]="sheetToUpdate.visio"
+        />
+      </div>
+
+      <div class="form-check mt-3">
+        <label for="description">À propos :</label>
+        <textarea
+          formControlName="updatedescription"
+          type="text"
+          class="form-control form-text"
+          placeholder="Décrivez le contenu du cours"
+          [(ngModel)]="sheetToUpdate.description"
+        ></textarea>
+        <div class="invalid-feedback" *ngIf="description.touched && description.invalid && description.errors">
+          <ng-container *ngIf="description.errors['required']">Veuillez décrire le cours</ng-container>
+        </div>
+      </div>
+
+      <button type="submit" class="btn booking-btn col-4 mt-2 float-right"
+      [disabled]="form.invalid">
+        Enseigner !
+      </button>
+    </form>
+  </div>
+
+</ng-container>
+
+
+
+<!-- <ng-template #addsheet>
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+    class="custom-form-container"
+  >
+
+  <div class="form-group">
+    <label for="title">Nom du cours :</label>
+    <input
+      formControlName="title"
+      type="text"
+      class="form-control form-text input-time col"
+    />
+    <div class="invalid-feedback" *ngIf="title.touched && title.invalid && title.errors">
+      <ng-container *ngIf="title.errors['required']">Le titre du cours est requis<br></ng-container>
+      <ng-container *ngIf="title.errors['minLength']">Le titre doit faire plus de 6 caractères<br></ng-container>
+      <ng-container *ngIf="title.errors['maxLength']">Le titre ne doit pas dépasser 45 caractères<br></ng-container>
+    </div>
+  </div>
+
+    <div class="form-group">
+      <label for="category">Choisir une catégorie :</label>
+      <select formControlName="category" class="form-select">
+        <option *ngFor="let category of categories" value="{{ category.slug }}">
+          {{ category.name }}
+        </option>
+      </select>
+      <div class="invalid-feedback" *ngIf="category.touched && category.invalid && category.errors">
+        <ng-container *ngIf="category.errors['required']">Veuillez choisir une catégorie</ng-container>
+      </div>
+    </div>
+
+    <p class="mt-3">Déroulement du cours :</p>
+    <div class="form-check">
+      <label class="form-check-label" for="irl">Face-à-face</label>
+      <input
+        class="form-check-input"
+        formControlName="irl"
+        type="checkbox"
+        [(ngModel)]="isIrlChecked"
+      />
+    </div>
+
+    <div class="form-check">
+      <label class="form-check-label" for="visio">A distance</label>
+      <input
+        formControlName="visio"
+        type="checkbox"
+        class="form-check-input"
+        [(ngModel)]="isVisioChecked"
+      />
+    </div>
+
+    <div class="form-check mt-3">
+      <label for="description">À propos :</label>
+      <textarea
+        formControlName="description"
+        type="text"
+        class="form-control form-text"
+        placeholder="Décrivez le contenu du cours"
+      ></textarea>
+      <div class="invalid-feedback" *ngIf="description.touched && description.invalid && description.errors">
+        <ng-container *ngIf="description.errors['required']">Veuillez décrire le cours</ng-container>
+      </div>
+    </div>
+
+    <button type="submit" class="btn booking-btn col-4 mt-2 float-right"
+    [disabled]="form.invalid">
+      Enseigner !
+    </button>
   </form>
-</div>
+</ng-template> -->

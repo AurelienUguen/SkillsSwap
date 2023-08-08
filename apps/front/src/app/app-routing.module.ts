@@ -8,6 +8,7 @@ import { SignupComponent } from './components/login/signup/signup.component';
 import { PersonalSpaceComponent } from './components/personal-space/personal-space.component';
 import { SheetFormComponent } from './components/sheet-form/sheet-form.component';
 import { CategoryComponent } from './components/category/category.component';
+import { UserFormUpdateComponent } from './components/user-form-update/user-form-update.component';
 
   const routes: Routes = [
     { path: '', component: HomeComponent},
@@ -17,13 +18,17 @@ import { CategoryComponent } from './components/category/category.component';
 
   const userRoutes: Routes = [
     { path: 'my-space/:user', component: PersonalSpaceComponent},
+    { path: 'update/:user', component: UserFormUpdateComponent},
+
 ];
 
   const customRoutes: Routes = [
     { path: 'add-sheet', component: SheetFormComponent},
-    { path: 'sheet', component: SheetComponent },
+    { path: 'add-sheet/:sheet', component: SheetFormComponent},
+    // { path: 'sheet', component: SheetComponent },
     { path: 'category/:category', component: CategoryComponent},
     { path: ':sheet', component: SheetDetailComponent },
+
 ];
 
 

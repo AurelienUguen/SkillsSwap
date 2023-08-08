@@ -26,9 +26,9 @@ Class UserListener
 
     public function passwordHashoir(User $user)
     {
-        if($user->getPlaintextPassword() === null){
+        if($user->getPlaintextPassword() === null || $user->getPlaintextPassword() === 'adminUpdateProfile.911'){
             return;
-        }
+        } 
 
         $user->setPassword(
             $this->hasher->hashPassword(

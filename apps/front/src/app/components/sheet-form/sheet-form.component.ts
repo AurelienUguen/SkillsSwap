@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Category } from 'src/app/model/category';
-import { Sheet, sheetPost } from 'src/app/model/sheet';
+import { Sheet, sheetPost, updateSheet } from 'src/app/model/sheet';
 import { userConnected } from 'src/app/model/user';
 import { ApiService } from 'src/app/services/api/api.service';
 import { mySpaceService } from 'src/app/services/mySpaceObserver/mySpaceObserver.service';
@@ -13,7 +13,7 @@ import { mySpaceService } from 'src/app/services/mySpaceObserver/mySpaceObserver
   templateUrl: './sheet-form.component.html',
   styleUrls: ['./sheet-form.component.scss']
 })
-export class SheetFormComponent implements OnInit {
+export class SheetFormComponent implements OnInit, OnDestroy {
 
   private sheetForm: Subscription;
   private slug!: string;
@@ -26,19 +26,18 @@ export class SheetFormComponent implements OnInit {
   isIrlChecked = false;
   isVisioChecked = false;
 
-  form = new FormGroup({
-    category: new FormControl(),
-    title: new FormControl(),
-    irl: new FormControl(),
-    visio: new FormControl(),
-    description: new FormControl(),
-    language: new FormControl(),
-  })
+  public form!: FormGroup;
+  public updateForm!: FormGroup;
+
+  sheetSlug?: string;
+  sheetToUpdate?: Sheet;
 
   constructor(
+    private formBuilder: FormBuilder,
     private apiService: ApiService,
     private mySpaceObs: mySpaceService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
     ){
       this.sheetForm = this.mySpaceObs.getStatusObservable().subscribe((user: userConnected) => {
         this.slug = user.slug;
@@ -46,14 +45,88 @@ export class SheetFormComponent implements OnInit {
     }
 
   ngOnInit() {
-    console.log(this.slug);
     this.getCategories();
+
+    this.sheetSlug = this.getSheetSlug();
+
+    this.getSheetBySlug(this.sheetSlug);
+
+
+
+    this.form = this.formBuilder.group({
+      title: [null, [
+        Validators.required,
+        this.minLengthValidator.bind(this),
+        this.maxLengthValidator.bind(this)
+      ]],
+      category: [null, [
+        Validators.required
+      ]],
+      irl: [null],
+      visio: [null],
+      description: [null, [
+        Validators.required
+      ]]
+    }, {
+      updateOn: 'blur'
+    });
+
+    this.updateForm = this.formBuilder.group({
+      updatetitle: [null, [
+        Validators.required,
+        this.minLengthValidator.bind(this),
+        this.maxLengthValidator.bind(this)
+      ]],
+      updatecategory: [null, [
+        Validators.required
+      ]],
+      updateirl: [null],
+      updatevisio: [null],
+      updatedescription: [null, [
+        Validators.required
+      ]]
+    }, {
+      updateOn: 'blur'
+    });
   }
 
   getCategories() {
     return this.apiService.getCategories()
     .subscribe((categories: any) => this.categories = categories['hydra:member']);
   }
+
+ getSheetSlug() {
+    const slug = this.route.snapshot.paramMap.get('sheet');
+
+    if (!slug) {
+      throw new Error('Sheet slug is not defined');
+    }
+    return slug;
+  }
+
+  getSheetBySlug(sheetSlug: string): void {
+
+    this.apiService.getSheetBySlug(sheetSlug)
+    .subscribe((sheet: Sheet) => {
+      this.sheetToUpdate = sheet;
+    });
+  }
+
+  // Validators personalisés
+
+  minLengthValidator(control: FormControl): { minLength: boolean } | null {
+    const minLength = 6;
+    if (control.value && control.value.length >= minLength) return null;
+    return {minLength: true};
+  }
+
+  maxLengthValidator(control: FormControl): { maxLength: boolean } | null {
+    const maxLength = 45;
+    if (control.value && control.value.length <= maxLength) return null;
+    return {maxLength: true};
+  }
+
+  // Ajout du cours en BDD
 
   onSubmit() {
     const newSheet: sheetPost = {
@@ -69,5 +142,46 @@ export class SheetFormComponent implements OnInit {
     console.log(newSheet);
     alert('Le cours a bien été enregistré !')
     return this.router.navigateByUrl(`my-space/${this.slug}`);
+  }
+
+  onUpdate() {
+    const updateSheet: updateSheet = {
+      category: `/api/categories/${this.updateForm.value.category}`,
+      title: this.updateForm.value.title,
+      user: `/api/users/${this.slug}`,
+      description: this.updateForm.value.description,
+      irl: this.updateForm.value.irl,
+      visio: this.updateForm.value.visio,
+      language: ["Français"],
+    }
+
+    console.log(updateSheet);
+
+  }
+
+  // Get pour les validators
+
+  get title() {
+    return this.form.get('title') as FormControl;
+  }
+
+  get category() {
+    return this.form.get('category') as FormControl;
+  }
+
+  get irl() {
+    return this.form.get('irl') as FormControl;
+  }
+
+  get visio() {
+    return this.form.get('visio') as FormControl;
+  }
+
+  get description() {
+    return this.form.get('description') as FormControl;
+  }
+
+  ngOnDestroy() {
+    this.sheetForm.unsubscribe();
   }
 }

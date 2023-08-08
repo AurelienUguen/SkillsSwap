@@ -19,6 +19,7 @@ import { SigninComponent } from './components/login/signin/signin.component';
 import { PersonalSpaceComponent } from './components/personal-space/personal-space.component';
 import { SheetFormComponent } from './components/sheet-form/sheet-form.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { UserFormUpdateComponent } from './components/user-form-update/user-form-update.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { FooterComponent } from './components/footer/footer.component';
     SigninComponent,
     PersonalSpaceComponent,
     SheetFormComponent,
-    FooterComponent
+    FooterComponent,
+    UserFormUpdateComponent
   ],
   imports: [
     BrowserModule,

@@ -25,3 +25,13 @@ export interface sheetPost {
   visio: boolean;
   language: string[];
 }
+
+export interface updateSheet {
+  category: string;
+  title: string;
+  user: string;
+  description: string;
+  irl: boolean;
+  visio: boolean;
+  language: string[];
+}

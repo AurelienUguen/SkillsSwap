@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Lesson } from 'src/app/model/lesson';
 import { Sheet } from 'src/app/model/sheet';
-import { User, userConnected } from 'src/app/model/user';
+import { User, userConnected, userUpdate } from 'src/app/model/user';
 import { ApiService } from 'src/app/services/api/api.service';
 import { LoginService } from 'src/app/services/login/login.service';
 import { mySpaceService } from 'src/app/services/mySpaceObserver/mySpaceObserver.service';
@@ -24,14 +25,22 @@ export class PersonalSpaceComponent implements OnInit {
   public sheets: Sheet[] = [];
   public lessons: Lesson[] = [];
 
-  mySheetsToggle = true;
-  myLessonsToggle = true;
+  public mySheetsToggle = true;
+  public myLessonsToggle = true;
+  public inputToggle = true;
+
+  private userID!: string;
+  private userObject: Subscription;
+
+  public updateUserForm!: FormGroup;
 
   constructor(
     private apiService: ApiService,
     private isConnected: LoginService,
     private mySpaceObs: mySpaceService,
-    private router: Router
+    private router: Router,
+    private userObs: mySpaceService,
+    private formBuilder: FormBuilder
     ){
       this.subscription = this.isConnected.getStatusObservable().subscribe((status: string) => {
         this.status = status;
@@ -39,6 +48,8 @@ export class PersonalSpaceComponent implements OnInit {
       this.mySpace = this.mySpaceObs.getStatusObservable().subscribe((user: userConnected) => {
         this.slug = user.slug;
       });
+      this.userObject = this.userObs.getStatusObservable().subscribe((user: userConnected) => {this.userID = user.slug;});
+
     }
 
 
@@ -46,6 +57,11 @@ export class PersonalSpaceComponent implements OnInit {
     this.getUserBySlug();
     this.getSheets();
     this.getLessons();
+
+
+    setTimeout(() => {
+      console.log(this.user);
+    }, 1000);
   }
 
   kill(url: string, victim: string | number,deco: boolean = false):void{
@@ -91,4 +107,10 @@ export class PersonalSpaceComponent implements OnInit {
   showMyLessons() {
     this.myLessonsToggle = !this.myLessonsToggle;
   }
+
+  addDescriptionToggle() {
+    this.inputToggle = !this.inputToggle;
+  }
+
+
 }
