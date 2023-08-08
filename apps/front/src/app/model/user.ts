@@ -7,6 +7,7 @@ export interface User {
   lastname: string;
   email: string;
   password: string;
+  plaintextPassword: string;
   phone: string;
   district: number;
   city: string;
@@ -15,6 +16,18 @@ export interface User {
   roles:string[];
   description: string;
   slug: string;
+}
+
+export interface userUpdate {
+  roles:string[];
+  firstname: string;
+  lastname: string;
+  email: string;
+  plaintextPassword: string;
+  phone: string;
+  district: number;
+  city: string;
+  description: string;
 }
 
 export interface UserAuth {

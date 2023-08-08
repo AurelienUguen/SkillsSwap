@@ -1,0 +1,93 @@
+<ng-container *ngIf="user">
+  <form [formGroup]="updateUserForm">
+    <div class="row">
+      <label for="" class="col"><strong>Prénom :</strong></label>
+      <input
+        formControlName="firstname"
+        type="text"
+        class="form-control form-text col"
+        [(ngModel)]="user.firstname"
+      />
+    </div>
+
+    <div class="row">
+      <label for="" class="col"><strong>Nom :</strong></label>
+      <input
+        formControlName="lastname"
+        type="text"
+        class="form-control form-text col"
+        [(ngModel)]="user.lastname"
+      />
+    </div>
+
+    <div class="row">
+      <label for="" class="col"><strong>Email :</strong></label>
+      <input
+        formControlName="email"
+        type="email"
+        class="form-control form-text col"
+        [(ngModel)]="user.email"
+      />
+    </div>
+
+    <div class="row">
+      <label for="" class="col"
+        ><strong>Mot de passe : {{ user.plaintextPassword }}</strong></label
+      >
+      <input
+        formControlName="plaintextPassword"
+        type="plaintextPassword"
+        class="form-control form-text col"
+        [(ngModel)]="user.plaintextPassword"
+      />
+    </div>
+
+    <div class="row">
+      <label for="" class="col"><strong>Téléphone :</strong></label>
+      <input
+        formControlName="phone"
+        type="text"
+        class="form-control form-text col"
+        [(ngModel)]="user.phone"
+      />
+    </div>
+
+    <div class="row">
+      <label for="" class="col"><strong>Département :</strong></label>
+      <input
+        formControlName="district"
+        type="number"
+        class="form-control form-text col"
+        [(ngModel)]="user.district"
+      />
+    </div>
+
+    <div class="row">
+      <label for="" class="col"><strong>Ville :</strong></label>
+      <input
+        formControlName="city"
+        type="text"
+        class="form-control form-text col"
+        [(ngModel)]="user.city"
+      />
+    </div>
+
+    <div class="row">
+      <label for="" class="col"><strong>Description :</strong></label>
+      <textarea
+        formControlName="description"
+        class="form-control form-text col"
+        [(ngModel)]="user.description"
+        rows="5"
+      ></textarea>
+    </div>
+
+    <button
+      type="submit"
+      (click)="updateUser()"
+      class="btn btn-primary col-4 mt-2"
+    >
+      Mettre à jour
+    </button>
+  </form>
+</ng-container>
