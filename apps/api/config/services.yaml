@@ -22,6 +22,11 @@ services:
     App\EntityListener\:
         resource: '../src/EntityListener/'
         tags: ["doctrine.orm.entity_listener"]
+    App\EventListener\MercureListener:
+        tags: 
+            name: 'doctrine.orm.event_listener'
+            event: 'api_platform.post_write'
+            method: onMessagePosted
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
