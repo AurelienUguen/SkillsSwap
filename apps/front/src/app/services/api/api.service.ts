@@ -91,7 +91,4 @@ export class ApiService {
   laBroyeuse(victim: any){
     return this.http.delete<any>(victim);
   }
-
-
-
 }

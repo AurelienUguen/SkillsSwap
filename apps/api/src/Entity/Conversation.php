@@ -11,6 +11,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ConversationRepository::class)]
 #[Api\ApiResource(
+    mercure: true,
     normalizationContext:['groups' => ['read_convers']],
     denormalizationContext:['groups' => ['create_convers']],
     operations:[

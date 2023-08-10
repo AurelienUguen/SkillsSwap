@@ -1,6 +1,6 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Conversation } from 'src/app/model/conversation';
 import { Message, MsgPost } from 'src/app/model/message';
 import { Participant } from 'src/app/model/participant';
@@ -15,7 +15,8 @@ import { mySpaceService } from 'src/app/services/mySpaceObserver/mySpaceObserver
   templateUrl: './messenger-chat.component.html',
   styleUrls: ['./messenger-chat.component.scss']
 })
-export class MessengerChatComponent implements OnChanges{
+export class MessengerChatComponent {
+
   @Input() currentMessages?: Message[];
   @Input() currentConversationId?: number;
 
@@ -29,7 +30,6 @@ export class MessengerChatComponent implements OnChanges{
   public userMessages?: Message[];
   public userParticipants?: Participant[];
   public textareaValue?: string;
-
 
 
   constructor(
@@ -46,9 +46,4 @@ export class MessengerChatComponent implements OnChanges{
         this.userName = user.firstname;
       });
     }
-
-    ngOnChanges(): void {
-    }
-
-
 }
