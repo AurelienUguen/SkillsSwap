@@ -12,6 +12,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: MessageRepository::class)]
 #[Api\ApiResource(
+    mercure: true,
     normalizationContext:['groups' => ['read_message']],
     denormalizationContext:['groups' => ['create_message']],
     operations:[
@@ -50,7 +51,7 @@ class Message
     #[Groups(['read_message', 'create_message', 'read_user'])]
     private ?Conversation $conversation = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     #[Groups(['read_message', 'create_message', 'read_user','read_convers'])]
     private ?bool $is_read = null;
 

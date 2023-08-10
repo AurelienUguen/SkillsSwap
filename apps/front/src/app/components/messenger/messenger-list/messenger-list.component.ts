@@ -55,21 +55,21 @@ export class MessengerListComponent implements OnInit, OnChanges{
   getUserBySlug(): void {
     this.apiService.getUserBySlug(this.slug)
       .subscribe(user => {
-        console.log(this.user = user);
+        this.user = user;
       });
   }
 
   getParticipantByUser(slug: string) {
     this.messenger.getParticipantByUser(slug)
     .subscribe((participants: any) => {
-      console.log(this.userParticipants = participants['participants']);
+      this.userParticipants = participants['participants'];
     })
   }
 
   getMessagesByConversation(id: number) {
     this.messenger.getMessagesByConversation(id)
       .subscribe((messages: any) => {
-        console.log(this.currentMessages = messages['messages']);
+        this.currentMessages = messages['messages'];
       })
     this.currentConvId = id;
     this.isActive = true;
