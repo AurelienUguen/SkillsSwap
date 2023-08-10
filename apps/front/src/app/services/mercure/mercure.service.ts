@@ -17,8 +17,8 @@ export class MercureService {
     return new Observable<MessageEvent>(subscriber => {
       const updateMessage = sourceMessage;
 
-      updateMessage.onmessage = event =>  console.log(subscriber.next(event));
-      updateMessage.onerror = event => console.log(subscriber.error(event));
+      updateMessage.onmessage = event =>  subscriber.next(event);
+      updateMessage.onerror = event => subscriber.error(event);
     });
   }
 
