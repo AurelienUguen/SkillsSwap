@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SheetDetailComponent } from './components/sheet-detail/sheet-detail.component';
 import { HomeComponent } from './components/home-components/home/home.component';
-import { SheetComponent } from './components/sheet/sheet.component';
 import { SigninComponent } from './components/login/signin/signin.component';
 import { SignupComponent } from './components/login/signup/signup.component';
 import { PersonalSpaceComponent } from './components/personal-space/personal-space.component';
@@ -27,7 +26,6 @@ import { UserFormUpdateComponent } from './components/user-form-update/user-form
   const customRoutes: Routes = [
     { path: 'add-sheet', component: SheetFormComponent},
     { path: 'add-sheet/:sheet', component: SheetFormComponent},
-    // { path: 'sheet', component: SheetComponent },
     { path: 'category/:category', component: CategoryComponent},
     { path: ':sheet', component: SheetDetailComponent },
 
