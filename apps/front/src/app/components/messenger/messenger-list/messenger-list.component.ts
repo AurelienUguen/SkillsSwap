@@ -75,6 +75,8 @@ export class MessengerListComponent implements OnInit, OnChanges{
     this.isActive = true;
   }
 
+
+
   // getMessagesByUser(slug: string) {
   //   this.messenger.getMessagesByUser(slug)
   //   .subscribe((messages: any) => {

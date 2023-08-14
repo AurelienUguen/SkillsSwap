@@ -3,11 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\MessageRepository;
-use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata as Api;
-use DateTime;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: MessageRepository::class)]
@@ -61,7 +59,7 @@ class Message
 
     public function __construct()
     {
-        $this->created_at = new DateTime("now");
+        $this->created_at = new \DateTime('now');
     }
 
     public function getId(): ?int
