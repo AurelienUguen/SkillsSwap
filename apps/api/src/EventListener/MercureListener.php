@@ -28,22 +28,22 @@ class MercureListener implements EventSubscriberInterface
 
     public function onMessagePosted(ViewEvent $event)
     {
+        
         $message = $event->getControllerResult();
 
-        // Check if the entity being posted is a Message
         if ($message instanceof Message) {
-            // Create a Mercure update with the message data
+
             $update = new Update(
                 ('https://api.skillswap.wip/api/messages'),
                 json_encode([
+                    'id' => $message->getId(),
                     'title' => $message->getTitle(),
                     'content' => $message->getContent(),
-                    'owner' => $message->getOwner(),
-                    'conversation' => $message->getConversation()
+                    'created_at' => $message->getCreatedAt()->format('Y-m-d H:i:s'),
+                    'owner' => 'api/users/'.$message->getOwner()->getSlug()
                 ])
             );
 
-            // Publish the update
             $this->hub->publish($update);
         }
     }

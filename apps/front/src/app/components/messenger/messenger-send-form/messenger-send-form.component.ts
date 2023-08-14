@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { formatDate } from '@angular/common';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Message, MsgPost } from 'src/app/model/message';
@@ -56,6 +57,7 @@ export class MessengerSendFormComponent {
     if(this.currentConversationId === null || this.currentConversationId === undefined){
       alert("Vous devez d'abord sélectionner une conversation.");
     }
+
     const message: MsgPost = {
       title: "Test",
       content: this.MessageForm.value.message,
@@ -67,11 +69,10 @@ export class MessengerSendFormComponent {
     this.messenger.postMessage(message).subscribe(
       success => {
         this.textareaValue = '',
-        alert("Message bien envoyé.");
+        console.log("Message bien envoyé.");
       },
-      error => alert('Un problème est survenu.')
+      error => console.log('Un problème est survenu.')
     );
     // console.log(message);
-
   }
 }

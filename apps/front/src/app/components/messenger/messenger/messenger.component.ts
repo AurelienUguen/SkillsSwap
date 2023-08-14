@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subscription, delay } from 'rxjs';
 import { Conversation } from 'src/app/model/conversation';
@@ -32,12 +32,16 @@ export class MessengerComponent {
 
   public updatedMessage: any;
 
+  public data: any;
+
+
   constructor(
     private apiService: ApiService,
     private isConnected: LoginService,
     private mySpaceObs: mySpaceService,
     private messenger: MessengerService,
     private mercureService: MercureService,
+    private cdr: ChangeDetectorRef
     ){
       this.subscription = this.isConnected.getStatusObservable().subscribe((status: string) => {
         this.status = status;
@@ -51,7 +55,7 @@ export class MessengerComponent {
     ngOnInit() {
       // this.getMessagesByUser(this.slug);
       // this.getParticipantByUser(this.slug);
-      this.getMessageEvent();
+      // this.getMessageEvent();
     }
 
     getParticipantByUser(slug: string) {
@@ -65,14 +69,28 @@ export class MessengerComponent {
       this.messenger.getMessagesByUser(slug)
       .subscribe((messages: any) => {
         console.log(this.userMessages = messages['messages']);
+
       })
     }
 
-    // Mercure Update
+    // Mercure Subscription Update
 
-    getMessageEvent() {
+    /* getMessageEvent() {
       this.mercureService.getUpdatedMessage(this.mercureService.getSourceMessage())
-      .subscribe((updatedMessage: any) => console.log(this.updatedMessage = updatedMessage['data']));
-    }
-}
+      .subscribe((updatedMessage: any) => console.log(updatedMessage.data));
 
+      this.cdr.detectChanges();
+    } */
+
+   /*  getMessageEvent() {
+      this.mercureService.getUpdatedMessage(this.mercureService.getSourceMessage())
+      .subscribe((updatedMessage: any ) => {
+
+        const newData = JSON.parse(updatedMessage.data);
+
+        console.log(this.data = newData);
+
+        this.cdr.detectChanges();
+      });
+    } */
+}
