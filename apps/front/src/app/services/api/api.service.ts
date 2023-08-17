@@ -68,8 +68,11 @@ export class ApiService {
   }
 
   postLesson(lesson : LessonPost) {
-    console.log(lesson);
     return this.http.post<LessonPost>(this.lessonUrl, lesson, {withCredentials: true});
+  }
+
+  updateLesson(lesson : LessonPost, id: number) {
+    return this.http.put<LessonPost>(this.lessonUrl+"/"+id, lesson, {withCredentials: true});
   }
 
   postAuth(user : UserAuth) {

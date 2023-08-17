@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription, tap } from 'rxjs';
-import { Lesson } from 'src/app/model/lesson';
+import { Lesson, LessonPost } from 'src/app/model/lesson';
 import { Sheet } from 'src/app/model/sheet';
 import { User, userConnected, userUpdate } from 'src/app/model/user';
 import { ApiService } from 'src/app/services/api/api.service';
@@ -25,8 +25,11 @@ export class PersonalSpaceComponent implements OnInit {
   public sheets: Sheet[] = [];
   public lessons: Lesson[] = [];
 
+  public currentDate: Date = new Date();
   public mySheetsToggle = true;
   public myLessonsToggle = true;
+  public myLessonsToggleMaster = true;
+  public myLessonsTogglePadawan = true;
   public inputToggle = true;
 
   private userID!: string;
@@ -85,6 +88,32 @@ export class PersonalSpaceComponent implements OnInit {
     }
   }
 
+  lessonCheck(lesson: Lesson, master: boolean){
+    console.log((master) ? "MASTER" : "PADAWAN");
+
+    const updateLesson: LessonPost = {
+      user: "api/users/"+lesson.user.slug,
+      sheet: "api/sheets/"+lesson.sheet.slug,
+      masterValidate: (master ? !lesson.masterValidate : lesson.masterValidate),
+      padawanValidate: (!master ? !lesson.padawanValidate : lesson.padawanValidate),
+      bookingDateEntry: lesson.bookingDate.toString()
+    }
+
+    console.log(lesson);
+    console.log(updateLesson);
+    //alert('Le cours a bien été enregistré !');
+    console.log('Le cours a bien été enregistré !');
+    this.apiService.updateLesson(updateLesson, lesson.id).subscribe();
+  }
+
+  masterCheck(lesson : Lesson){
+    this.lessonCheck(lesson, true);
+  }
+
+  padawanCheck(lesson : Lesson){
+    this.lessonCheck(lesson, false);
+  }
+
   getUserBySlug() {
     this.apiService.getUserBySlug(this.slug)
       .subscribe(user => {
@@ -106,8 +135,12 @@ export class PersonalSpaceComponent implements OnInit {
     this.mySheetsToggle= !this.mySheetsToggle;
   }
 
-  showMyLessons() {
-    this.myLessonsToggle = !this.myLessonsToggle;
+  showMyLessonsMaster() {
+    this.myLessonsToggleMaster = !this.myLessonsToggleMaster;
+  }
+
+  showMyLessonsPadawan() {
+    this.myLessonsTogglePadawan = !this.myLessonsTogglePadawan;
   }
 
   gotoMessages(slug: string) {

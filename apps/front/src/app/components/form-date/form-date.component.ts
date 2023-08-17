@@ -42,7 +42,9 @@ export class FormDateComponent {
     const newLesson:LessonPost = {
       user: `/api/users/${this.userID}`,
       sheet: `/api/sheets/${this.sheetID}`,
-      bookingDateEntry: this.form.value.date
+      bookingDateEntry: this.form.value.date,
+      masterValidate: false,
+      padawanValidate: false
     }
 
     this.apiService.postLesson(newLesson).subscribe();

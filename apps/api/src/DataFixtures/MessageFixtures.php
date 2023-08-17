@@ -2,9 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Conversation;
 use App\Entity\Message;
-use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker;
