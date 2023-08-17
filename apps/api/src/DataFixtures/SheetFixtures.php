@@ -43,7 +43,6 @@ class SheetFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         $faker = Faker\Factory::create('fr_FR');
-
         $sheetAdmin = new Sheet();
         $sheetAdmin->setTitle('Coproterie');
         $sheetAdmin->setTokenPrice(3);
@@ -57,7 +56,7 @@ class SheetFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::COPRO, $sheetAdmin);
         $manager->persist($sheetAdmin);
         
-        /* 
+        /*
         for ($i = 1 ; $i <= self::NB_SHEET ; $i++) {
             $sheet[$i] = new Sheet();
             $sheet[$i]->setTitle($faker->catchPhrase);
