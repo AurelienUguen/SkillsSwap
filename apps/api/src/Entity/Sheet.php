@@ -40,6 +40,18 @@ class Sheet
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Gedmo\Slug(fields:['title'])]
+    #[Api\ApiProperty(identifier:true)]
+    #[Groups(['read_sheet','read_category', 'read_lesson'])]
+    private ?string $slug = null;
+
+    #[ORM\ManyToOne(inversedBy: 'sheets')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank(message: "Ce champs ne peut être nul.")]
+    #[Groups(['read_sheet','read_category', 'create_sheet', 'read_lesson'])]
+    private ?Category $category = null;
+
+    #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "Ce champs ne peut être nul.")]
     #[Groups(['read_sheet','read_category', 'read_user', 'create_sheet', 'read_lesson'])]
     private ?string $title = null;
@@ -49,11 +61,8 @@ class Sheet
     #[Groups(['read_sheet','read_category','create_sheet', 'read_lesson'])]
     private ?User $user = null;
 
-    #[ORM\ManyToOne(inversedBy: 'sheets')]
-    #[ORM\JoinColumn(nullable: false)]
-    #[Assert\NotBlank(message: "Ce champs ne peut être nul.")]
-    #[Groups(['read_sheet','read_category', 'create_sheet', 'read_lesson'])]
-    private ?Category $category = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $tokenPrice = null;
 
     #[ORM\Column]
     #[Assert\Choice(
@@ -77,16 +86,6 @@ class Sheet
     #[Groups(['read_sheet', 'create_sheet'])]
     private ?string $description = null;
 
-
-    #[ORM\OneToMany(mappedBy: 'sheet', targetEntity: Lesson::class, orphanRemoval: true)]
-    private Collection $lessons;
-
-    #[ORM\Column(length: 255)]
-    #[Gedmo\Slug(fields:['title'])]
-    #[Api\ApiProperty(identifier:true)]
-    #[Groups(['read_sheet','read_category', 'read_lesson'])]
-    private ?string $slug = null;
-
     #[ORM\Column(type: Types::JSON, nullable: true)]
     #[Groups(['read_sheet', 'create_sheet', 'read_lesson'])]
     private array $language = [];
@@ -94,6 +93,9 @@ class Sheet
     #[Groups(['read_sheet', 'create_sheet', 'read_lesson','read_category'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $imageURL = null;
+
+    #[ORM\OneToMany(mappedBy: 'sheet', targetEntity: Lesson::class, orphanRemoval: true)]
+    private Collection $lessons;
 
     public function __construct()
     {
@@ -104,6 +106,30 @@ class Sheet
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
+
+        return $this;
     }
 
     public function getTitle(): ?string
@@ -130,14 +156,14 @@ class Sheet
         return $this;
     }
 
-    public function getCategory(): ?Category
+    public function getTokenPrice(): ?int
     {
-        return $this->category;
+        return $this->tokenPrice;
     }
 
-    public function setCategory(?Category $category): static
+    public function setTokenPrice(?int $tokenPrice): static
     {
-        $this->category = $category;
+        $this->tokenPrice = $tokenPrice;
 
         return $this;
     }
@@ -178,6 +204,29 @@ class Sheet
         return $this;
     }
 
+    public function getLanguage(): array
+    {
+        return $this->language;
+    }
+
+    public function setLanguage(?array $language): static
+    {
+        $this->language = $language;
+
+        return $this;
+    }
+
+    public function getImageURL(): ?string
+    {
+        return $this->imageURL;
+    }
+
+    public function setImageURL(?string $imageURL): static
+    {
+        $this->imageURL = $imageURL;
+
+        return $this;
+    }
    
     /**
      * @return Collection<int, Lesson>
@@ -205,42 +254,6 @@ class Sheet
                 $lesson->setSheet(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    public function setSlug(string $slug): static
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    public function getLanguage(): array
-    {
-        return $this->language;
-    }
-
-    public function setLanguage(?array $language): static
-    {
-        $this->language = $language;
-
-        return $this;
-    }
-
-    public function getImageURL(): ?string
-    {
-        return $this->imageURL;
-    }
-
-    public function setImageURL(?string $imageURL): static
-    {
-        $this->imageURL = $imageURL;
 
         return $this;
     }

@@ -42,6 +42,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['read_user', 'read_sheet', 'read_lesson', 'read_participant', 'read_message'])]
     #[Api\ApiProperty(identifier:false)]
     private ?int $id = null;
+    
+    #[ORM\Column(length: 255)]
+    #[Gedmo\Slug(fields:['firstname','lastname'])]
+    #[Api\ApiProperty(identifier:true)]
+    #[Groups(['read_sheet', 'read_lesson', 'read_user', 'read_participant', 'read_message'])]
+    private ?string $slug = null;
 
     #[ORM\Column]
     #[Groups(['read_user', 'create_user'])]
@@ -53,24 +59,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         message: "Le rôle choisi n'existe pas.",
     )]
     private array $roles = [];
-    
-    #[Groups(['read_user', 'create_user'])]
-    #[Assert\NotBlank(message: "Ce champs ne peut être vide.")]
-    #[Assert\NotNull(message: "Ce champs ne peut être nul.")]
-    #[Assert\Length(
-        min: 8,
-        minMessage: "un mot de passe éfficace doit comporter au moins 8 caractères.",
-    )]
-    #[Assert\Regex(
-        pattern: '/^(?!.*\s)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&^*+\-=_\;:,.(){}<>]).+$/',
-        match: true,
-        message: "Le mot de passe doit contenir au moins une majuscule, un caractère spécial et un chiffre et ne peut contenir d'espaces.",
-    )]
-    private ?string $plaintextPassword = null;
-   
+
     #[ORM\Column]
-    #[Groups(['read_user', 'create_user'])]
-    private ?string $password = null;
+    #[Groups(['read_user'])]
+    private ?int $tokken = 3;
 
     #[ORM\Column(length: 255)]
     #[Groups(['read_user','read_category','read_sheet', 'create_user', 'read_lesson', 'read_participant', 'read_message'])]
@@ -93,6 +85,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         message: "Un Nom ne peut contenir de chiffres."
     )]
     private ?string $lastname = null;
+    
+    #[Groups(['read_user', 'create_user'])]
+    #[Assert\NotBlank(message: "Ce champs ne peut être vide.")]
+    #[Assert\NotNull(message: "Ce champs ne peut être nul.")]
+    #[Assert\Length(
+        min: 8,
+        minMessage: "un mot de passe éfficace doit comporter au moins 8 caractères.",
+    )]
+    #[Assert\Regex(
+        pattern: '/^(?!.*\s)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&^*+\-=_\;:,.(){}<>]).+$/',
+        match: true,
+        message: "Le mot de passe doit contenir au moins une majuscule, un caractère spécial et un chiffre et ne peut contenir d'espaces.",
+    )]
+    private ?string $plaintextPassword = null;
+   
+    #[ORM\Column]
+    #[Groups(['read_user', 'create_user'])]
+    private ?string $password = null;
 
     #[ORM\Column(length: 255)]
     #[Groups(['read_user', 'create_user'])]
@@ -132,16 +142,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     #[Groups(['read_user', 'read_sheet', 'create_user'])]
     private ?string $description = null;
-    
-    #[ORM\Column(length: 255)]
-    #[Gedmo\Slug(fields:['firstname','lastname'])]
-    #[Api\ApiProperty(identifier:true)]
-    #[Groups(['read_sheet', 'read_user', 'read_participant', 'read_message'])]
-    private ?string $slug = null;
-
-    #[ORM\Column]
-    #[Groups(['read_user'])]
-    private ?int $tokken = 3;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Sheet::class, orphanRemoval: true)]
     private Collection $sheets;
@@ -177,6 +177,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
     /**
      * A visual identifier that represents this user.
      *
@@ -202,6 +214,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getTokken(): ?int
+    {
+        return $this->tokken;
+    }
+
+    public function setTokken(int $tokken): static
+    {
+        $this->tokken = $this->tokken + $tokken;
 
         return $this;
     }
@@ -326,18 +350,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    public function setSlug(string $slug): static
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Sheet>
      */
@@ -394,18 +406,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $lesson->setUser(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getTokken(): ?int
-    {
-        return $this->tokken;
-    }
-
-    public function setTokken(int $tokken): static
-    {
-        $this->tokken = $tokken;
 
         return $this;
     }

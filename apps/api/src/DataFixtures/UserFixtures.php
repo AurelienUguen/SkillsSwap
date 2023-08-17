@@ -10,6 +10,7 @@ use Faker;
 class UserFixtures extends Fixture
 {
     const ADMIN = 'ADMIN';
+    const AD = 'AD';
     const NB_USER = 9;
 
     public function load(ObjectManager $manager): void
@@ -17,7 +18,7 @@ class UserFixtures extends Fixture
         $faker = Faker\Factory::create('fr_FR');
 
         $admin = new User();
-        $admin->setTokken(10000);
+        $admin->setTokken( 0 - 3 );
         $admin->setFirstname('admin');
         $admin->setLastname('ADMIN');
       //$admin->setPhone('01.02.03.04.05');
@@ -31,9 +32,24 @@ class UserFixtures extends Fixture
         $this->setReference(self::ADMIN, $admin);
         $manager->persist($admin);
 
+        $ad = new User();
+        $ad->setTokken( 12 - 3 );
+        $ad->setFirstname('ad');
+        $ad->setLastname('AD');
+      //$ad->setPhone('01.02.03.04.05');
+        $ad->setPhone('+33102030405');
+        $ad->setRoles(['ROLE_USER','ROLE_ADMIN']);
+        $ad->setEmail('ad@ad.com');
+        $ad->setPlaintextPassword('Password.0');
+        $ad->setDistrict(75);
+        $ad->setCity('Paris');
+        $ad->setDescription('Compte Administrateur SkillSwap');
+        $this->setReference(self::AD, $ad);
+        $manager->persist($ad);
+        
         for ($i = 1 ; $i <= self::NB_USER ; $i++) {
             $user[$i] = new User();
-            $user[$i]->setTokken(mt_rand(0,30));
+            $user[$i]->setTokken((mt_rand(0,30)) - 3);
             $user[$i]->setFirstname($faker->firstName);
             $user[$i]->setLastname($faker->lastName);
             $user[$i]->setRoles(['ROLE_USER']);
@@ -48,7 +64,7 @@ class UserFixtures extends Fixture
             $this->setReference("user$i", $user[$i]);
             $manager->persist($user[$i]);
         }
-
+        
         $manager->flush();
     }
 

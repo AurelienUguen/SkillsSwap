@@ -6,10 +6,14 @@ export interface Lesson {
   user: User;
   sheet: Sheet;
   bookingDate: Date;
+  masterValidate: boolean;
+  padawanValidate: boolean;
 }
 
 export interface LessonPost {
   user: string;
   sheet: string;
   bookingDateEntry: string;
+  masterValidate: boolean;
+  padawanValidate: boolean;
 }

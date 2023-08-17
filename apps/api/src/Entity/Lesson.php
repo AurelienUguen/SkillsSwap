@@ -46,6 +46,14 @@ class Lesson
     #[Groups(['read_lesson', 'create_lesson'])]
     private ?Sheet $sheet = null;
 
+    #[ORM\Column]
+    #[Groups(['read_lesson', 'create_lesson'])]
+    private ?bool $padawanValidate = false;
+
+    #[ORM\Column]
+    #[Groups(['read_lesson', 'create_lesson'])]
+    private ?bool $masterValidate = false;
+
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     #[Groups(['read_lesson', 'read_sheet'])]
     private ?\DateTimeInterface $bookingDate = null;
@@ -77,14 +85,26 @@ class Lesson
         return $this;
     }
 
-    public function getSheet(): ?Sheet
+    public function isPadawanValidate(): ?bool
     {
-        return $this->sheet;
+        return $this->padawanValidate;
     }
 
-    public function setSheet(?Sheet $sheet): static
+    public function setPadawanValidate(?bool $padawanValidate): static
     {
-        $this->sheet = $sheet;
+        $this->padawanValidate = $padawanValidate;
+
+        return $this;
+    }
+
+    public function isMasterValidate(): ?bool
+    {
+        return $this->masterValidate;
+    }
+
+    public function setMasterValidate(?bool $masterValidate): static
+    {
+        $this->masterValidate = $masterValidate;
 
         return $this;
     }
@@ -109,6 +129,18 @@ class Lesson
     public function setBookingDateEntry(?string $bookingDateEntry): static
     {
         $this->bookingDateEntry = $bookingDateEntry;
+
+        return $this;
+    }
+
+    public function getSheet(): ?Sheet
+    {
+        return $this->sheet;
+    }
+
+    public function setSheet(?Sheet $sheet): static
+    {
+        $this->sheet = $sheet;
 
         return $this;
     }

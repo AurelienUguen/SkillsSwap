@@ -16,14 +16,21 @@ class LessonFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         $faker = Faker\Factory::create('fr_FR');
+
+        $lessonAd = new Lesson();
+        $lessonAd->setUser($this->getReference(UserFixtures::AD));
+        $lessonAd->setSheet($this->getReference(SheetFixtures::COPRO));
+        $lessonAd->setBookingDateEntry("2024-08-19");
+        $manager->persist($lessonAd);
+        
         for ($i = 1 ; $i <= self::NB_LESSON ; $i++) {
             $lesson[$i] = new Lesson();
             $lesson[$i]->setUser($this->getReference("user".mt_rand(2,(UserFixtures::NB_USER))));
             $lesson[$i]->setSheet($this->getReference("sheet".mt_rand(1,(SheetFixtures::NB_SHEET))));
             $lesson[$i]->setBookingDateEntry(($faker->date('Y-m-d')));
-          //$lesson[$i]->setBookingDate(new DateTime($faker->date('Y-m-d')));
             $manager->persist($lesson[$i]);
         }
+        
         $manager->flush();
     }
 
@@ -35,3 +42,20 @@ class LessonFixtures extends Fixture implements DependentFixtureInterface
         ];
     }
 }
+
+/*///
+{
+  "email": "ad@ad.com",
+  "password": "Password.0"
+}
+///*/
+
+/*///
+{
+  "user": "/api/users/ad-ad",
+  "sheet": "/api/sheets/coproterie",
+  "bookingDateEntry": "2023-08-19",
+  "padawanValidate": true,
+  "masterValidate": true
+}
+///*/
