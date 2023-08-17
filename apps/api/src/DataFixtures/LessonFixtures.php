@@ -17,45 +17,45 @@ class LessonFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Faker\Factory::create('fr_FR');
 
-        $lessonAd = new Lesson();
-        $lessonAd->setUser($this->getReference(UserFixtures::AD));
-        $lessonAd->setSheet($this->getReference(SheetFixtures::COPRO));
-        $lessonAd->setBookingDateEntry("2023-01-01");
-        $lessonAd->setMasterValidate(true);
-        $lessonAd->setPadawanValidate(false);
-        $manager->persist($lessonAd);
+        $lessonAd1 = new Lesson();
+        $lessonAd1->setUser($this->getReference(UserFixtures::AD));
+        $lessonAd1->setSheet($this->getReference(SheetFixtures::COPRO));
+        $lessonAd1->setBookingDateEntry("2023-01-01");
+        $lessonAd1->setMasterValidate(true);
+        $lessonAd1->setPadawanValidate(false);
+        $manager->persist($lessonAd1);
 
-        $lessonAd = new Lesson();
-        $lessonAd->setUser($this->getReference(UserFixtures::ADMIN));
-        $lessonAd->setSheet($this->getReference(SheetFixtures::COPRO));
-        $lessonAd->setBookingDateEntry("2023-01-01");
-        $lessonAd->setMasterValidate(true);
-        $lessonAd->setPadawanValidate(false);
-        $manager->persist($lessonAd);
+        $lessonAd2 = new Lesson();
+        $lessonAd2->setUser($this->getReference(UserFixtures::ADMIN));
+        $lessonAd2->setSheet($this->getReference(SheetFixtures::COPRO));
+        $lessonAd2->setBookingDateEntry("2023-01-01");
+        $lessonAd2->setMasterValidate(true);
+        $lessonAd2->setPadawanValidate(false);
+        $manager->persist($lessonAd2);
 
-        $lessonAd = new Lesson();
-        $lessonAd->setUser($this->getReference(UserFixtures::ADMIN));
-        $lessonAd->setSheet($this->getReference(SheetFixtures::COPRO));
-        $lessonAd->setBookingDateEntry("2024-01-01");
-        $lessonAd->setMasterValidate(true);
-        $lessonAd->setPadawanValidate(false);
-        $manager->persist($lessonAd);
+        $lessonAd3 = new Lesson();
+        $lessonAd3->setUser($this->getReference(UserFixtures::ADMIN));
+        $lessonAd3->setSheet($this->getReference(SheetFixtures::COPRO));
+        $lessonAd3->setBookingDateEntry("2024-01-01");
+        $lessonAd3->setMasterValidate(true);
+        $lessonAd3->setPadawanValidate(false);
+        $manager->persist($lessonAd3);
 
-        $lessonAd = new Lesson();
-        $lessonAd->setUser($this->getReference(UserFixtures::ADMIN));
-        $lessonAd->setSheet($this->getReference(SheetFixtures::COPRO));
-        $lessonAd->setBookingDateEntry("2023-01-01");
-        $lessonAd->setMasterValidate(false);
-        $lessonAd->setPadawanValidate(false);
-        $manager->persist($lessonAd);
+        $lessonAd4 = new Lesson();
+        $lessonAd4->setUser($this->getReference(UserFixtures::ADMIN));
+        $lessonAd4->setSheet($this->getReference(SheetFixtures::COPRO));
+        $lessonAd4->setBookingDateEntry("2023-01-01");
+        $lessonAd4->setMasterValidate(false);
+        $lessonAd4->setPadawanValidate(false);
+        $manager->persist($lessonAd4);
 
-        $lessonAd = new Lesson();
-        $lessonAd->setUser($this->getReference(UserFixtures::ADMIN));
-        $lessonAd->setSheet($this->getReference(SheetFixtures::COPRO));
-        $lessonAd->setBookingDateEntry("2024-01-01");
-        $lessonAd->setMasterValidate(false);
-        $lessonAd->setPadawanValidate(false);
-        $manager->persist($lessonAd);
+        $lessonAd5 = new Lesson();
+        $lessonAd5->setUser($this->getReference(UserFixtures::ADMIN));
+        $lessonAd5->setSheet($this->getReference(SheetFixtures::COPRO));
+        $lessonAd5->setBookingDateEntry("2024-01-01");
+        $lessonAd5->setMasterValidate(false);
+        $lessonAd5->setPadawanValidate(false);
+        $manager->persist($lessonAd5);
 
         /* 
         for ($i = 1 ; $i <= self::NB_LESSON ; $i++) {
@@ -67,6 +67,7 @@ class LessonFixtures extends Fixture implements DependentFixtureInterface
         }
         */
 
+        
         $manager->flush();
     }
 
