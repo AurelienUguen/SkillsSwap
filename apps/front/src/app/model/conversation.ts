@@ -6,3 +6,7 @@ export interface Conversation {
   participants: Participant[],
   messages: Message[],
 }
+
+export interface PostConversation {
+  id: number;
+}

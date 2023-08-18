@@ -14,13 +14,17 @@ import { Lesson, LessonPost } from '../../model/lesson';
 
 export class ApiService {
 
-  private domain = `api.skillswap.wip`
-  private authUrl = `https://${this.domain}/auth`;
-  private apiUrl = `https://${this.domain}/api`;
-  private categoriesUrl = `${this.apiUrl}/categories`;
-  private usersUrl = `${this.apiUrl}/users`;
-  private sheetUrl = `${this.apiUrl}/sheets`;
-  private lessonUrl = `${this.apiUrl}/lessons`;
+  public domain = `api.skillswap.wip`
+  public authUrl = `https://${this.domain}/auth`;
+  public apiUrl = `https://${this.domain}/api`;
+  public categoriesUrl = `${this.apiUrl}/categories`;
+  public usersUrl = `${this.apiUrl}/users`;
+  public sheetUrl = `${this.apiUrl}/sheets`;
+  public lessonUrl = `${this.apiUrl}/lessons`;
+  public messageUrl = `${this.apiUrl}/messages`;
+  public myspacegeUrl = `${this.apiUrl}/myspace`;
+  public participantUrl = `${this.apiUrl}/participants`;
+  public conversationUrl = `${this.apiUrl}/conversations`;
 
 
   constructor(private http: HttpClient) { }

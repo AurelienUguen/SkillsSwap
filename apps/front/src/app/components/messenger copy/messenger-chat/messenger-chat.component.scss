@@ -7,7 +7,7 @@ $bgcolor: grey;
   min-height: 320px;
   max-height: 400px;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   border-radius: 5px;
   overflow-y: scroll;
 }
