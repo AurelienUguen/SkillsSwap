@@ -3,7 +3,7 @@ import { ApiService } from '../api/api.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Message, MsgPost } from 'src/app/model/message';
-import { Conversation } from 'src/app/model/conversation';
+import { Conversation, PostConversation } from 'src/app/model/conversation';
 import { LinksService } from '../api/links.service';
 import { Participant } from 'src/app/model/participant';
 import { User } from 'src/app/model/user';
@@ -77,5 +77,9 @@ export class MessengerService {
 
   postMessage(message: MsgPost){
     return this.http.post<MsgPost>(this.linksService.messageUrl, message);
+  }
+
+  postConversation(conversation: PostConversation) {
+    return this.http.post<PostConversation>(this.apiService.conversationUrl, conversation);
   }
 }

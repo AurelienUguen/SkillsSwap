@@ -46,59 +46,51 @@ export class MessengerListComponent implements OnInit {
       this.getUserConnectedParticipants(this.slug);
     }
 
-    ngOnInit(): void {
-      this.getUserBySlug();
-      this.getTeacherParticipants(this.teacherSlug['teacherSlug']);
-    }
+  ngOnInit(): void {
+    this.getUserBySlug();
+    this.getTeacherParticipants(this.teacherSlug['teacherSlug']);
+  }
 
 
-    getUserBySlug(): void {
-      this.apiService.getUserBySlug(this.slug)
-        .subscribe(user => {
-          console.log(this.user = user);
-        });
-    }
+  getUserBySlug(): void {
+    this.apiService.getUserBySlug(this.slug)
+      .subscribe(user => {
+        console.log(this.user = user);
+      });
+  }
 
-    getUserConnectedParticipants(slug: string) {
-      this.messenger.getParticipantByUser(slug)
-      .subscribe((participants: any) => {
-        console.log(this.userParticipants = participants['participants']);
-      })
-    }
+  getUserConnectedParticipants(slug: string) {
+    this.messenger.getParticipantByUser(slug)
+    .subscribe((participants: any) => {
+      console.log(this.userParticipants = participants['participants']);
+    })
+  }
 
-    getTeacherParticipants(slug: string) {
-      this.messenger.getParticipantByUser(slug)
-      .subscribe((participants: any) => {
-        this.teacherParticipants = participants['participants'];
-        this.activateTeachersConversation();
-      })
-    }
+  getTeacherParticipants(slug: string) {
+    this.messenger.getParticipantByUser(slug)
+    .subscribe((participants: any) => {
+      this.teacherParticipants = participants['participants'];
+      this.activateTeachersConversation();
+    })
+  }
 
-    activateTeachersConversation() {
-      for(let i = 0; i < this.userParticipants?.length!; i++) {
-        for(let j = 0; j < this.teacherParticipants?.length!; j++) {
-          if(this.teacherParticipants?.[j].conversation.id === this.userParticipants?.[i].conversation.id) {
-            this.getMessagesByConversation(this.teacherParticipants?.[j].conversation.id!);
-          }
+  activateTeachersConversation() {
+    for(let i = 0; i < this.userParticipants?.length!; i++) {
+      for(let j = 0; j < this.teacherParticipants?.length!; j++) {
+        if(this.teacherParticipants?.[j].conversation.id === this.userParticipants?.[i].conversation.id) {
+          this.getMessagesByConversation(this.teacherParticipants?.[j].conversation.id!);
         }
       }
     }
+  }
 
-    getMessagesByConversation(id: number) {
-      this.messenger.getMessagesByConversation(id)
-        .subscribe((messages: any) => {
-          this.currentMessages = messages['messages'];
-        })
-      console.log(this.currentConvId = id);
-      this.isActive = true;
-    }
+  getMessagesByConversation(id: number) {
+    this.messenger.getMessagesByConversation(id)
+      .subscribe((messages: any) => {
+        this.currentMessages = messages['messages'].reverse();
+      })
+    console.log(this.currentConvId = id);
+    this.isActive = true;
+  }
 
-
-
-  // getMessagesByUser(slug: string) {
-  //   this.messenger.getMessagesByUser(slug)
-  //   .subscribe((messages: any) => {
-  //     console.log(this.userMessages = messages['messages']);
-  //   })
-  // }
 }

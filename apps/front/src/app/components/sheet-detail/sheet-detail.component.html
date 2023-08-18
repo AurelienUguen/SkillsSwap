@@ -65,7 +65,7 @@
             sheet.user.city
           }}" alt="">
           <h3 class="user-name">{{sheet.user.firstname}}</h3>
-          <button class="btn btn-primary contact-btn">Contacter</button>
+          <button class="btn btn-primary contact-btn" routerLink="../my-space/{{ slug }}/messenger" [state]="teacherSlug" >Contacter</button>
       </div>
     </div>
   </div>

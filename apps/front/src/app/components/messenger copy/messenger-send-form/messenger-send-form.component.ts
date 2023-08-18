@@ -1,5 +1,4 @@
-import { formatDate } from '@angular/common';
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Message, MsgPost } from 'src/app/model/message';
@@ -7,10 +6,8 @@ import { Participant } from 'src/app/model/participant';
 import { User, userConnected } from 'src/app/model/user';
 import { ApiService } from 'src/app/services/api/api.service';
 import { LoginService } from 'src/app/services/login/login.service';
-import { MercureService } from 'src/app/services/mercure/mercure.service';
 import { MessengerService } from 'src/app/services/messenger/messenger.service';
 import { mySpaceService } from 'src/app/services/mySpaceObserver/mySpaceObserver.service';
-
 
 @Component({
   selector: 'app-messenger-send-form',
@@ -50,12 +47,10 @@ export class MessengerSendFormComponent {
       });
     }
 
-
   onSubmitMsg(){
     if(this.currentConversationId === null || this.currentConversationId === undefined){
       alert("Vous devez d'abord sélectionner une conversation.");
     }
-
     const message: MsgPost = {
       title: "Test",
       content: this.MessageForm.value.message,
@@ -64,13 +59,15 @@ export class MessengerSendFormComponent {
       is_read: false,
       created_at: new Date(),
     }
+    // this.messenger.postConversation()
     this.messenger.postMessage(message).subscribe(
-      success => {
+      sucess => {
         this.textareaValue = '',
-        console.log("Message bien envoyé.");
+        alert("Message bien envoyé.");
       },
-      error => console.log('Un problème est survenu.')
+      error => alert('Un problème est survenu.')
     );
-    // console.log(message);
+    console.log(message);
+    ;
   }
 }
