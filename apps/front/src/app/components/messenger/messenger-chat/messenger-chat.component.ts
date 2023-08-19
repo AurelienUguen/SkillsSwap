@@ -44,13 +44,11 @@ export class MessengerChatComponent implements OnInit {
         this.slug = user.slug;
         this.userName = user.firstname;
       });
-    }
-
-    ngOnChanges(): void {
       this.getUserBySlug();
     }
 
     ngOnInit(): void {
+      // this.getUserBySlug();
       this.getMessageEvent();
     }
 
@@ -67,6 +65,10 @@ export class MessengerChatComponent implements OnInit {
 
     toString(val: any): string{
       return val.slice(11);
+    }
+
+    reverseIt(val: Message[] | undefined): Message[] | undefined {
+      return val?.reverse();
     }
 
     getMessageEvent() {

@@ -18,9 +18,11 @@ import { UserFormUpdateComponent } from './components/user-form-update/user-form
 
   const userRoutes: Routes = [
     { path: 'my-space/:user', component: PersonalSpaceComponent},
-    { path: 'my-space/:user/messenger', component: MessengerComponent},
     { path: 'update/:user', component: UserFormUpdateComponent},
 
+];
+  const messengerRoutes: Routes = [
+    { path: 'my-space/:user/messenger', component: MessengerComponent},
 ];
 
   const customRoutes: Routes = [
@@ -33,7 +35,7 @@ import { UserFormUpdateComponent } from './components/user-form-update/user-form
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes), RouterModule.forRoot(customRoutes), RouterModule.forRoot(userRoutes)],
+  imports: [RouterModule.forRoot(routes), RouterModule.forRoot(customRoutes), RouterModule.forRoot(userRoutes), RouterModule.forRoot(messengerRoutes, {onSameUrlNavigation: 'reload'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
