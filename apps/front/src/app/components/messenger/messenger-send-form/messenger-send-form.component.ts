@@ -61,15 +61,18 @@ export class MessengerSendFormComponent {
       content: this.MessageForm.value.message,
       owner: `/api/users/${this.slug}`,
       conversation: `/api/conversations/${this.currentConversationId}`,
-      is_read: false,
-      created_at: new Date(),
+      isRead: false,
+      createdAt: new Date(),
     }
     this.messenger.postMessage(message).subscribe(
       success => {
         this.textareaValue = '',
         console.log("Message bien envoyé.");
       },
-      error => console.log('Un problème est survenu.')
+      error => {
+        console.log('Un problème est survenu.');
+        console.error(error);
+      }
     );
     // console.log(message);
   }

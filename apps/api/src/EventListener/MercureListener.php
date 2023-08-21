@@ -40,7 +40,7 @@ class MercureListener implements EventSubscriberInterface
                     'title' => $message->getTitle(),
                     'content' => $message->getContent(),
                     'created_at' => $message->getCreatedAt()->format('Y-m-d H:i:s'),
-                    'owner' => 'api/users/'.$message->getOwner()->getSlug()
+                    'owner' => '/api/users/'.$message->getOwner()->getSlug()
                 ])
             );
 
