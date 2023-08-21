@@ -49,12 +49,12 @@ Class LessonListener
             echo (" [ Le Master doit Valider ] ");
             return;
         }
-        if(!$lesson->isMasterValidate()){
+        if(!$lesson->isPadawanValidate()){
             echo (" [ Le Padawan doit Valider ] ");
             return;
         }
 
-        $done = $lesson->isMasterValidate() && $lesson->isMasterValidate();
+        $done = $lesson->isMasterValidate() && $lesson->isPadawanValidate();
 
         if($done === true){
             $sheet = $lesson->getSheet();

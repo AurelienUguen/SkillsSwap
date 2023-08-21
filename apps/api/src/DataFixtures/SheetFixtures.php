@@ -26,9 +26,6 @@ class SheetFixtures extends Fixture implements DependentFixtureInterface
         'arts plastiques',
         'musique',
         'informatique',
-        /*/////////
-        "lingerie",
-        "heels",
         'poterie',
         'infographie',
         'blender',
@@ -37,6 +34,9 @@ class SheetFixtures extends Fixture implements DependentFixtureInterface
         'carton',
         'meat',
         "car",
+        /*/////////
+        "lingerie",
+        "heels",
     ];
     const COPRO = 'Coproterie';
 
@@ -57,6 +57,7 @@ class SheetFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::COPRO, $sheetAdmin);
         $manager->persist($sheetAdmin);
         
+        /* 
         for ($i = 1 ; $i <= self::NB_SHEET ; $i++) {
             $sheet[$i] = new Sheet();
             $sheet[$i]->setTitle($faker->catchPhrase);
@@ -75,6 +76,7 @@ class SheetFixtures extends Fixture implements DependentFixtureInterface
             $this->addReference("sheet$i", $sheet[$i]);
             $manager->persist($sheet[$i]);
         }
+        */
 
         $manager->flush();
     }

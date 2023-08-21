@@ -14,6 +14,7 @@ class MessageFixtures extends Fixture implements DependentFixtureInterface
     
     public function load(ObjectManager $manager): void
     {
+        /*
         $faker = Faker\Factory::create('fr_FR');
         for ($i = 1 ; $i <= self::NB_MSG ; $i++) {
             $msg[$i] = new Message();
@@ -25,6 +26,7 @@ class MessageFixtures extends Fixture implements DependentFixtureInterface
             $manager->persist($msg[$i]);
         }
         $manager->flush();
+        */
     }
 
     public function getDependencies ()
