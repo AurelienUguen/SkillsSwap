@@ -46,7 +46,8 @@ class UserFixtures extends Fixture
         $ad->setDescription('Compte Administrateur SkillSwap');
         $this->setReference(self::AD, $ad);
         $manager->persist($ad);
-        
+
+        /* 
         for ($i = 1 ; $i <= self::NB_USER ; $i++) {
             $user[$i] = new User();
             $user[$i]->setTokken((mt_rand(0,30)) - 3);
@@ -64,6 +65,7 @@ class UserFixtures extends Fixture
             $this->setReference("user$i", $user[$i]);
             $manager->persist($user[$i]);
         }
+        */
         
         $manager->flush();
     }

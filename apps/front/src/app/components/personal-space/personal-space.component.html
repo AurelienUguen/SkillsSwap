@@ -140,11 +140,11 @@
           </tr>
         </thead>
         <tbody *ngFor="let lesson of lessons">
-          <tr *ngIf="lesson.user.id == user.id">
+          <tr *ngIf="lesson.sheet.user.id == user.id">
             <td class="align-middle">
-              <a class="link-to-sheet" routerLink="/{{ lesson.sheet.slug }}">{{
-                lesson.sheet.title
-              }}</a>
+              <a class="link-to-sheet" routerLink="/{{ lesson.sheet.slug }}">
+                {{ lesson.id }} / {{ lesson.sheet.title }}
+              </a>
             </td>
             <td class="align-middle booking-text">
               {{ lesson.sheet.user.firstname }}
@@ -185,9 +185,9 @@
         <tbody *ngFor="let lesson of lessons">
           <tr *ngIf="lesson.user.id == user.id">
             <td class="align-middle">
-              <a class="link-to-sheet" routerLink="/{{ lesson.sheet.slug }}">{{
-                lesson.sheet.title
-              }}</a>
+              <a class="link-to-sheet" routerLink="/{{ lesson.sheet.slug }}">
+                {{ lesson.id }} / {{ lesson.sheet.title }}
+              </a>
             </td>
             <td class="align-middle booking-text">
               {{ lesson.sheet.user.firstname }}
@@ -199,7 +199,7 @@
               <button
                 class="update-btn"
                 (click)="padawanCheck(lesson)"
-                [disabled]="lesson.padawanValidate && lesson.masterValidate || lesson.bookingDate > currentDate"
+                [disabled]="lesson.padawanValidate && lesson.masterValidate"
               >
                 Payer le Maître
               </button>

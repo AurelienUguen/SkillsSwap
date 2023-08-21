@@ -22,7 +22,8 @@ class LessonFixtures extends Fixture implements DependentFixtureInterface
         $lessonAd->setSheet($this->getReference(SheetFixtures::COPRO));
         $lessonAd->setBookingDateEntry("2024-08-19");
         $manager->persist($lessonAd);
-        
+
+        /* 
         for ($i = 1 ; $i <= self::NB_LESSON ; $i++) {
             $lesson[$i] = new Lesson();
             $lesson[$i]->setUser($this->getReference("user".mt_rand(2,(UserFixtures::NB_USER))));
@@ -30,7 +31,8 @@ class LessonFixtures extends Fixture implements DependentFixtureInterface
             $lesson[$i]->setBookingDateEntry(($faker->date('Y-m-d')));
             $manager->persist($lesson[$i]);
         }
-        
+        */
+
         $manager->flush();
     }
 
