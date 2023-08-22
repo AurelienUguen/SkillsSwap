@@ -61,10 +61,12 @@ export class PersonalSpaceComponent implements OnInit {
     this.getSheets();
     this.getLessons();
 
-
+    /*
     setTimeout(() => {
       console.log(this.user);
     }, 1000);
+    */
+
   }
 
   kill(
@@ -104,6 +106,7 @@ export class PersonalSpaceComponent implements OnInit {
     //alert('Le cours a bien été enregistré !');
     console.log('Le cours a bien été enregistré !');
     this.apiService.updateLesson(updateLesson, lesson.id).subscribe();
+    this.router.navigate([`/`]);
   }
 
   masterCheck(lesson : Lesson){
@@ -145,5 +148,29 @@ export class PersonalSpaceComponent implements OnInit {
 
   gotoMessages(slug: string) {
     this.router.navigate([`/my-space/${slug}/messenger`]);
+  }
+
+  toDate(lesson: Lesson){
+    return ( new Date(lesson.bookingDate) < this.currentDate ? true : false );
+  }
+
+  canValidate(lesson: Lesson, target: "MASTER" | "PADAWAN" | "DELETE"){
+
+    if(target == "MASTER"){
+      console.log(lesson.id + " MASTER " + this.toDate(lesson));
+      return this.toDate(lesson);
+
+    }else if(target == "PADAWAN"){
+      console.log(lesson.id + " PADAWAN " + ( this.toDate(lesson) && lesson.masterValidate ));
+      return ( lesson.padawanValidate || !(this.toDate(lesson) && lesson.masterValidate) );
+
+    }else if(target == "DELETE"){
+      console.log(lesson.id + " DELETE " + ( this.toDate(lesson) && lesson.masterValidate ));
+      return ( this.toDate(lesson) && lesson.masterValidate );
+
+    }else{
+      console.log("Y'a un BUG !!")
+      return true;
+    }
   }
 }
