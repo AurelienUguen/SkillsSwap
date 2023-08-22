@@ -111,7 +111,7 @@ export class SheetFormComponent implements OnInit, OnDestroy {
     .subscribe((sheet: Sheet) => {
       this.sheetToUpdate = sheet;
     });
-  } */
+  }
 
   // Validators personalisés
 
@@ -163,7 +163,6 @@ export class SheetFormComponent implements OnInit, OnDestroy {
     this.apiService.updateSheet(slug, updateSheet).subscribe();
 
     alert('Le cours a bien été modifié!')
-
     return this.router.navigateByUrl(`my-space/${this.slug}`);
   }
 
