@@ -47,9 +47,9 @@ export class SheetFormComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getCategories();
 
-    this.sheetSlug = this.getSheetSlug();
+    /* this.sheetSlug = this.getSheetSlug();
 
-    this.getSheetBySlug(this.sheetSlug);
+    this.getSheetBySlug(this.sheetSlug); */
 
 
 
@@ -95,7 +95,7 @@ export class SheetFormComponent implements OnInit, OnDestroy {
     .subscribe((categories: any) => this.categories = categories['hydra:member']);
   }
 
- getSheetSlug() {
+ /*  getSheetSlug() {
     const slug = this.route.snapshot.paramMap.get('sheet');
 
     if (!slug) {
@@ -110,7 +110,7 @@ export class SheetFormComponent implements OnInit, OnDestroy {
     .subscribe((sheet: Sheet) => {
       this.sheetToUpdate = sheet;
     });
-  }
+  } */
 
   // Validators personalisés
 

@@ -28,11 +28,11 @@ export interface userUpdate {
   firstname: string;
   lastname: string;
   email: string;
-  plaintextPassword: string;
   phone: string;
   district: number;
   city: string;
   description: string;
+  plaintextPassword: string;
 }
 
 export interface UserAuth {

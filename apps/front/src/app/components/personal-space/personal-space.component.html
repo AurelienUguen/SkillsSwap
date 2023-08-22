@@ -1,14 +1,78 @@
 <ng-container *ngIf="user">
   <h2 class="title">Mon espace</h2>
-  <h4>Informations personnelles</h4>
-  <div>
-    <p>Prénom : {{user.firstname}}</p>
-    <p>Nom : {{user.lastname}}</p>
-    <p>Email : {{user.email}}</p>
-    <a [routerLink]="['/update', user.slug]" class="btn btn-primary">Modifier mes infos</a>
+  <div class="row">
+    <div class="col">
+      <span class="sub-title">Informations personnelles</span>
+      <table class="table">
+        <tr>
+          <th>
+            Prénom :
+          </th>
+          <td>
+            {{user.firstname}}
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Nom :
+          </th>
+          <td>
+            {{user.lastname}}
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Département :
+          </th>
+          <td>
+            {{user.district}}
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Ville :
+          </th>
+          <td>
+            {{user.city}}
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Email :
+          </th>
+          <td>
+            {{user.email}}
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Téléphone :
+          </th>
+          <td>
+            {{user.phone}}
+          </td>
+        </tr>
+      </table>
+      <span class="sub-title alignement">Ma description</span>
+      <span><br>{{user.description}}<br></span>
+
+      <a [routerLink]="['/update', user.slug]" class="btn btn-primary mt-3">Modifier mes infos</a>
+    </div>
+
+    <div class="col">
+      <div class="d-flex align-items-center">
+        <span class="sub-title">Historique de mes</span>
+        <img src="assets/jetons.png" alt="token" width="30" class="token-img">
+      </div>
+      <div class="d-flex flex-column">
+        <span class="user-description">Fortune actuelle : {{ user.tokken }} TokenSwap</span>
+        <span class="user-description">Jetons gagnés : </span>
+        <span class="user-description">Jetons dépensés : </span>
+      </div>
+    </div>
   </div>
-  <h4>Ma fortune</h4>
-  <p class="user-description"> {{ user.tokken }} TokkenSwap</p>
+
+
 
   <div>
     <h2 class="title toggle-btn" (click)="showMySheets()">Mes cours</h2>
@@ -35,12 +99,12 @@
               >
                 Supprimer
               </button>
-              <button
+             <!--  <button
                 class="delete-btn m-1"
                 [routerLink]="['/add-sheet', sheet.slug]"
               >
                 Modifier
-              </button>
+              </button> -->
             </td>
           </tr>
         </tbody>
