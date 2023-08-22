@@ -111,7 +111,7 @@ export class SheetFormComponent implements OnInit, OnDestroy {
     .subscribe((sheet: Sheet) => {
       this.sheetToUpdate = sheet;
     });
-  }
+  } */
 
   // Validators personalisés
 
