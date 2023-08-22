@@ -75,9 +75,9 @@
 
 
   <div>
-    <h2 class="title toggle-btn" (click)="showMySheets()">Mes cours</h2>
+    <h2>Mes cours</h2>
 
-    <div [hidden]="mySheetsToggle">
+    <div>
       <table class="table table-transparent">
         <thead>
           <tr>
@@ -99,21 +99,21 @@
               >
                 Supprimer
               </button>
-             <!--  <button
+              <button
                 class="delete-btn m-1"
-                [routerLink]="['/add-sheet', sheet.slug]"
+                [routerLink]="['/update', sheet.slug]"
               >
                 Modifier
-              </button> -->
+              </button>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <h2 class="title toggle-btn" (click)="showMyLessons()">Mes réservations</h2>
+    <h2 class="title toggle-btn">Mes réservations</h2>
 
-    <div [hidden]="myLessonsToggle">
+    <div>
       <table class="table table-transparent">
         <thead>
           <tr>

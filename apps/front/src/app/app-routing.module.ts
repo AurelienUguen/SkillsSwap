@@ -27,7 +27,7 @@ import { UserFormUpdateComponent } from './components/user-form-update/user-form
 
   const customRoutes: Routes = [
     { path: 'add-sheet', component: SheetFormComponent},
-    { path: 'add-sheet/:sheet', component: SheetFormComponent},
+    { path: 'update/:sheet', component: SheetFormComponent},
     { path: 'category/:category', component: CategoryComponent},
     { path: ':sheet', component: SheetDetailComponent },
 
