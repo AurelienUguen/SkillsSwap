@@ -53,10 +53,7 @@
           </td>
         </tr>
       </table>
-      <span class="sub-title alignement">Ma description</span>
-      <span><br>{{user.description}}<br></span>
 
-      <a [routerLink]="['/update', user.slug]" class="btn btn-primary mt-3">Modifier mes infos</a>
     </div>
 
     <div class="col">
@@ -70,6 +67,11 @@
         <span class="user-description">Jetons dépensés : </span>
       </div>
     </div>
+
+      <span class="sub-title alignement">À Propos</span>
+      <span><br>{{user.description}}<br></span>
+
+      <a [routerLink]="['/update', user.slug]" class="btn btn-primary mt-3 mb-3 col-4">Modifier mes infos</a>
   </div>
 
 
