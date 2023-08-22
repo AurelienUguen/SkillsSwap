@@ -90,7 +90,10 @@ export class UserFormUpdateComponent implements OnInit {
         }
       );
 
-      alert('Vos changements ont été pris en compte');
+
+
+
+      // alert('Vos changements ont été pris en compte');
 
     }
 
