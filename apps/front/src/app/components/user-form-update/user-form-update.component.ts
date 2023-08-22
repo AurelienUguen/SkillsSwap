@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User, UserAuth, userConnected, userUpdate } from 'src/app/model/user';
@@ -47,19 +47,15 @@ export class UserFormUpdateComponent implements OnInit {
         firstname: [null],
         lastname: [null],
         email: [null],
-        plaintextPassword: [null],
         phone: [null],
         district: [null],
         city: [null],
         description: [null],
-        slug: [null]
+        slug: [null],
+        currentPassword: [null, [Validators.required]]
       }, {
         updateOn: 'blur'
       });
-
-      setTimeout(() => {
-        console.log(this.user);
-      }, 1000);
     }
 
     getUserBySlug() {
@@ -71,23 +67,21 @@ export class UserFormUpdateComponent implements OnInit {
 
     updateUser() {
 
-      console.log(this.user);
-
       const updateUser: userUpdate = {
         roles: this.user!.roles,
         firstname: this.updateUserForm.value.firstname,
         lastname: this.updateUserForm.value.lastname,
         email: this.updateUserForm.value.email,
-        plaintextPassword: 'adminUpdateProfile.911',
         phone: this.updateUserForm.value.phone,
         district: this.updateUserForm.value.district,
         city: this.updateUserForm.value.city,
         description: this.updateUserForm.value.description,
+        plaintextPassword: 'adminUpdateProfile.911',
       }
 
       const user: UserAuth = {
-        email: this.updateUserForm.value.userEmail,
-        password: this.updateUserForm.value.userPassword
+        email: this.updateUserForm.value.email,
+        password: this.updateUserForm.value.currentPassword
       }
 
       this.apiService.updateUser(this.userID, updateUser).subscribe(
@@ -95,25 +89,11 @@ export class UserFormUpdateComponent implements OnInit {
           this.isConnected.authentication(user);
         }
       );
-
-
-
-
       // alert('Vos changements ont été pris en compte');
 
     }
 
-    reloadComponent(self:boolean,urlToNavigateTo ?:string){
-      //skipLocationChange:true means dont update the url to / when navigating
-     console.log("Current route I am on:",this.router.url);
-     const url=self ? this.router.url :urlToNavigateTo;
-     this.router.navigateByUrl('/',{skipLocationChange:true}).then(()=>{
-       this.router.navigate([`/${url}`]).then(()=>{
-         console.log(`After navigation I am on:${this.router.url}`)
-       })
-     })
-   }
-
-
-
+    get currentPassword() {
+      return this.updateUserForm.get('currentPassword') as FormControl;
+    }
 }

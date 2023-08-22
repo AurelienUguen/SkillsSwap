@@ -1,7 +1,7 @@
 <ng-container *ngIf="user">
   <form [formGroup]="updateUserForm">
     <div class="row">
-      <label for="" class="col"><strong>Prénom :</strong></label>
+      <label for="firstname" class="col"><strong>Prénom :</strong></label>
       <input
         formControlName="firstname"
         type="text"
@@ -11,7 +11,7 @@
     </div>
 
     <div class="row">
-      <label for="" class="col"><strong>Nom :</strong></label>
+      <label for="lastname" class="col"><strong>Nom :</strong></label>
       <input
         formControlName="lastname"
         type="text"
@@ -21,7 +21,7 @@
     </div>
 
     <div class="row">
-      <label for="" class="col"><strong>Email :</strong></label>
+      <label for="email" class="col"><strong>Email :</strong></label>
       <input
         formControlName="email"
         type="email"
@@ -31,19 +31,7 @@
     </div>
 
     <div class="row">
-      <label for="" class="col"
-        ><strong>Mot de passe : {{ user.plaintextPassword }}</strong></label
-      >
-      <input
-        formControlName="plaintextPassword"
-        type="plaintextPassword"
-        class="form-control form-text col"
-        [(ngModel)]="user.plaintextPassword"
-      />
-    </div>
-
-    <div class="row">
-      <label for="" class="col"><strong>Téléphone :</strong></label>
+      <label for="phone" class="col"><strong>Téléphone :</strong></label>
       <input
         formControlName="phone"
         type="text"
@@ -53,17 +41,17 @@
     </div>
 
     <div class="row">
-      <label for="" class="col"><strong>Département :</strong></label>
+      <label for="district" class="col"><strong>Département :</strong></label>
       <input
         formControlName="district"
-        type="number"
+        type="text"
         class="form-control form-text col"
         [(ngModel)]="user.district"
       />
     </div>
 
     <div class="row">
-      <label for="" class="col"><strong>Ville :</strong></label>
+      <label for="city" class="col"><strong>Ville :</strong></label>
       <input
         formControlName="city"
         type="text"
@@ -73,7 +61,7 @@
     </div>
 
     <div class="row">
-      <label for="" class="col"><strong>Description :</strong></label>
+      <label for="description" class="col"><strong>Description :</strong></label>
       <textarea
         formControlName="description"
         class="form-control form-text col"
@@ -82,12 +70,21 @@
       ></textarea>
     </div>
 
+    <div class="row">
+      <label for="currentPassword" class="col">Mot de passe actuel :</label>
+      <input formControlName="currentPassword" type="password" class="form-control form-text col" placeholder="Mot de passe requis">
+    </div>
+    <div class="invalid-feedback" *ngIf="currentPassword.touched && currentPassword.invalid && currentPassword.errors">
+      <ng-container *ngIf="currentPassword.errors['required']">Le mot de passe est obligatoire pour valider les changements<br></ng-container>
+    </div>
+
     <button
-      type="submit"
-      (click)="updateUser()"
-      class="btn btn-primary col-4 mt-2"
-    >
-      Mettre à jour
-    </button>
+    type="submit"
+    (click)="updateUser()"
+    class="btn btn-primary col-4 mt-2 float-right"
+    [disabled]="updateUserForm.invalid"
+  >
+    Mettre à jour
+  </button>
   </form>
 </ng-container>
