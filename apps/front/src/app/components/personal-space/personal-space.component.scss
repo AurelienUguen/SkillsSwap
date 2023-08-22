@@ -49,12 +49,14 @@ $disabled: lightgrey;
   background-color: $hover;
 }
 
-.update-btn:disabled{
-  background-color: $disabled;
-}
-
 .delete-btn:hover {
   background-color: rgb(214, 32, 0);
+}
+
+.update-btn:disabled,
+.delete-btn:disabled,
+.messenger-btn:disabled{
+  background-color: $disabled;
 }
 
 .booking-text {

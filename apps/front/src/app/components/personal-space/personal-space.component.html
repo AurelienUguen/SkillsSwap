@@ -133,8 +133,8 @@
         <thead>
           <tr>
             <th>Titre</th>
-            <th>Date</th>
             <th>Padawan</th>
+            <th>Date</th>
             <th class="text-center">Confirmation</th>
             <th class="text-center">Actions</th>
           </tr>
@@ -147,21 +147,21 @@
               </a>
             </td>
             <td class="align-middle booking-text">
-              {{ lesson.sheet.user.firstname }}
+              {{ lesson.user.firstname }}
             </td>
             <td class="align-middle booking-text">
               {{ lesson.bookingDate | date }}
             </td>
             <td class="align-middle text-center">
               <input type="checkbox"
-                (click)="masterCheck(lesson)"
-                [checked]="lesson.masterValidate"
-                [disabled]="lesson.masterValidate && lesson.padawanValidate || lesson.bookingDate < currentDate"
+              (click)="masterCheck(lesson)"
+              [checked]="lesson.masterValidate"
+              [disabled]="canValidate(lesson,'MASTER')"
               >
             </td>
             <td class="text-center">
-              <button class="delete-btn" (click)="kill('lessons', lesson.id)">
-                Annuler ma réservation
+              <button class="delete-btn" (click)="kill('lessons', lesson.id)" [disabled]="canValidate(lesson,'DELETE')">
+                Annuler cette réservation
               </button>
             </td>
           </tr>
@@ -199,14 +199,14 @@
               <button
                 class="update-btn"
                 (click)="padawanCheck(lesson)"
-                [disabled]="lesson.padawanValidate && lesson.masterValidate"
+                [disabled]="canValidate(lesson,'PADAWAN')"
               >
                 Payer le Maître
               </button>
             </td>
             <td class="text-center">
-              <button class="delete-btn" (click)="kill('lessons', lesson.id)">
-                Annuler ma réservation
+              <button class="delete-btn" (click)="kill('lessons', lesson.id)" [disabled]="canValidate(lesson,'DELETE')">
+                Annuler cette réservation
               </button>
             </td>
           </tr>
@@ -216,6 +216,7 @@
   </div>
 
 
-  <button class="custom-button" (click)="gotoMessages(user.slug)">Ma Messagerie</button>
-  <button class="delete-btn ms-3 float-end" (click)="kill('users',user.slug,true)">Supprimer le compte</button>
+  <button class="messenger-btn me-3" (click)="gotoMessages(user.slug)">Ma Messagerie</button>
+  <button class="update-btn me-3" (click)="kill('users',user.slug,true)">Mettre à jour le compte</button>
+  <button class="delete-btn" (click)="kill('users',user.slug,true)">Supprimer le compte</button>
 </ng-container>
