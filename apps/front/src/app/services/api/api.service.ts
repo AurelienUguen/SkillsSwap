@@ -6,8 +6,6 @@ import { Observable } from 'rxjs';
 import { Sheet, sheetPost, updateSheet } from '../../model/sheet';
 import { Lesson, LessonPost } from '../../model/lesson';
 
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -98,6 +96,6 @@ export class ApiService {
   }
 
   laBroyeuse(victim: any){
-    return this.http.delete<any>(victim);
+    return this.http.delete<any>(victim, { withCredentials: true });
   }
 }

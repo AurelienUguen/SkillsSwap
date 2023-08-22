@@ -45,8 +45,10 @@ export class FormDateComponent {
       bookingDateEntry: this.form.value.date
     }
 
-    alert('Le cours a bien été enregistré !');
     this.apiService.postLesson(newLesson).subscribe();
+
+    alert('Le cours a bien été enregistré !');
+
     return this.router.navigateByUrl(`my-space/${this.userID}`);
   }
 }

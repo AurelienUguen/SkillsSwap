@@ -139,9 +139,11 @@ export class SheetFormComponent implements OnInit, OnDestroy {
       visio: this.form.value.visio,
       language: ["Français"],
     }
+
     this.apiService.postSheet(newSheet).subscribe();
 
     alert('Le cours a bien été enregistré !')
+
     return this.router.navigateByUrl(`my-space/${this.slug}`);
   }
 
@@ -161,6 +163,7 @@ export class SheetFormComponent implements OnInit, OnDestroy {
     this.apiService.updateSheet(slug, updateSheet).subscribe();
 
     alert('Le cours a bien été modifié!')
+
     return this.router.navigateByUrl(`my-space/${this.slug}`);
   }
 
