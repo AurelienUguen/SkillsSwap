@@ -1,7 +1,6 @@
 <div class="custom-container">
   <form
     [formGroup]="form"
-    (ngSubmit)="onSubmit()"
     class="custom-form-container"
   >
 
@@ -11,6 +10,7 @@
       formControlName="title"
       type="text"
       class="form-control form-text input-time col"
+      [ngModel]="sheetToUpdate?.title"
     />
     <div class="invalid-feedback" *ngIf="title.touched && title.invalid && title.errors">
       <ng-container *ngIf="title.errors['required']">Le titre du cours est requis<br></ng-container>
@@ -21,7 +21,7 @@
 
     <div class="form-group">
       <label for="category">Choisir une catégorie :</label>
-      <select formControlName="category" class="form-select">
+      <select formControlName="category" class="form-select" >
         <option *ngFor="let category of categories" value="{{ category.slug }}">
           {{ category.name }}
         </option>
@@ -59,6 +59,7 @@
         type="text"
         class="form-control form-text"
         placeholder="Décrivez le contenu du cours"
+        [ngModel]="sheetToUpdate?.description"
       ></textarea>
       <div class="invalid-feedback" *ngIf="description.touched && description.invalid && description.errors">
         <ng-container *ngIf="description.errors['required']">Veuillez décrire le cours</ng-container>
@@ -66,8 +67,18 @@
     </div>
 
     <button type="submit" class="btn booking-btn col-4 mt-2 float-right"
+    *ngIf="!sheetToUpdate; else update"
+    (click)="onSubmit()"
     [disabled]="form.invalid">
       Enseigner !
     </button>
+
+    <ng-template #update>
+      <button type="submit" class="btn booking-btn col-4 mt-2 float-right"
+      (click)="onUpdate()"
+      [disabled]="form.invalid">
+        Mettre à jour
+      </button>
+    </ng-template>
   </form>
 </div>

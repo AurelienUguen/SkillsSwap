@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http'
 import { Category } from '../../model/category';
 import { User, UserAuth, UserPost, userUpdate } from '../../model/user';
 import { Observable } from 'rxjs';
-import { Sheet, sheetPost } from '../../model/sheet';
+import { Sheet, sheetPost, updateSheet } from '../../model/sheet';
 import { Lesson, LessonPost } from '../../model/lesson';
 
 
@@ -62,6 +62,11 @@ export class ApiService {
 
   postSheet(sheet: sheetPost) {
     return this.http.post<sheetPost>(this.sheetUrl, sheet, {withCredentials: true});
+  }
+
+  updateSheet(slug: string, sheet: updateSheet) {
+    const url = `${this.sheetUrl}/${slug}`;
+    return this.http.put<updateSheet>(url, sheet, {withCredentials: true});
   }
 
   postLesson(lesson : LessonPost) {

@@ -47,11 +47,6 @@ export class SheetFormComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getCategories();
 
-    /* this.sheetSlug = this.getSheetSlug();
-
-    this.getSheetBySlug(this.sheetSlug); */
-
-
 
     this.form = this.formBuilder.group({
       title: [null, [
@@ -88,6 +83,12 @@ export class SheetFormComponent implements OnInit, OnDestroy {
     }, {
       updateOn: 'blur'
     });
+
+    this.sheetSlug = this.getSheetSlug();
+
+    if (this.sheetSlug !== undefined) {
+      this.getSheetBySlug(this.sheetSlug);
+    }
   }
 
   getCategories() {
@@ -95,7 +96,7 @@ export class SheetFormComponent implements OnInit, OnDestroy {
     .subscribe((categories: any) => this.categories = categories['hydra:member']);
   }
 
- /*  getSheetSlug() {
+  getSheetSlug() {
     const slug = this.route.snapshot.paramMap.get('sheet');
 
     if (!slug) {
@@ -110,7 +111,7 @@ export class SheetFormComponent implements OnInit, OnDestroy {
     .subscribe((sheet: Sheet) => {
       this.sheetToUpdate = sheet;
     });
-  } */
+  }
 
   // Validators personalisés
 
@@ -139,24 +140,28 @@ export class SheetFormComponent implements OnInit, OnDestroy {
       language: ["Français"],
     }
     this.apiService.postSheet(newSheet).subscribe();
-    console.log(newSheet);
+
     alert('Le cours a bien été enregistré !')
     return this.router.navigateByUrl(`my-space/${this.slug}`);
   }
 
   onUpdate() {
+    const slug = this.sheetSlug!;
+
     const updateSheet: updateSheet = {
-      category: `/api/categories/${this.updateForm.value.category}`,
-      title: this.updateForm.value.title,
+      category: `/api/categories/${this.form.value.category}`,
+      title: this.form.value.title,
       user: `/api/users/${this.slug}`,
-      description: this.updateForm.value.description,
-      irl: this.updateForm.value.irl,
-      visio: this.updateForm.value.visio,
+      description: this.form.value.description,
+      irl: this.form.value.irl,
+      visio: this.form.value.visio,
       language: ["Français"],
     }
 
-    console.log(updateSheet);
+    this.apiService.updateSheet(slug, updateSheet).subscribe();
 
+    alert('Le cours a bien été modifié!')
+    return this.router.navigateByUrl(`my-space/${this.slug}`);
   }
 
   // Get pour les validators
