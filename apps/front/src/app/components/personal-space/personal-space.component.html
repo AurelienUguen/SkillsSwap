@@ -1,83 +1,96 @@
 <ng-container *ngIf="user">
   <h2 class="title">Mon espace</h2>
-  <div class="row">
-    <div class="col">
-      <span class="sub-title">Informations personnelles</span>
-      <table class="table">
-        <tr>
-          <th>
-            Prénom :
-          </th>
-          <td>
-            {{user.firstname}}
-          </td>
-        </tr>
-        <tr>
-          <th>
-            Nom :
-          </th>
-          <td>
-            {{user.lastname}}
-          </td>
-        </tr>
-        <tr>
-          <th>
-            Département :
-          </th>
-          <td>
-            {{user.district}}
-          </td>
-        </tr>
-        <tr>
-          <th>
-            Ville :
-          </th>
-          <td>
-            {{user.city}}
-          </td>
-        </tr>
-        <tr>
-          <th>
-            Email :
-          </th>
-          <td>
-            {{user.email}}
-          </td>
-        </tr>
-        <tr>
-          <th>
-            Téléphone :
-          </th>
-          <td>
-            {{user.phone}}
-          </td>
-        </tr>
-      </table>
+  <div class="row align-items-center">
+    <div class="col float-start">
+      <div class="d-flex align-items-center text-and-img">
+        <span class="sub-title">Informations personnelles</span>
+        <img src="assets/data.png" alt="personal-data" width="30" class="decoration-img">
+      </div>
+      <div class="custom-table">
+        <table class="table">
+          <tr>
+            <th>
+              Prénom :
+            </th>
+            <td class="float-end">
+              {{user.firstname}}
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Nom :
+            </th>
+            <td class="float-end">
+              {{user.lastname}}
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Département :
+            </th>
+            <td class="float-end">
+              {{user.district}}
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Ville :
+            </th>
+            <td class="float-end">
+              {{user.city}}
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Email :
+            </th>
+            <td class="float-end">
+              {{user.email}}
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Téléphone :
+            </th>
+            <td class="float-end">
+              {{user.phone}}
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="custom-description">
+        <div class="d-flex align-items-center text-and-img">
+          <span class="sub-title alignement">À Propos</span>
+          <img src="assets/bulle.png" alt="about" width="30" class="decoration-img">
+        </div>
+
+        <span>{{user.description}}</span>
+      </div>
+
+      <a [routerLink]="['/update', user.slug]" class="btn btn-primary col-12 mt-4 mb-4 custom-button">Modifier mes infos</a>
 
     </div>
 
     <div class="col">
-      <div class="d-flex align-items-center">
-        <span class="sub-title">Historique de mes</span>
-        <img src="assets/jetons.png" alt="token" width="30" class="token-img">
-      </div>
-      <div class="d-flex flex-column">
-        <span class="user-description">Fortune actuelle : {{ user.tokken }} TokenSwap</span>
-        <span class="user-description">Jetons gagnés : </span>
-        <span class="user-description">Jetons dépensés : </span>
+      <div class="d-flex flex-column token-card align-items-center justify-content-center float-end">
+        <div class="d-flex align-items-center justify-content-center text-and-img">
+          <span class="sub-title">Historique de mes jetons</span>
+          <img src="assets/jetons.png" alt="token" width="30" class="decoration-img">
+        </div>
+        <div class="d-flex flex-column">
+          <span class="user-description">Fortune actuelle : {{ user.tokken }} TokenSwap</span>
+          <span class="user-description">Jetons gagnés : </span>
+          <span class="user-description">Jetons dépensés : </span>
+        </div>
       </div>
     </div>
-
-      <span class="sub-title alignement">À Propos</span>
-      <span><br>{{user.description}}<br></span>
-
-      <a [routerLink]="['/update', user.slug]" class="btn btn-primary mt-3 mb-3 col-4">Modifier mes infos</a>
   </div>
 
 
 
   <div>
-    <h2>Mes cours</h2>
+    <h2 class="title">Mes cours</h2>
 
     <div>
       <table class="table table-transparent">
@@ -96,16 +109,16 @@
             </td>
             <td class="text-center">
               <button
+                class="custom-button m-1"
+                [routerLink]="['/sheet-update', sheet.slug]"
+              >
+                Modifier
+              </button>
+              <button
                 class="delete-btn m-1"
                 (click)="kill('sheets', sheet.slug)"
               >
                 Supprimer
-              </button>
-              <button
-                class="delete-btn m-1"
-                [routerLink]="['/update', sheet.slug]"
-              >
-                Modifier
               </button>
             </td>
           </tr>
@@ -113,7 +126,7 @@
       </table>
     </div>
 
-    <h2 class="title toggle-btn">Mes réservations</h2>
+    <h2 class="title">Mes réservations</h2>
 
     <div>
       <table class="table table-transparent">
@@ -150,7 +163,6 @@
   </div>
 
 
-  <button class="messenger-btn" (click)="gotoMessages(user.slug)">Ma Messagerie</button>
-  <button class="update-btn" (click)="kill('users',user.slug,true)">Mettre à jour le compte</button>
-  <button class="delete-btn ms-3" (click)="kill('users',user.slug,true)">Supprimer le compte</button>
+  <button class="custom-button" (click)="gotoMessages(user.slug)">Ma Messagerie</button>
+  <button class="delete-btn ms-3 float-end" (click)="kill('users',user.slug,true)">Supprimer le compte</button>
 </ng-container>
