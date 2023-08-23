@@ -75,13 +75,14 @@
     <div class="col">
       <div class="d-flex flex-column token-card align-items-center justify-content-center float-end">
         <div class="d-flex align-items-center justify-content-center text-and-img">
-          <span class="sub-title">Historique de mes jetons</span>
+          <span class="sub-title">Historique de mes SkillTokkens</span>
           <img src="assets/jetons.png" alt="token" width="30" class="decoration-img">
         </div>
         <div class="d-flex flex-column">
           <span class="user-description">Fortune actuelle : {{ user.tokken }} TokenSwap</span>
           <span class="user-description">Jetons gagnés : </span>
           <span class="user-description">Jetons dépensés : </span>
+          <a [routerLink]="['/tokken', user.slug]" class="btn btn-primary col-12 mt-4 mb-4 custom-button">Acheter des SkillTokkens</a>
         </div>
       </div>
     </div>

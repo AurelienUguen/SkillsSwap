@@ -64,6 +64,9 @@
   font-size: 2vw;
   font-weight: bolder;
   font-family: 'Mansalva', cursive;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .decoration-img {
