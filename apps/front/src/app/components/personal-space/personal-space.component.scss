@@ -53,9 +53,8 @@ $disabled: lightgrey;
   background-color: rgb(214, 32, 0);
 }
 
-.update-btn:disabled,
 .delete-btn:disabled,
-.messenger-btn:disabled{
+.custom-button:disabled{
   background-color: $disabled;
 }
 

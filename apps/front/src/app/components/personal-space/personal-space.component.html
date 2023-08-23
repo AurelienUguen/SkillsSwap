@@ -120,12 +120,6 @@
               >
                 Supprimer
               </button>
-              <button
-                class="delete-btn m-1"
-                [routerLink]="['/update', sheet.slug]"
-              >
-                Modifier
-              </button>
             </td>
           </tr>
         </tbody>
@@ -138,6 +132,7 @@
       <table class="table table-transparent">
         <thead>
           <tr>
+            <th>id</th>
             <th>Titre</th>
             <th>Padawan</th>
             <th>Date</th>
@@ -148,8 +143,11 @@
         <tbody *ngFor="let lesson of lessons">
           <tr *ngIf="lesson.sheet.user.id == user.id">
             <td class="align-middle">
+              {{ lesson.id }}
+            </td>
+            <td class="align-middle">
               <a class="link-to-sheet" routerLink="/{{ lesson.sheet.slug }}">
-                {{ lesson.id }} / {{ lesson.sheet.title }}
+                {{ lesson.sheet.title }}
               </a>
             </td>
             <td class="align-middle booking-text">
@@ -181,6 +179,7 @@
       <table class="table table-transparent">
         <thead>
           <tr>
+            <th>id</th>
             <th>Titre</th>
             <th>Maître</th>
             <th>Date</th>
@@ -191,8 +190,11 @@
         <tbody *ngFor="let lesson of lessons">
           <tr *ngIf="lesson.user.id == user.id">
             <td class="align-middle">
+              {{ lesson.id }}
+            </td>
+            <td class="align-middle">
               <a class="link-to-sheet" routerLink="/{{ lesson.sheet.slug }}">
-                {{ lesson.id }} / {{ lesson.sheet.title }}
+                {{ lesson.sheet.title }}
               </a>
             </td>
             <td class="align-middle booking-text">
@@ -203,7 +205,7 @@
             </td>
             <td class="text-center">
               <button
-                class="update-btn"
+                class="custom-button"
                 (click)="padawanCheck(lesson)"
                 [disabled]="canValidate(lesson,'PADAWAN')"
               >
@@ -221,8 +223,7 @@
     </div>
   </div>
 
-
-  <button class="messenger-btn me-3" (click)="gotoMessages(user.slug)">Ma Messagerie</button>
-  <button class="update-btn me-3" (click)="kill('users',user.slug,true)">Mettre à jour le compte</button>
+  <button class="custom-button me-3" (click)="gotoMessages(user.slug)">Ma Messagerie</button>
+  <button class="custom-button me-3" (click)="kill('users',user.slug,true)">Mettre à jour le compte</button>
   <button class="delete-btn" (click)="kill('users',user.slug,true)">Supprimer le compte</button>
 </ng-container>
