@@ -15,7 +15,6 @@ $hover: #117375;
   cursor: pointer;
 }
 
-
 .user-description {
   text-align: justify;
 }
@@ -30,45 +29,55 @@ $hover: #117375;
 }
 
 .delete-btn,
-.update-btn,
-.messenger-btn {
+.custom-button {
   border: none;
   color: white;
   padding: 8px 30px 8px 30px;
   border-radius: 15px;
 }
 
-.update-btn,
-.messenger-btn {
+.custom-button {
   background-color: $primary;
 }
 
 .delete-btn {
-  background-color: tomato//$primaryWithTransparancy;
+  background-color: rgb(172, 26, 0);
 }
 
-.update-btn:hover,
-.messenger-btn:hover {
+.custom-button:hover {
   background-color: $hover;
 }
 
 .delete-btn:hover {
-  background-color: red;
+  background-color: rgb(214, 32, 0);
 }
 
 .booking-text {
   color: $primary;
 }
 
+.text-and-img {
+  padding: 15px 0px 15px 0px;
+
+}
+
 .sub-title {
   font-size: 2vw;
   font-weight: bolder;
+  font-family: 'Mansalva', cursive;
 }
 
-.token-img {
+.decoration-img {
   margin-left: 10px;
 }
 
 .alignement {
   text-align: justify;
+}
+
+.token-card {
+  background-color: white;
+  height: 400px;
+  width: 400px;
+  border-radius: 50%;
 }

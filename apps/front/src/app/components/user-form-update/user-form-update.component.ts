@@ -89,7 +89,8 @@ export class UserFormUpdateComponent implements OnInit {
           this.isConnected.authentication(user);
         }
       );
-      // alert('Vos changements ont été pris en compte');
+
+      alert('Vos changements ont été pris en compte');
 
     }
 
