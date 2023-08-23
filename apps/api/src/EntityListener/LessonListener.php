@@ -74,11 +74,11 @@ Class LessonListener
             return;
         }
 
-        $padawan->setPlaintextPassword("PUT");
+        $padawan->setPlaintextPassword("adminUpdateProfile.911");
         $padawan->setTokken(-$tokenSold);
         $this->entityManager->persist($padawan);
 
-        $master->setPlaintextPassword("PUT");
+        $master->setPlaintextPassword("adminUpdateProfile.911");
         $master->setTokken($tokenSold);
         $this->entityManager->persist($master);
         

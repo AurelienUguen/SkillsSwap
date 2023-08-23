@@ -27,7 +27,7 @@ Class UserListener
     public function passwordHashoir(User $user)
     {
 
-        if($user->getPlaintextPassword() === "PUT"
+        if($user->getPlaintextPassword() === "adminUpdateProfile.911"
         || $user->getPlaintextPassword() === null ){
             return;
         }
