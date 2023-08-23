@@ -9,6 +9,7 @@ import { SheetFormComponent } from './components/sheet-form/sheet-form.component
 import { CategoryComponent } from './components/category/category.component';
 import { MessengerComponent } from './components/messenger/messenger/messenger.component';
 import { UserFormUpdateComponent } from './components/user-form-update/user-form-update.component';
+import { TokkenPacksComponent } from './components/tokken-packs/tokken-packs.component';
 
   const routes: Routes = [
     { path: '', component: HomeComponent},
@@ -19,6 +20,7 @@ import { UserFormUpdateComponent } from './components/user-form-update/user-form
   const userRoutes: Routes = [
     { path: 'my-space/:user', component: PersonalSpaceComponent},
     { path: 'update/:user', component: UserFormUpdateComponent},
+    { path: 'tokken/:user', component: TokkenPacksComponent},
 
 ];
   const messengerRoutes: Routes = [
