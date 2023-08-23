@@ -1,1 +1,40 @@
-<p>tokken-packs works!</p>
+<ng-container *ngIf="user;else error404">
+
+  <div *ngIf="user.id;then OK else KO"></div>
+
+  <ng-template #OK>
+    <p>bonjour {{ user.lastname }}</p>
+  </ng-template>
+
+  <ng-template #KO>
+    <p>Coucou</p>
+  </ng-template>
+  <div class="container">
+    <div class="row">
+      <div class="col-4">
+        <a href="https://buy.stripe.com/test_cN27vj8tA83Odsk288">Standard Pack</a>
+      </div>
+      <div class="col-4">
+        <a href="">Smart Pack</a>
+      </div>
+      <div class="col-4">
+        <a href="">Genius Pack</a>
+      </div>
+    </div>
+  </div>
+
+  <script async
+  src="https://js.stripe.com/v3/buy-button.js">
+</script>
+
+<stripe-buy-button
+  buy-button-id="buy_btn_1NiGWPDmMugrCgV8KSYipmjv"
+  publishable-key="pk_test_51NaFC5DmMugrCgV8cbt1GKVQE2cYFjbtvHJVI5UPqVdVB33BVYTqpCGmltIqhb8ZFSmNfpW25VHcoWOaAOaExlV900TSGvmV7d"
+>
+</stripe-buy-button>
+
+</ng-container>
+
+<ng-template #error404>
+  404 c'est dommage
+</ng-template>
