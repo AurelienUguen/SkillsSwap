@@ -60,6 +60,8 @@ export class PersonalSpaceComponent implements OnInit {
     this.getUserBySlug();
     this.getSheets();
     this.getLessons();
+    console.log(this.user);
+    console.log(this.userID);
 
     /*
     setTimeout(() => {
