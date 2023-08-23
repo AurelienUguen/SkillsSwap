@@ -2,13 +2,13 @@ $primary: #0C5051;
 $primaryWithTransparancy: #0c50513f;
 $hover: #117375;
 
-
 .footer {
   height: 200px;
   background-color: $primary;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.482);
 }
 
 .title {
@@ -16,4 +16,8 @@ $hover: #117375;
   font-weight: bolder;
   color: white;
   font-size: 5vw;
+}
+
+img {
+  margin: 10px;
 }
