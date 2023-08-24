@@ -1,10 +1,8 @@
-$primary: #0C5051;
-$primaryWithTransparancy: #0c50513f;
-$hover: #117375;
+@import "src/variables.scss";
 
 .footer {
   height: 200px;
-  background-color: $primary;
+  background-color: $primary-theme-color;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,7 +12,7 @@ $hover: #117375;
 .title {
   font-family: 'Bacasime Antique', serif;
   font-weight: bolder;
-  color: white;
+  color: $secondary-theme-color;
   font-size: 5vw;
 }
 

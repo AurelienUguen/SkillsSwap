@@ -1,10 +1,8 @@
-$primary: #0C5051;
-$primaryWithTransparancy: #0c50516c;
-$hover: #117375;
+@import "src/variables.scss";
 
 .booking-btn {
-  background-color: $primary;
-  color: white;
+  background-color: $primary-theme-color;
+  color: $secondary-theme-color;
 }
 
 .custom-container {

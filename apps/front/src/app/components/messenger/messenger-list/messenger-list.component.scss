@@ -1,3 +1,5 @@
+@import "src/variables.scss";
+
 $brd-radius: 10px;
 $border-clr: rgb(48, 85, 52);
 $bg-clr: rgb(255, 255, 255, 0.2);
@@ -39,11 +41,11 @@ app-messenger-send-form {
 }
 
 .message-info:focus {
-  color: #fff;
-  background-color: #117375;
+  color: $secondary-theme-color;;
+  background-color: $primary-theme-color;
 }
 
 .message-info-selected {
-  color: #fff;
-  background-color: #117375;
+  color: $secondary-theme-color;;
+  background-color: $primary-theme-color
 }

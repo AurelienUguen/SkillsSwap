@@ -1,7 +1,4 @@
-$primary: #0C5051;
-$primaryWithTransparancy: #0c50516c;
-$hover: #117375;
-
+@import "src/variables.scss";
 
 input::placeholder {
   font-style: italic;
@@ -15,7 +12,7 @@ input::placeholder {
 .search-bar input {
   height: 60px;
   width: 100%;
-  border: 2px solid $primary;
+  border: 2px solid $primary-theme-color;
   border-radius: 20px;
   /* border-top-right-radius: 0;
   border-bottom-right-radius: 0; */
@@ -32,8 +29,8 @@ input::placeholder {
 }
 
 .search-btn {
-  color: white;
-  background-color: $primary;
+  color: $secondary-theme-color;;
+  background-color: $primary-theme-color;
   padding: 10px 40px;
   border-radius: 20px;
   border: none;
@@ -42,36 +39,36 @@ input::placeholder {
 }
 
 .search-btn:hover {
-  background-color: $hover;
+  background-color: $primary-theme-hover;
 }
 
 .search-result {
-  border: 2px solid $primary;
-  background-color: $primary;
+  border: 2px solid $primary-theme-color;
+  background-color: $primary-theme-color;
   border-bottom: none;
   border-top: none;
   padding: 10px;
 }
 
 .search-result:hover {
-  background-color: $hover;
+  background-color: $primary-theme-hover;
 }
 
 .search-result:first-of-type {
   margin-top: 10px;
-  border-top: 2px solid $primary;
+  border-top: 2px solid $primary-theme-color;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
 }
 
 .search-result:last-child {
-  border-bottom: 2px solid $primary;
+  border-bottom: 2px solid $primary-theme-color;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
 }
 
 a {
   text-decoration: none;
-  color: white;
+  color: $secondary-theme-color;;
   padding: 15px;
 }

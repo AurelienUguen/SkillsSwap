@@ -1,6 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-$primary: #4fa2a4;
-
+@import "src/variables.scss";
 @import "~bootstrap/dist/css/bootstrap.css";
 @import url('https://fonts.googleapis.com/css2?family=Bacasime+Antique&family=Mansalva&family=Poppins&display=swap');
 
@@ -9,11 +8,11 @@ $primary: #4fa2a4;
 }
 
 body {
-  background: linear-gradient(#BCF4F5, #ffffff);
+  background: linear-gradient($light-primary-theme-color, #ffffff);
   background-repeat: no-repeat;
 }
 
 .company-title {
   font-family: 'Mansalva', cursive;
-  color: #0C5051;
+  color: $primary-theme-color;
 }

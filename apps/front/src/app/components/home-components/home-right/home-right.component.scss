@@ -1,15 +1,13 @@
-$primary: #0C5051;
-$primaryWithTransparancy: #0c50516c;
-$hover: #117375;
+@import "src/variables.scss";
 
 .text-bloc {
   display: flex;
   flex-direction: column;
-  background-color: white;
+  background-color: $secondary-theme-color;
   border-radius: 20px;
   width: 60%;
   padding: 10px;
-  box-shadow: 0px 3px 40px $primaryWithTransparancy;
+  box-shadow: 0px 3px 40px $primary-theme-color-transparancy;
 }
 
 .text-name {

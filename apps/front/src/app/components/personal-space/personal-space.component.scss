@@ -1,12 +1,9 @@
-$primary: #0C5051;
-$primaryWithTransparancy: #0c50516c;
-$hover: #117375;
-$disabled: lightgrey;
+@import "src/variables.scss";
 
 .title {
   font-family: 'Bacasime Antique', serif;
   font-weight: bolder;
-  color: $primary;
+  color: $primary-theme-color;
   font-size: 4vw;
   margin-top: 12px;
   margin-bottom: 12px;
@@ -20,46 +17,42 @@ $disabled: lightgrey;
   text-align: justify;
 }
 
-.table-transparent {
-  background-color:blue;
-}
-
 .link-to-sheet {
-  color: $primary;
+  color: $primary-theme-color;
   text-decoration: none;
 }
 
 .delete-btn,
 .custom-button {
   border: none;
-  color: white;
+  color: $secondary-theme-color;;
   padding: 8px 30px 8px 30px;
   border-radius: 15px;
 }
 
 .custom-button {
-  background-color: $primary;
-}
-
-.delete-btn {
-  background-color: rgb(172, 26, 0);
+  background-color: $primary-theme-color;
 }
 
 .custom-button:hover {
-  background-color: $hover;
+  background-color: $primary-theme-hover;
+}
+
+.delete-btn {
+  background-color: $danger-theme-color;
 }
 
 .delete-btn:hover {
-  background-color: rgb(214, 32, 0);
+  background-color: $danger-theme-hover
 }
 
 .delete-btn:disabled,
 .custom-button:disabled{
-  background-color: $disabled;
+  background-color: $disable-button-color;
 }
 
 .booking-text {
-  color: $primary;
+  color: $primary-theme-color;
 }
 
 .text-and-img {
@@ -82,7 +75,7 @@ $disabled: lightgrey;
 }
 
 .token-card {
-  background-color: white;
+  background-color: $secondary-theme-color;;
   height: 400px;
   width: 400px;
   border-radius: 50%;
