@@ -19,7 +19,9 @@ export class StripeCongratulationComponent implements OnInit {
   
     ngOnInit(){
       this.stripe = this.route.snapshot.paramMap.get('stripe');
-      (this.stripe === "nichons" || this.stripe === "standard" || this.stripe === "smart" || this.stripe === "genius") ? alert("Félicitation pour l'acquisition de votre "+this.capitalizer(this.stripe)+" Pack") : console.log("caca");
+      (this.stripe === "standard" || this.stripe === "smart" || this.stripe === "genius")
+      ? alert(`Félicitation pour l'acquisition de votre ${this.capitalizer(this.stripe)} Pack\nPensez à vous reconnecter`)
+      : console.log("ERROR");
       console.log(this.stripe);
       return this.router.navigateByUrl("");
     }

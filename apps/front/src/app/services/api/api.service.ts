@@ -83,9 +83,9 @@ export class ApiService {
     return this.http.post<UserPost>(this.usersUrl, user, {withCredentials: true});
   }
 
-  updateUser(slug: string, user: userUpdate) {
+  updateUser(slug: string, user: object) {
     const url = `${this.usersUrl}/${slug}`;
-    return this.http.put<userUpdate>(url, user, {withCredentials: true});
+    return this.http.put<object>(url, user, {withCredentials: true});
   }
 
   getFilteredCategory(filterParams: any): Observable<any> {

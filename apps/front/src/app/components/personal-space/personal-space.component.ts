@@ -1,10 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription, tap } from 'rxjs';
 import { Lesson, LessonPost } from 'src/app/model/lesson';
 import { Sheet } from 'src/app/model/sheet';
-import { User, userConnected, userUpdate } from 'src/app/model/user';
+import { User, userConnected } from 'src/app/model/user';
 import { ApiService } from 'src/app/services/api/api.service';
 import { LoginService } from 'src/app/services/login/login.service';
 import { mySpaceService } from 'src/app/services/mySpaceObserver/mySpaceObserver.service';
@@ -35,15 +34,12 @@ export class PersonalSpaceComponent implements OnInit {
   private userID!: string;
   private userObject: Subscription;
 
-  public updateUserForm!: FormGroup;
-
   constructor(
     private apiService: ApiService,
     private isConnected: LoginService,
     private mySpaceObs: mySpaceService,
     private router: Router,
-    private userObs: mySpaceService,
-    private formBuilder: FormBuilder
+    private userObs: mySpaceService
     ){
       this.subscription = this.isConnected.getStatusObservable().subscribe((status: string) => {
         this.status = status;
@@ -60,15 +56,9 @@ export class PersonalSpaceComponent implements OnInit {
     this.getUserBySlug();
     this.getSheets();
     this.getLessons();
-    console.log(this.user);
     console.log(this.userID);
-
-    /*
-    setTimeout(() => {
-      console.log(this.user);
-    }, 1000);
-    */
-
+    console.log(this.user);
+    setTimeout(() => {console.log(this.user?.email);}, 1000);
   }
 
   kill(
@@ -103,8 +93,8 @@ export class PersonalSpaceComponent implements OnInit {
       bookingDateEntry: lesson.bookingDate.toString()
     }
 
-    console.log(lesson);
-    console.log(updateLesson);
+    //console.log(lesson);
+    //console.log(updateLesson);
     //alert('Le cours a bien été enregistré !');
     console.log('Le cours a bien été enregistré !');
     this.apiService.updateLesson(updateLesson, lesson.id).subscribe();
@@ -132,7 +122,7 @@ export class PersonalSpaceComponent implements OnInit {
   }
 
   getLessons() {
-    return this.apiService.getLessons().pipe(tap(console.log))
+    return this.apiService.getLessons()//.pipe(tap(console.log))
     .subscribe((lessons: any) => this.lessons = lessons['hydra:member']);
   }
 
@@ -159,19 +149,19 @@ export class PersonalSpaceComponent implements OnInit {
   canValidate(lesson: Lesson, target: "MASTER" | "PADAWAN" | "DELETE"){
 
     if(target == "MASTER"){
-      console.log(lesson.id + " MASTER " + this.toDate(lesson));
+    //   console.log(lesson.id + " MASTER " + this.toDate(lesson));
       return this.toDate(lesson);
 
     }else if(target == "PADAWAN"){
-      console.log(lesson.id + " PADAWAN " + ( this.toDate(lesson) && lesson.masterValidate ));
+    //   console.log(lesson.id + " PADAWAN " + ( this.toDate(lesson) && lesson.masterValidate ));
       return ( lesson.padawanValidate || !(this.toDate(lesson) && lesson.masterValidate) );
 
     }else if(target == "DELETE"){
-      console.log(lesson.id + " DELETE " + ( this.toDate(lesson) && lesson.masterValidate ));
+    //   console.log(lesson.id + " DELETE " + ( this.toDate(lesson) && lesson.masterValidate ));
       return ( this.toDate(lesson) && lesson.masterValidate );
 
     }else{
-      console.log("Y'a un BUG !!")
+    //   console.log("Y'a un BUG !!")
       return true;
     }
   }

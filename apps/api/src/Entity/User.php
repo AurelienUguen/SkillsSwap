@@ -61,7 +61,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private array $roles = [];
 
     #[ORM\Column]
-    #[Groups(['read_user'])]
+    #[Groups(['read_user', 'create_user'])]
     private ?int $tokken = 3;
 
     #[ORM\Column(length: 255)]
