@@ -31,5 +31,4 @@ export class StripeCongratulationComponent implements OnInit {
       stripe = stripe[0].toUpperCase() + stripe.slice(1).toLowerCase();
       return stripe;
     }
-  }
-  
+}
