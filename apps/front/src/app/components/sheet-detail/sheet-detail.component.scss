@@ -1,6 +1,4 @@
-$primary: #0C5051;
-$primaryWithTransparancy: #0c50516c;
-$hover: #117375;
+@import "src/variables.scss";
 
 .container-custom {
   display: flex;
@@ -23,7 +21,7 @@ $hover: #117375;
 .title {
   font-family: 'Bacasime Antique', serif;
   font-weight: bolder;
-  color: $primary;
+  color: $primary-theme-color;
   font-size: 5vw;
 }
 
@@ -35,12 +33,12 @@ $hover: #117375;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: white;
+  background-color: $secondary-theme-color;
   width: 20vw;
   // padding: 10px;
   margin: 15px;
   border-radius: 50px;
-  border: 1px solid #11737580;
+  border: 1px solid $primary-theme-color;
 }
 
 .logo {
@@ -51,7 +49,7 @@ $hover: #117375;
 .description-title {
   font-family: 'Bacasime Antique', serif;
   font-weight: bolder;
-  color: $primary;
+  color: $primary-theme-color;
   font-size: 2em;
   margin-bottom: 15px;
 }
@@ -66,7 +64,7 @@ $hover: #117375;
 }
 
 .toggle-btn {
-  background-color: $primary;
+  background-color: $primary-theme-color;
   border: none;
   padding: 12px;
   border-radius: 15px;
@@ -74,9 +72,9 @@ $hover: #117375;
 }
 
 .toggle-btn-focus {
-  color: $primary;
-  background-color: white;
-  border: 2px solid $primary;
+  color: $primary-theme-color;
+  background-color: $secondary-theme-color;
+  border: 2px solid $primary-theme-color;
 }
 
 .language-custom {
@@ -88,8 +86,8 @@ $hover: #117375;
 .language-span {
   font-family: 'Bacasime Antique', serif;
   font-size: 1.4em;
-  color: $primary;
-  border-bottom: 1px solid $primary;
+  color: $primary-theme-color;
+  border-bottom: 1px solid $primary-theme-color;
 }
 
 .sheet-description {
@@ -98,15 +96,15 @@ $hover: #117375;
 
 .user-card {
   padding: 30px;
-  color: $primary;
+  color: $primary-theme-color;
   margin-top: 200px;
-  background-color: white;
+  background-color: $secondary-theme-color;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   border-radius: 20px;
-  box-shadow: 0px 2px 40px $primaryWithTransparancy;
+  box-shadow: 0px 2px 40px $primary-theme-color-transparancy;
 }
 
 .user-picture {
@@ -120,7 +118,7 @@ $hover: #117375;
 }
 
 .contact-btn {
-  background-color: $primary;
+  background-color: $primary-theme-color;
   border: none;
   padding: 17px 40px 17px 40px;
   border-radius: 15px;

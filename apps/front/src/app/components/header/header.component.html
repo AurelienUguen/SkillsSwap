@@ -1,24 +1,21 @@
-<header class="navbar navbar-expand-lg navbar-dark">
-  <div class="container-fluid d-flex justify-content-between">
-    <a class="navbar-brand fs-2 fw-bold company-title" routerLink="">SkillSwap</a>
-      <div class="collapse navbar-collapse flex-grow-0 text-center" id="navbarsExample05">
-          <ul class="navbar-nav mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a *ngIf="status === 'connected'" class="add-course" routerLink="add-sheet">+</a>
-                <a *ngIf="status === 'disconnected'" class="add-course" routerLink="signup">+</a>
-              </li>
-              <li class="nav-item">
-                <a *ngIf="status === 'connected'" routerLink="my-space/{{slug}}" class="personnal-space-btn">{{userName}}</a>
-                <a *ngIf="status === 'disconnected'" routerLink="signup"><span class="personnal-space-btn">Inscription</span></a>
-              </li>
-              <li class="nav-item">
-                <a *ngIf="status === 'connected'" routerLink="" (click)="logout()"><span class="deconnexion-btn">Déconnexion</span></a>
-                <a *ngIf="status === 'disconnected'" routerLink="signin"><span class="deconnexion-btn">Connexion</span></a>
-              </li>
-          </ul>
-      </div>
-      <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-      </button>
-  </div>
+<header class="header">
+  <nav class="navbar dark-mode" role="navigation" [class.show-nav]="isMenuOpen">
+    <div class="navbar__logo"><a class="company-title" routerLink="">SkillSwap</a></div>
+    <ul class="navbar__links">
+      <li class="navbar__link first">
+        <a *ngIf="status === 'connected'" routerLink="add-sheet" (click)="burgerMenuToggle()"><span class="add-course">Enseigner</span></a>
+      </li>
+      <li class="navbar__link second">
+        <a *ngIf="status === 'connected'" routerLink="my-space/{{slug}}" (click)="burgerMenuToggle()">{{userName}}</a>
+      <a *ngIf="status === 'disconnected'" routerLink="signup" (click)="burgerMenuToggle()">Inscription</a>
+      </li>
+      <li class="navbar__link third">
+        <a *ngIf="status === 'connected'" routerLink="" (click)="logout()" (click)="burgerMenuToggle()">Déconnexion</a>
+        <a *ngIf="status === 'disconnected'" routerLink="signin" (click)="burgerMenuToggle()">Connexion</a>
+      </li>
+    </ul>
+    <button class="burger" type="button" (click)="burgerMenuToggle()">
+      <span class="bar"></span>
+    </button>
+  </nav>
 </header>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, QueryList, Renderer2, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { userConnected } from 'src/app/model/user';
 import { LoginService } from 'src/app/services/login/login.service';
@@ -10,6 +10,7 @@ import { mySpaceService } from 'src/app/services/mySpaceObserver/mySpaceObserver
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+  public isMenuOpen = false;
 
   private subscription: Subscription;
   private mySpace: Subscription;
@@ -20,7 +21,8 @@ export class HeaderComponent {
 
   constructor(
     private isConnected: LoginService,
-    private mySpaceObs: mySpaceService
+    private mySpaceObs: mySpaceService,
+    private renderer: Renderer2,
     ){
     this.subscription = this.isConnected.getStatusObservable().subscribe((status: string) => {
       this.status = status;
@@ -47,4 +49,9 @@ export class HeaderComponent {
     this.isConnected.logout();
     this.subscription.unsubscribe();
   }
+
+  burgerMenuToggle() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
 }
+

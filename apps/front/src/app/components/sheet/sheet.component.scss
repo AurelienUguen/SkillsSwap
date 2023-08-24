@@ -1,6 +1,4 @@
-$primary: #0C5051;
-$primaryWithTransparancy: #0c50513f;
-$hover: #117375;
+@import "src/variables.scss";
 
 * {
   list-style: none;
@@ -10,31 +8,31 @@ $hover: #117375;
 }
 
 a {
-  color: $primary;
+  color: $primary-theme-color;
 }
 
 a:hover {
-  color: $hover;
+  color: $primary-theme-hover;
 }
 
 .custom-cards {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(255, 255, 255);
+  background-color: $secondary-theme-color;
   width: 30%;
   margin: 15px;
   border-radius: 20px;
-  box-shadow: 0px 2px 40px $primaryWithTransparancy;
+  box-shadow: 0px 2px 40px $primary-theme-color-transparancy;
 }
 
 .name {
   transform: translate(20%, -30%);
-  color: rgb(255, 255, 255);
+  color: $secondary-theme-color;
   font-weight: bolder;
   font-size: 1.5vw;
   transform: translate(30%, 30%);
-  background-color: #0c505167;
+  background-color: $primary-theme-color-transparancy;
   padding: 10px;
   border-radius: 20px;
   text-align: center;
@@ -42,7 +40,7 @@ a:hover {
 
 .sheet-title {
   font-size: 1.3vw;
-  border-bottom:1px solid #0C5051;
+  border-bottom:1px solid $primary-theme-color;
 }
 
 .sheet-category {

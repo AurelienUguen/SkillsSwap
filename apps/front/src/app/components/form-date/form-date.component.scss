@@ -1,21 +1,18 @@
-$primary: #0C5051;
-$primaryWithTransparancy: #0c50516c;
-$hover: #117375;
-
+@import "src/variables.scss";
 
 
 .input-date {
   border-radius: 20px;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
-  border: 2px solid $primary;
+  border: 2px solid $primary-theme-color;
   border-right: none;
   height: 60px;
 }
 
 .input-time {
   border-radius: 0;
-  border: 2px solid $primary;
+  border: 2px solid $primary-theme-color;
   border-left: none;
 }
 
@@ -24,7 +21,7 @@ $hover: #117375;
 }
 
 .booking-btn {
-  background-color: $primary;
+  background-color: $primary-theme-color;
   border: none;
   border-radius: 20px;
   border-top-left-radius: 0;
