@@ -10,9 +10,11 @@ import { CategoryComponent } from './components/category/category.component';
 import { MessengerComponent } from './components/messenger/messenger/messenger.component';
 import { UserFormUpdateComponent } from './components/user-form-update/user-form-update.component';
 import { TokkenPacksComponent } from './components/tokken-packs/tokken-packs.component';
+import { StripeCongratulationComponent } from './components/stripe-congratulation/stripe-congratulation.component';
 
   const routes: Routes = [
     { path: '', component: HomeComponent},
+    { path: 'stripe/:stripe', component: StripeCongratulationComponent},
     { path: 'signin', component: SigninComponent },
     { path: 'signup', component: SignupComponent }
 ];

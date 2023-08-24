@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api/api.service';
@@ -13,18 +13,16 @@ import { Subscription } from 'rxjs';
   templateUrl: './form-date.component.html',
   styleUrls: ['./form-date.component.scss']
 })
-export class FormDateComponent {
+export class FormDateComponent implements OnInit {
 
   private userObject: Subscription;
   private userID!: string;
 
-  userSlug = localStorage.getItem('@id');
-  sheetID?: string | null;
-  currentDate: Date = new Date();
+  public userSlug = localStorage.getItem('@id');
+  public sheetID?: string | null;
+  public currentDate: Date = new Date();
 
-  form = new FormGroup({
-    date: new FormControl(),
-  })
+  public form = new FormGroup({date: new FormControl()})
 
   constructor(
     private router: Router,
@@ -34,6 +32,10 @@ export class FormDateComponent {
     ){
       this.userObject = this.userObs.getStatusObservable().subscribe((user: userConnected) => {this.userID = user.slug;});
       this.sheetID = this.activatedRoute.snapshot.paramMap.get('sheet');
+  }
+
+  ngOnInit(){
+    console.log(this.sheetID);
   }
 
   onSubmit() {
