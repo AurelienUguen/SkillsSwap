@@ -23,6 +23,16 @@ export interface User {
   messages: Message[];
 }
 
+export interface UserAuth {
+  email: string | null;
+  password: string | null;
+}
+
+export interface UserTokkens {
+  email: string | null;
+  password: string | null;
+}
+
 export interface userUpdate {
   roles:string[];
   firstname: string;
@@ -32,12 +42,8 @@ export interface userUpdate {
   district: number;
   city: string;
   description: string;
+  tokken: number;
   plaintextPassword: string;
-}
-
-export interface UserAuth {
-  email: string | null;
-  password: string | null;
 }
 
 export interface userConnected {

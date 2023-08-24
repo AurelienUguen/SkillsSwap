@@ -1,8 +1,8 @@
 import { Component,OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User, userConnected } from 'src/app/model/user';
 import { ApiService } from 'src/app/services/api/api.service';
-import { LoginService } from 'src/app/services/login/login.service';
 import { mySpaceService } from 'src/app/services/mySpaceObserver/mySpaceObserver.service';
 
 @Component({
@@ -13,39 +13,52 @@ import { mySpaceService } from 'src/app/services/mySpaceObserver/mySpaceObserver
 
 export class TokkenPacksComponent implements OnInit {
 
-  private subscription: Subscription;
   public user?: User;
   public status?: string;
-  private slug!: string;
-  private userID!: string;
-  private mySpace: Subscription;
+  private userSlug!: string;
   private userObject: Subscription;
 
   constructor(
     private apiService: ApiService,
-    private isConnected: LoginService,
-    private mySpaceObs: mySpaceService,
+    private router: Router,
     private userObs: mySpaceService,
     ){
-      this.subscription = this.isConnected.getStatusObservable().subscribe((status: string) => {
-        this.status = status;
-      });
-      this.mySpace = this.mySpaceObs.getStatusObservable().subscribe((user: userConnected) => {
-        this.slug = user.slug;
-      });
-      this.userObject = this.userObs.getStatusObservable().subscribe((user: userConnected) => {this.userID = user.slug;});
+      this.userObject = this.userObs.getStatusObservable().subscribe((user: userConnected) => {this.userSlug = user.slug;});
     }
 
     ngOnInit(): void {
-      this.getUserBySlug();
-      console.log(this.user);
-      console.log(this.userID);
+      this.getUserBySlug(this.userSlug);
   }
 
-  getUserBySlug() {
-    this.apiService.getUserBySlug(this.userID)
-      .subscribe(user => {
-        this.user = user;
-      });
+  getUserBySlug(slug: string) {
+    return this.apiService.getUserBySlug(slug).subscribe(user => {return this.user = user;});
+  }
+  
+  fileTonFrickBatard(pack:string,tokkens:number){
+    const buyerSLUG = this.user?.slug;
+    if (typeof buyerSLUG === 'string') {
+        const updateTokkens = {
+            tokken: tokkens,
+            plaintextPassword: 'adminUpdateProfile.911',
+            city: this.user?.city,
+            district: this.user?.district,
+            description: this.user?.description,
+            email: this.user?.email,
+            firstname: this.user?.firstname,
+            lastname: this.user?.lastname,
+            phone: this.user?.phone,
+            roles:this.user?.roles
+        }
+        this.apiService.updateUser(buyerSLUG, updateTokkens).subscribe();
+        if(pack == "standard"){
+            window.location.href = "https://buy.stripe.com/test_cN27vj8tA83Odsk288";
+        }
+        if(pack == "smart"){
+            window.location.href = "https://buy.stripe.com/test_5kA9Dr8tAescdsk6op";
+        }
+        if(pack == "genius"){
+            window.location.href = "https://buy.stripe.com/test_7sI16VcJQ3Ny9c48wy";
+        }
+    }
   }
 }

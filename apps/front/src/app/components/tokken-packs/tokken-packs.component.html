@@ -1,29 +1,25 @@
 <ng-container *ngIf="user;else error404">
 
-  <div *ngIf="user.id;then OK else KO"></div>
+  <p>bonjour {{ user.lastname }}</p>
 
-  <ng-template #OK>
-    <p>bonjour {{ user.lastname }}</p>
-  </ng-template>
-
-  <ng-template #KO>
-    <p>Coucou</p>
-  </ng-template>
   <div class="container">
     <div class="row">
       <div class="col-4">
-        <a href="https://buy.stripe.com/test_cN27vj8tA83Odsk288">Standard Pack</a>
+        <a class="btn btn-primary" (click)="fileTonFrickBatard('standard',3)">Standard Pack</a>
       </div>
       <div class="col-4">
-        <a href="">Smart Pack</a>
+        <a class="btn btn-primary" (click)="fileTonFrickBatard('smart',10)">Smart Pack</a>
       </div>
       <div class="col-4">
-        <a href="">Genius Pack</a>
+        <a class="btn btn-primary" (click)="fileTonFrickBatard('genius',25)">Genius Pack</a>
       </div>
     </div>
   </div>
 </ng-container>
 
 <ng-template #error404>
-  404 c'est dommage
+    <script>
+        window.location.href = 'https://skillswap.wip';
+  </script>
+  ICI METTRE LE LIEN REDIRECTION VERS PAGE D'ACCUEIL
 </ng-template>
