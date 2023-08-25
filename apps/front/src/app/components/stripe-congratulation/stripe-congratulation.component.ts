@@ -36,7 +36,7 @@ export class StripeCongratulationComponent implements OnInit {
       this.stripe = this.route.snapshot.paramMap.get('stripe');
       (this.stripe === "standard" || this.stripe === "smart" || this.stripe === "genius")
       ? this.stripe = this.stripe.toLocaleUpperCase()
-      : console.log("ERROR");
+      : this.router.navigateByUrl("");
       this.getScreenWidth = window.innerWidth;
       this.getScreenHeight = window.innerHeight;
   
@@ -49,7 +49,6 @@ export class StripeCongratulationComponent implements OnInit {
           Validators.required
         ]]
       })
-      //return this.router.navigateByUrl("");
     }
 
     @HostListener('window:resize', ['$event'])

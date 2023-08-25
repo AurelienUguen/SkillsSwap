@@ -28,7 +28,6 @@ export class CategoryComponent {
     setTimeout(() => {
       if(this.category) {
         this.sheets = this.getCategoryAndSubCategoriesSheets(this.category);
-        console.log(this.sheets);
       }
     }, 5000);
   }

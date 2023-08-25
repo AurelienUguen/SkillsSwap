@@ -1,4 +1,4 @@
-import { Component, ElementRef, QueryList, Renderer2, ViewChild } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { userConnected } from 'src/app/model/user';
 import { LoginService } from 'src/app/services/login/login.service';

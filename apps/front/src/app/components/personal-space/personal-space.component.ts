@@ -56,9 +56,9 @@ export class PersonalSpaceComponent implements OnInit {
     this.getUserBySlug();
     this.getSheets();
     this.getLessons();
-    console.log(this.userID);
-    console.log(this.user);
-    setTimeout(() => {console.log(this.user?.email);}, 1000);
+    // console.log(this.userID);
+    // console.log(this.user);
+    // setTimeout(() => {console.log(this.user);}, 1000);
   }
 
   kill(
@@ -92,11 +92,9 @@ export class PersonalSpaceComponent implements OnInit {
       padawanValidate: (!master ? !lesson.padawanValidate : lesson.padawanValidate),
       bookingDateEntry: lesson.bookingDate.toString()
     }
-
-    //console.log(lesson);
-    //console.log(updateLesson);
-    //alert('Le cours a bien été enregistré !');
-    console.log('Le cours a bien été enregistré !');
+    
+    alert('Le cours a bien été enregistré !');
+    
     this.apiService.updateLesson(updateLesson, lesson.id).subscribe();
     this.router.navigate([`/`]);
   }
@@ -122,7 +120,7 @@ export class PersonalSpaceComponent implements OnInit {
   }
 
   getLessons() {
-    return this.apiService.getLessons()//.pipe(tap(console.log))
+    return this.apiService.getLessons()
     .subscribe((lessons: any) => this.lessons = lessons['hydra:member']);
   }
 
@@ -149,19 +147,16 @@ export class PersonalSpaceComponent implements OnInit {
   canValidate(lesson: Lesson, target: "MASTER" | "PADAWAN" | "DELETE"){
 
     if(target == "MASTER"){
-    //   console.log(lesson.id + " MASTER " + this.toDate(lesson));
       return this.toDate(lesson);
 
     }else if(target == "PADAWAN"){
-    //   console.log(lesson.id + " PADAWAN " + ( this.toDate(lesson) && lesson.masterValidate ));
       return ( lesson.padawanValidate || !(this.toDate(lesson) && lesson.masterValidate) );
 
     }else if(target == "DELETE"){
-    //   console.log(lesson.id + " DELETE " + ( this.toDate(lesson) && lesson.masterValidate ));
       return ( this.toDate(lesson) && lesson.masterValidate );
 
     }else{
-    //   console.log("Y'a un BUG !!")
+      console.log("Y'a un BUG !!")
       return true;
     }
   }

@@ -1,9 +1,8 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api/api.service';
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { Sheet } from 'src/app/model/sheet';
-import { User, userConnected } from 'src/app/model/user';
+import { userConnected } from 'src/app/model/user';
 import { mySpaceService } from 'src/app/services/mySpaceObserver/mySpaceObserver.service';
 import { LoginService } from 'src/app/services/login/login.service';
 import { Subscription } from 'rxjs';
@@ -27,11 +26,9 @@ export class SheetDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private apiService: ApiService,
     private isConnected: LoginService,
-    private mySpaceObs: mySpaceService,
-    private http: HttpClient,
+    private mySpaceObs: mySpaceService
     ){
       this.subscription = this.isConnected.getStatusObservable().subscribe((status: string) => {
       this.status = status;

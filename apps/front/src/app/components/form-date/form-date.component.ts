@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api/api.service';
 import { LessonPost } from 'src/app/model/lesson';
-import '@angular/common/locales/global/fr';
 import { userConnected } from 'src/app/model/user';
 import { mySpaceService } from 'src/app/services/mySpaceObserver/mySpaceObserver.service';
 import { Subscription } from 'rxjs';
@@ -13,7 +12,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './form-date.component.html',
   styleUrls: ['./form-date.component.scss']
 })
-export class FormDateComponent implements OnInit {
+export class FormDateComponent {
 
   private userObject: Subscription;
   private userID!: string;
@@ -33,11 +32,7 @@ export class FormDateComponent implements OnInit {
       this.userObject = this.userObs.getStatusObservable().subscribe((user: userConnected) => {this.userID = user.slug;});
       this.sheetID = this.activatedRoute.snapshot.paramMap.get('sheet');
   }
-
-  ngOnInit(){
-    console.log(this.sheetID);
-  }
-
+  
   onSubmit() {
     if (this.userID === "slug") return this.router.navigateByUrl("/signin");
 
