@@ -25,7 +25,9 @@ export class SheetFormComponent implements OnInit, OnDestroy {
 
   isIrlChecked = false;
   isVisioChecked = false;
-
+  
+  public getScreenWidth: any;
+  public getScreenHeight: any;
   public form!: FormGroup;
   public updateForm!: FormGroup;
 

@@ -50,15 +50,17 @@ export class TokkenPacksComponent implements OnInit {
             roles:this.user?.roles
         }
         this.apiService.updateUser(buyerSLUG, updateTokkens).subscribe();
-        if(pack == "standard"){
+        setTimeout(() => {
+          if(pack == "standard"){
             window.location.href = "https://buy.stripe.com/test_cN27vj8tA83Odsk288";
-        }
-        if(pack == "smart"){
+          }
+          if(pack == "smart"){
             window.location.href = "https://buy.stripe.com/test_5kA9Dr8tAescdsk6op";
-        }
-        if(pack == "genius"){
+          }
+          if(pack == "genius"){
             window.location.href = "https://buy.stripe.com/test_7sI16VcJQ3Ny9c48wy";
-        }
+          }
+        }, 1000);
     }
   }
 }
