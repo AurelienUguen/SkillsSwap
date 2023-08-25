@@ -1,15 +1,15 @@
-import { Component, OnInit, OnChanges, ChangeDetectorRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, OnChanges } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable, Subscription, delay } from 'rxjs';
 import { Conversation } from 'src/app/model/conversation';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Message } from 'src/app/model/message';
 import { User, userConnected } from 'src/app/model/user';
-import { ApiService } from 'src/app/services/api/api.service';
+import { ApiService } from 'src/app/services/api/api.service';''
 import { MessengerService } from 'src/app/services/messenger/messenger.service';
 import { Participant } from 'src/app/model/participant';
 import { LoginService } from 'src/app/services/login/login.service';
 import { mySpaceService } from 'src/app/services/mySpaceObserver/mySpaceObserver.service';
-import { MercureService } from 'src/app/services/mercure/mercure.service';
 
 @Component({
   selector: 'app-messagerie',
@@ -20,27 +20,23 @@ export class MessengerComponent {
   private subscription: Subscription;
   private mySpace: Subscription;
 
+  // public chan?: Participant;
+  public queryParams?: Observable<Params>;
+  public route!: ActivatedRoute;
   public slug!: string;
   public status?: string;
-  public teacherSlug?: any = {};
+  public sheetDetails?: any = {};
   public user!: User;
   public userName?: string;
-  public currentUser?: any[];
+  public currentUser!: Subscription;
   public userMessages?: Message[];
   public userParticipants?: Participant[];
-
-  public updatedMessage: any;
-
-  public data: any;
-
 
   constructor(
     private apiService: ApiService,
     private isConnected: LoginService,
     private mySpaceObs: mySpaceService,
     private messenger: MessengerService,
-    private mercureService: MercureService,
-    private cdr: ChangeDetectorRef
     ){
       this.subscription = this.isConnected.getStatusObservable().subscribe((status: string) => {
         this.status = status;
@@ -52,42 +48,36 @@ export class MessengerComponent {
     }
 
     ngOnInit() {
-      this.teacherSlug = history.state;
+      this.sheetDetails = history.state;
+      // this.getUserBySlug();
+
     }
+
+    // async getUserBySlug() {
+    //   this.currentUser = await this.apiService.getUserBySlug(this.slug)
+    //     .subscribe(user => {
+    //       this.user = user;
+    //     });
+    //   console.log(this.currentUser);
+    // }
 
     getParticipantByUser(slug: string) {
       this.messenger.getParticipantByUser(slug)
       .subscribe((participants: any) => {
-        console.log(this.userParticipants = participants['participants']);
+        this.userParticipants = participants['participants'];
       })
     }
 
-    // getMessagesByUser(slug: string) {
-    //   this.messenger.getMessagesByUser(slug)
-    //   .subscribe((messages: any) => {
-    //     console.log(this.userMessages = messages['messages']);
-
-    //   })
+    // getParticipantById(id: number) {
+    //   this.messenger.getParticipantsById(id)
+    //     .subscribe(chan => console.log(this.chan = chan))
     // }
 
-    // Mercure Subscription Update
 
-    /* getMessageEvent() {
-      this.mercureService.getUpdatedMessage(this.mercureService.getSourceMessage())
-      .subscribe((updatedMessage: any) => console.log(updatedMessage.data));
-
-      this.cdr.detectChanges();
-    } */
-
-   /*  getMessageEvent() {
-      this.mercureService.getUpdatedMessage(this.mercureService.getSourceMessage())
-      .subscribe((updatedMessage: any ) => {
-
-        const newData = JSON.parse(updatedMessage.data);
-
-        console.log(this.data = newData);
-
-        this.cdr.detectChanges();
-      });
+    /* getMessagesByUser(slug: string) {
+      this.messenger.getMessagesByUser(slug)
+      .subscribe((messages: any) => {
+        console.log(this.userMessages = messages['messages']);
+      })
     } */
 }

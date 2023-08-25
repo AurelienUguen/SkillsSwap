@@ -8,5 +8,9 @@ export interface Conversation {
 }
 
 export interface PostConversation {
+  convId: number;
+}
+
+export interface ConvMaxId {
   id: number;
 }

@@ -3,9 +3,9 @@ import { ApiService } from '../api/api.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Message, MsgPost } from 'src/app/model/message';
-import { Conversation, PostConversation } from 'src/app/model/conversation';
+import { ConvMaxId, Conversation, PostConversation } from 'src/app/model/conversation';
 import { LinksService } from '../api/links.service';
-import { Participant } from 'src/app/model/participant';
+import { Participant, PostParticipant } from 'src/app/model/participant';
 import { User } from 'src/app/model/user';
 
 @Injectable({
@@ -42,6 +42,11 @@ export class MessengerService {
     return this.http.get<Conversation>(url);
   }
 
+  getparticipantsByConv(id: number) {
+    const url = `${this.linksService.conversationUrl}/${id}`;
+    return this.http.get<Participant>(url);
+  }
+
   getParticipants() {
     this.http.get<Participant>(this.linksService.participantUrl)
   }
@@ -54,6 +59,12 @@ export class MessengerService {
   getParticipantsById(id: number): Observable<Participant>{
     const url = `${this.linksService.participantUrl}/${id}`;
     return this.http.get<Participant>(url);
+  }
+
+  getParticipantById(userId: number){
+    let params = new HttpParams()
+      .set('user.id', userId);
+    return this.http.get<Participant>(this.apiService.participantUrl, { params })
   }
 
   getConversationsIds(messages: Message[] | undefined): number[] {
@@ -81,5 +92,19 @@ export class MessengerService {
 
   postConversation(conversation: PostConversation) {
     return this.http.post<PostConversation>(this.apiService.conversationUrl, conversation);
+  }
+
+  postParticipant(participant: PostParticipant) {
+    return this.http.post<PostParticipant>(this.apiService.participantUrl, participant);
+  }
+
+  getConvMaxId() {
+    const url = `${this.linksService.conversationUrl}/countMax`;
+    return this.http.get<any>(url);
+  }
+
+  getParticipMaxId() {
+    const url = `${this.linksService.participantUrl}/count`;
+    return this.http.get<any>(url);
   }
 }
