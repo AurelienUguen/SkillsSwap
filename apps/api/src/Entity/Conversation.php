@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata as Api;
+use App\Controller\ConversationController;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ConversationRepository::class)]
@@ -18,10 +19,15 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new Api\GetCollection(
             paginationEnabled: false,// Ceci supprime la limite d'utilisateur de 30 pour le login //
         ),
+        new Api\GetCollection(
+            name: 'countMax',
+            uriTemplate: '/conversations/countMax',
+            controller: ConversationController::class,
+        ),
         new Api\Post(),
         new Api\Get(),
         new Api\Put(),
-        new Api\Delete()
+        new Api\Delete(),
     ]
 )]
 class Conversation
@@ -33,12 +39,16 @@ class Conversation
     private ?int $id = null;
 
     #[ORM\OneToMany(mappedBy: 'conversation', targetEntity: Participant::class)]
-    #[Groups(['read_convers', 'read_participant', 'read_message',])]
+    #[Groups(['read_convers', 'read_participant', 'read_message', 'create_message'])]
     private Collection $participants;
 
     #[ORM\OneToMany(mappedBy: 'conversation', targetEntity: Message::class)]
     #[Groups(['read_convers', 'read_participant', 'read_message',])]
     private Collection $messages;
+
+    #[ORM\Column]
+    #[Groups(['read_convers', 'create_convers'])]
+    private ?int $convId = null;
 
     public function __construct()
     {
@@ -107,6 +117,18 @@ class Conversation
                 $message->setConversation(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getConvId(): ?int
+    {
+        return $this->convId;
+    }
+
+    public function setConvId(int $convId): static
+    {
+        $this->convId = $convId;
 
         return $this;
     }
