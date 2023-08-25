@@ -6,3 +6,8 @@ export interface Participant {
   user: User,
   conversation: Conversation,
 }
+
+export interface PostParticipant {
+  user: string,
+  conversation: string,
+}

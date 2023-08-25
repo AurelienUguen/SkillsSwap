@@ -1,6 +1,6 @@
 <div class="chat-action-container d-flex flex-column align-items-end">
-  <form [formGroup]="MessageForm" (ngSubmit)="onSubmitMsg()" class="form-control">
-    <textarea formControlName="message" class="form-control form-text" placeholder="Votre message..." [value]="textareaValue"></textarea>
-    <button type="submit" class="btn btn-primary mt-2">Envoyer</button>
-  </form>
+    <form [formGroup]="MessageForm" (ngSubmit)="onSubmitMsg()" class="form-control">
+      <textarea formControlName="message" [(ngModel)]="textareaValue" class="form-control form-text" placeholder="Votre message..." #textarea ></textarea>
+      <button type="submit" class="btn btn-primary mt-2">Envoyer</button>
+    </form>
 </div>

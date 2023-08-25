@@ -7,7 +7,7 @@ export interface Message {
   title: string;
   content: string;
   owner: User;
-  isread: boolean;
+  isRead: boolean;
   createdAt: Date;
   conversation: Conversation;
 }
@@ -18,7 +18,7 @@ export interface MessageToDisplay {
   content: string;
   owner: User;
   isRead: boolean;
-  created_at: Date;
+  createdAt: Date;
 }
 
 export interface MsgPost {
