@@ -59,7 +59,7 @@ ul {
 }
 
 /*  Small device */
-@media screen and (max-width: 820px) {
+@media screen and (max-width: 860px) {
   .navbar__links {
     overflow: hidden;
     display: flex;
@@ -168,7 +168,7 @@ ul {
 }
 
 /*  Medium device - Bonus */
-@media screen and (min-width: 820px) {
+@media screen and (min-width: 860px) {
   .navbar__link > a::after {
     display: block;
     content: "";

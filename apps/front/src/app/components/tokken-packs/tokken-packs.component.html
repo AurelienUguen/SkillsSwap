@@ -1,17 +1,30 @@
 <ng-container *ngIf="user;else error404">
 
-  <p>bonjour {{ user.lastname }}</p>
+  <h1>Nos SkillPacks</h1>
+  <p class="explanation-text">
+    Notre système d'enseignement est basé sur le volontariat, vous pouvez gagner des jetons en donnant des cours.
+    Ces jetons vous permettront ensuite de les dépenser chez nos marques partenaires. Si vous souhaitez
+    prendre un cours sans avoir besoin d'en gagner au préalable, vous pouvez également obtenir des
+    jetons en vous offrant l'un de nos packs. Ceux ci conviennent à tous : À ceux désireux de développer
+    une nouvelle compétence, ou à ceux qui souhaitent découvrir plusieurs activités.
+    <br><br>
+    Pour davantage d'informations, notre service client est en congés pour une durée indeterminée, merci de passer
+    votre chemin.
+  </p>
 
   <div class="container">
-    <div class="row">
-      <div class="col-4">
-        <a class="btn btn-primary" (click)="fileTonFrickBatard('standard',3)">Standard Pack</a>
+    <div class="row justify-content-center">
+      <div class="col-4 row custom-card justify-content-center">
+        <img src="assets/standard.png" alt="standard token pack" class="img-card mb-3">
+        <a class="btn custom-button mt-3 my-text" (click)="fileTonFrickBatard('standard',15)">Standard Pack</a>
       </div>
-      <div class="col-4">
-        <a class="btn btn-primary" (click)="fileTonFrickBatard('smart',10)">Smart Pack</a>
+      <div class="col-4 row custom-card justify-content-center">
+        <img src="assets/smart.png" alt="smart token pack" width="60" class="img-card mb-3">
+        <a class="btn custom-button mt-3 my-text" (click)="fileTonFrickBatard('smart',50)">Smart Pack</a>
       </div>
-      <div class="col-4">
-        <a class="btn btn-primary" (click)="fileTonFrickBatard('genius',25)">Genius Pack</a>
+      <div class="col-4 row custom-card justify-content-center">
+        <img src="assets/genius.png" alt="genius token pack" width="60" class="img-card mb-3">
+        <a class="btn custom-button mt-3 my-text" (click)="fileTonFrickBatard('genius',100)">Genius Pack</a>
       </div>
     </div>
   </div>

@@ -8,6 +8,16 @@
   margin: 0;
 }
 
+.title {
+  font-family: $main-title;
+  font-weight: bolder;
+  color: $primary-theme-color;
+  font-size: $main-title-size;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+
 a {
   color: $primary-theme-color;
 }
@@ -64,19 +74,8 @@ a:hover {
   width: 100%;
 }
 
-
 .main-container {
   margin-top: 120px;
   display: flex;
   justify-content: center;
-}
-
-
-.title {
-  font-family: 'Bacasime Antique', serif;
-  font-weight: bolder;
-  color: $primary-theme-color;
-  font-size: 4em;
-  margin-top: 25px;
-  margin-bottom: 25px;
 }

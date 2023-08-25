@@ -26,8 +26,8 @@
 .custom-button {
   border: none;
   color: $secondary-theme-color;;
-  padding: 8px 30px 8px 30px;
-  border-radius: 15px;
+  padding: $button-padding;
+  border-radius: $button-radius;
 }
 
 .custom-button {

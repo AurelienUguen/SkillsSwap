@@ -1,7 +1,7 @@
-<div class="container-custom">
-  <div class="left-side">
-    <div *ngIf="sheet" class="main-container">
-      <h5 class="display-6 title">{{ sheet.title }}</h5>
+<div class="container-custom row">
+  <div class="col">
+    <div *ngIf="sheet" class="mt-3">
+      <h5 class="title">{{ sheet.title }}</h5>
 
       <div class="about-user">
         <h5 class="description-title">
@@ -12,7 +12,8 @@
 
       <div class="about-lesson">
         <h5 class="description-title">À propos du cours</h5>
-        <div class="buttons">
+
+        <div class="buttons d-flex justify-content-center">
           <button
             (click)="showPosition()"
             class="btn btn-primary toggle-btn"
@@ -36,14 +37,14 @@
               <span>{{ sheet.user.district }} - {{ sheet.user.city }}</span>
             </div>
 
-            <div *ngIf="sheet.visio" class="visio d-flex align-items-center">
+            <div *ngIf="sheet.visio" class="visio">
               <img src="./assets/webcam.png" alt="" class="logo" />
               <span>Webcam</span>
             </div>
           </div>
         </div>
 
-        <div [hidden]="languageToggle" *ngFor="let lang of sheet.language">
+        <div [hidden]="languageToggle" *ngFor="let lang of sheet.language" class="text-center">
           <span class="language-span" style="margin-right: 1em">{{
             lang
           }}</span>
@@ -58,15 +59,15 @@
     </div>
   </div>
 
-  <div class="right-side">
-    <div *ngIf="sheet" class="main-container">
+  <aside class="col">
+    <div *ngIf="sheet">
       <div class="user-card">
           <img class="user-picture" src="https://source.unsplash.com/random/200x200/?{{
-            sheet.user.city
+            sheet.category
           }}" alt="">
           <h3 class="user-name">{{sheet.user.firstname}}</h3>
           <button class="btn btn-primary contact-btn" routerLink="../my-space/{{ slug }}/messenger" [state]="teacherSlug" >Contacter</button>
       </div>
     </div>
-  </div>
+  </aside>
 </div>
