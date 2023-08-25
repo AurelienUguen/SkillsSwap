@@ -8,7 +8,7 @@
 }
 
 body {
-  background: linear-gradient($light-primary-theme-color, #ffffff);
+  background: linear-gradient($light-primary-theme-color, $secondary-theme-color);
   background-repeat: no-repeat;
   min-height: 100vh;
 }

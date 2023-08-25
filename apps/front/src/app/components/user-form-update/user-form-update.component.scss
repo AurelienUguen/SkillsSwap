@@ -4,3 +4,10 @@
 {
   display:block;
 }
+
+.custom-button {
+  background-color: $primary-theme-color;
+  color: $secondary-theme-color;
+  padding: $button-padding;
+  border-radius: $button-radius;
+}

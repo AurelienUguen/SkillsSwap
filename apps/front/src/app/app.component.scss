@@ -1,20 +1,15 @@
-$primary: #0C5051;
-$primaryWithTransparancy: #0c50516c;
-$hover: #117375;
-
+@import "src/variables.scss";
 @import "~bootstrap/dist/css/bootstrap.css";
 
 .custom-container {
-  width: 70%;
+  width: 80%;
   margin: 0 auto 130px;
   min-height: calc( 100vh - 416px );
 }
 
-/* 
-@media screen and (max-width: 820px) {
+
+@media screen and (max-width: 860px) {
   .custom-container {
-    min-height: 845px;
-    // width: 80%;
+    width: 90%;
   }
 }
- */

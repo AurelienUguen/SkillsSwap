@@ -36,18 +36,18 @@
             <ng-container *ngIf="category.errors['required']">Veuillez choisir une catégorie</ng-container>
           </div>
         </div>
-      
+
         <p class="m-0">Déroulement du cours :</p>
         <div class="form-check ps-5">
           <label class="form-check-label" for="irl">A domicile</label>
           <input class="form-check-input" formControlName="irl" type="checkbox" [(ngModel)]="isIrlChecked" />
         </div>
-      
+
         <div class="form-check ps-5">
           <label class="form-check-label" for="visio">A distance</label>
           <input formControlName="visio" type="checkbox" class="form-check-input" [(ngModel)]="isVisioChecked" />
         </div>
-      
+
         <div class="form-check p-0">
           <label for="description">À propos :</label>
           <textarea formControlName="description" type="text" class="form-control form-text"
@@ -60,13 +60,13 @@
       </div>
 
       <div class="card-footer text-center w-100 mt-3">
-        
+
         <button *ngIf="!sheetToUpdate; else update" type="submit" class="btn btn-dark mt-3 w-100 mb-3" (click)="onSubmit()" [disabled]="form.invalid">Enseigner !</button>
 
         <ng-template #update>
           <button type="submit" class="btn btn-dark mt-3 w-100 mb-3" (click)="onUpdate()" [disabled]="form.invalid">Mettre à jour</button>
         </ng-template>
-      
+
       </div>
 
     </div>

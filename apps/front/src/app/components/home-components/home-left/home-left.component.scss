@@ -1,14 +1,25 @@
 @import "src/variables";
 
 .title {
-  font-family: 'Bacasime Antique', serif;
+  font-family: $main-title;
   font-weight: bolder;
   color: $primary-theme-color;
-  font-size: 4em;
+  font-size: $main-title-size;
   margin-bottom: 50px;
 }
 
 .sub-baseline {
-  font-size: 1.2em;
+  font-size: 1.6vw;
   margin-bottom: 30px;
 }
+
+@media screen and (max-width: 860px) {
+  .title {
+    font-size: $main-title-size-860px;
+  }
+
+  .sub-baseline {
+    font-size: $sub-title-size-860px;
+  }
+}
+

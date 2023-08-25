@@ -1,8 +1,10 @@
 @import "src/variables.scss";
 
-.booking-btn {
+.custom-button {
   background-color: $primary-theme-color;
   color: $secondary-theme-color;
+  padding: $button-padding;
+  border-radius: $button-radius;
 }
 
 .custom-container {

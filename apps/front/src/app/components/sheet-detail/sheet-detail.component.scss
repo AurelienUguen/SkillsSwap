@@ -2,27 +2,15 @@
 
 .container-custom {
   display: flex;
+  align-items: center;
 }
 
-.main-container {
-  margin-top: 50px;
-}
-
-.left-side, .right-side {
-  margin: 0px 5px 0px 5px;
-  width: 50%;
-}
-
-.right-side {
-  display: flex;
-  justify-content: center;
-}
 
 .title {
-  font-family: 'Bacasime Antique', serif;
+  font-family: $main-title;
   font-weight: bolder;
   color: $primary-theme-color;
-  font-size: 5vw;
+  font-size: $intermediate-title-size;
 }
 
 .how-to-learn {
@@ -34,8 +22,7 @@
   align-items: center;
   justify-content: center;
   background-color: $secondary-theme-color;
-  width: 20vw;
-  // padding: 10px;
+  width: 17vw;
   margin: 15px;
   border-radius: 50px;
   border: 1px solid $primary-theme-color;
@@ -47,10 +34,10 @@
 }
 
 .description-title {
-  font-family: 'Bacasime Antique', serif;
+  font-family: $main-title;
   font-weight: bolder;
   color: $primary-theme-color;
-  font-size: 2em;
+  font-size: $small-title-size;
   margin-bottom: 15px;
 }
 
@@ -67,7 +54,7 @@
   background-color: $primary-theme-color;
   border: none;
   padding: 12px;
-  border-radius: 15px;
+  border-radius: $button-radius;
   margin: 10px 0px 10px 10px;
 }
 
@@ -84,8 +71,8 @@
 }
 
 .language-span {
-  font-family: 'Bacasime Antique', serif;
-  font-size: 1.4em;
+  font-family: $main-title;
+  font-size: 24px;
   color: $primary-theme-color;
   border-bottom: 1px solid $primary-theme-color;
 }
@@ -95,9 +82,9 @@
 }
 
 .user-card {
+  width: 50%;
   padding: 30px;
   color: $primary-theme-color;
-  margin-top: 200px;
   background-color: $secondary-theme-color;
   display: flex;
   flex-direction: column;
@@ -112,8 +99,8 @@
 }
 
 .user-name {
-  font-family: 'Bacasime Antique', serif;
-  font-size: 3vw;
+  font-family: $main-title;
+  font-size: $sub-title-size;
   padding-top: 30px;
 }
 
@@ -123,4 +110,19 @@
   padding: 17px 40px 17px 40px;
   border-radius: 15px;
   margin: 10px 0px 10px 10px;
+}
+
+@media screen and (max-width: 860px) {
+  .title {
+    font-size: $intermediate-title-size-860px;
+  }
+
+  .container-custom {
+    flex-direction: column-reverse;
+  }
+
+  .description-title {
+    font-size: $small-title-size-860px;
+  }
+
 }
