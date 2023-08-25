@@ -21,7 +21,6 @@ class SheetFixtures extends Fixture implements DependentFixtureInterface
     ];
     const PICS_URL = "https://source.unsplash.com/random/400x400/?";
     const CAT_PICS = [
-        /*/////////
         'bricolage',
         'arts plastiques',
         'musique',
@@ -34,7 +33,6 @@ class SheetFixtures extends Fixture implements DependentFixtureInterface
         'carton',
         'meat',
         "car",
-        /*/////////
         "lingerie",
         "heels",
     ];
