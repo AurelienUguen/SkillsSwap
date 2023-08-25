@@ -39,7 +39,12 @@ import { StripeCongratulationComponent } from './components/stripe-congratulatio
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes), RouterModule.forRoot(customRoutes), RouterModule.forRoot(userRoutes), RouterModule.forRoot(messengerRoutes, {onSameUrlNavigation: 'reload'})],
+  imports: [
+    RouterModule.forRoot(routes),
+    RouterModule.forRoot(customRoutes),
+    RouterModule.forRoot(userRoutes),
+    RouterModule.forRoot(messengerRoutes,{onSameUrlNavigation: 'reload'})
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

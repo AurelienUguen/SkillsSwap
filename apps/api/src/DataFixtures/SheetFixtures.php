@@ -51,7 +51,7 @@ class SheetFixtures extends Fixture implements DependentFixtureInterface
         $sheetAdmin->setDescription("Sculptez vos matière");
         $sheetAdmin->setIrl(true);
         $sheetAdmin->setVisio(false);
-        $sheetAdmin->setImageURL(self::PICS_URL."lingerie");
+        $sheetAdmin->setImageURL(self::PICS_URL.(self::CAT_PICS[mt_rand(0,count(self::CAT_PICS)-1)]));
         $sheetAdmin->setLanguage(['Belge','Quebecois','portugais']);
         $this->addReference(self::COPRO, $sheetAdmin);
         $manager->persist($sheetAdmin);

@@ -8,6 +8,13 @@
 }
 
 @media screen and (max-width: 820px) {
+  .global{
+    position: fixed;
+    left: 0;
+    right:0;
+    top: 86px;
+    bottom: 200px
+  }
   .main-container {
     flex-direction: column;
   }

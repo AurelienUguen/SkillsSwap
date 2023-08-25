@@ -1,5 +1,9 @@
 @import "src/variables.scss";
 
+.skillswap{
+  margin:auto;
+  width: 70%;
+}
 .company-title {
   font-size: 2.5em;
   color: $primary-theme-color;
@@ -156,6 +160,10 @@ ul {
   }
   .show-nav .fifth {
     transition: all 1.4s ease-out;
+  }
+
+  .skillswap{
+    width:100%;
   }
 }
 
