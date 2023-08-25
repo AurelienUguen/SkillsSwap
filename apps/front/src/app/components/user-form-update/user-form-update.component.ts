@@ -62,7 +62,6 @@ export class UserFormUpdateComponent implements OnInit {
       this.apiService.getUserBySlug(this.slug)
         .subscribe(user => {
           this.user = user;
-        console.log(this.user.firstname);
         });
     }
 
