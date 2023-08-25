@@ -10,7 +10,7 @@ use Faker;
 
 class SheetFixtures extends Fixture implements DependentFixtureInterface
 {
-    const NB_SHEET = 10;
+    const NB_SHEET = 6;
     const LANGUAGE = [
         "Français",
         "Anglais",
@@ -54,8 +54,25 @@ class SheetFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::COPRO, $sheetAdmin);
         $manager->persist($sheetAdmin);
         
-        /*
         for ($i = 1 ; $i <= self::NB_SHEET ; $i++) {
+            $sheet[$i] = new Sheet();
+            $sheet[$i]->setTitle($faker->catchPhrase);
+            $sheet[$i]->setUser($this->getReference(UserFixtures::USER_ARR[mt_rand(0, 2)]));
+            $sheet[$i]->setCategory($this->getReference(CategoryFixtures::CAT_REF[mt_rand(0,count(CategoryFixtures::CAT_REF)-1)]));
+            $sheet[$i]->setDescription($faker->realText($maxNbChars = 200, $indexSize = 2));
+            $sheet[$i]->setIrl( (bool)mt_rand(0,1) );
+            ($sheet[$i]->isIrl()) ? $sheet[$i]->setVisio((bool)mt_rand(0,1)) : $sheet[$i]->setVisio((bool)1);
+
+            ( (bool)mt_rand(0,1) )
+                ? $sheet[$i]->setImageURL(self::PICS_URL.(self::CAT_PICS[mt_rand(0,count(self::CAT_PICS)-1)]))
+                : $sheet[$i]->setImageURL(null);
+
+            $sheet[$i]->setLanguage([self::LANGUAGE[mt_rand(0,count(self::LANGUAGE)-1)]]);
+            $this->addReference("sheet$i", $sheet[$i]);
+            $manager->persist($sheet[$i]);
+        }
+        
+        /* for ($i = 1 ; $i <= self::NB_SHEET ; $i++) {
             $sheet[$i] = new Sheet();
             $sheet[$i]->setTitle($faker->catchPhrase);
             $sheet[$i]->setTokenPrice(mt_rand(0,5));
@@ -72,8 +89,8 @@ class SheetFixtures extends Fixture implements DependentFixtureInterface
             $sheet[$i]->setLanguage([self::LANGUAGE[mt_rand(0,count(self::LANGUAGE)-1)]]);
             $this->addReference("sheet$i", $sheet[$i]);
             $manager->persist($sheet[$i]);
-        }
-        */
+        } */
+       
 
         $manager->flush();
     }
