@@ -50,7 +50,7 @@ import { StripeCongratulationComponent } from './components/stripe-congratulatio
     UserFormUpdateComponent,
     MessengerSendFormComponent,
     TokkenPacksComponent,
-    StripeCongratulationComponent
+    StripeCongratulationComponent,
   ],
   imports: [
     BrowserModule,

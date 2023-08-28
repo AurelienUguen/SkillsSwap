@@ -81,7 +81,7 @@
           class="text-center d-flex align-items-center justify-content-center text-and-img"
         >
           <span class="sub-title"
-            >Historique de mes <br>SkillTokens<img
+            >Historique de mes <br />SkillTokens<img
               src="assets/jetons.png"
               alt="token"
               width="30"
@@ -141,113 +141,119 @@
       </table>
     </div>
 
-    <h2 class="title toggle-btn" (click)="showMyLessonsMaster()">
-      Mes réservations as MASTER
-    </h2>
+    <div class="row">
+      <div class="col">
+        <h2 class="title">J'enseigne</h2>
+        <div>
+          <table class="table table-transparent">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>Titre</th>
+                <th>Padawan</th>
+                <th>Date</th>
+                <th class="text-center">Confirmation</th>
+                <th class="text-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let lesson of lessons">
+              <tr *ngIf="lesson.sheet.user.id == user.id">
+                <td class="align-middle">
+                  {{ lesson.id }}
+                </td>
+                <td class="align-middle">
+                  <a
+                    class="link-to-sheet"
+                    routerLink="/{{ lesson.sheet.slug }}"
+                  >
+                    {{ lesson.sheet.title }}
+                  </a>
+                </td>
+                <td class="align-middle booking-text">
+                  {{ lesson.user.firstname }}
+                </td>
+                <td class="align-middle booking-text">
+                  {{ lesson.bookingDate | date }}
+                </td>
+                <td class="align-middle text-center">
+                  <input
+                    type="checkbox"
+                    (click)="masterCheck(lesson)"
+                    [checked]="lesson.masterValidate"
+                    [disabled]="canValidate(lesson, 'MASTER')"
+                  />
+                </td>
+                <td class="text-center">
+                  <button
+                    class="delete-btn"
+                    (click)="kill('lessons', lesson.id)"
+                    [disabled]="canValidate(lesson, 'DELETE')"
+                  >
+                    Annuler
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-    <div [hidden]="myLessonsToggleMaster">
-      <table class="table table-transparent">
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>Titre</th>
-            <th>Padawan</th>
-            <th>Date</th>
-            <th class="text-center">Confirmation</th>
-            <th class="text-center">Actions</th>
-          </tr>
-        </thead>
-        <tbody *ngFor="let lesson of lessons">
-          <tr *ngIf="lesson.sheet.user.id == user.id">
-            <td class="align-middle">
-              {{ lesson.id }}
-            </td>
-            <td class="align-middle">
-              <a class="link-to-sheet" routerLink="/{{ lesson.sheet.slug }}">
-                {{ lesson.sheet.title }}
-              </a>
-            </td>
-            <td class="align-middle booking-text">
-              {{ lesson.user.firstname }}
-            </td>
-            <td class="align-middle booking-text">
-              {{ lesson.bookingDate | date }}
-            </td>
-            <td class="align-middle text-center">
-              <input
-                type="checkbox"
-                (click)="masterCheck(lesson)"
-                [checked]="lesson.masterValidate"
-                [disabled]="canValidate(lesson, 'MASTER')"
-              />
-            </td>
-            <td class="text-center">
-              <button
-                class="delete-btn"
-                (click)="kill('lessons', lesson.id)"
-                [disabled]="canValidate(lesson, 'DELETE')"
-              >
-                Annuler cette réservation
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h2 class="title toggle-btn" (click)="showMyLessonsPadawan()">
-      Mes réservations as PADAWAN
-    </h2>
-
-    <div [hidden]="myLessonsTogglePadawan">
-      <table class="table table-transparent">
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>Titre</th>
-            <th>Maître</th>
-            <th>Date</th>
-            <th class="text-center">Validation</th>
-            <th class="text-center">Actions</th>
-          </tr>
-        </thead>
-        <tbody *ngFor="let lesson of lessons">
-          <tr *ngIf="lesson.user.id == user.id">
-            <td class="align-middle">
-              {{ lesson.id }}
-            </td>
-            <td class="align-middle">
-              <a class="link-to-sheet" routerLink="/{{ lesson.sheet.slug }}">
-                {{ lesson.sheet.title }}
-              </a>
-            </td>
-            <td class="align-middle booking-text">
-              {{ lesson.sheet.user.firstname }}
-            </td>
-            <td class="align-middle booking-text">
-              {{ lesson.bookingDate | date }}
-            </td>
-            <td class="text-center">
-              <button
-                class="custom-button"
-                (click)="padawanCheck(lesson)"
-                [disabled]="canValidate(lesson, 'PADAWAN')"
-              >
-                Payer le Maître
-              </button>
-            </td>
-            <td class="text-center">
-              <button
-                class="delete-btn"
-                (click)="kill('lessons', lesson.id)"
-                [disabled]="canValidate(lesson, 'DELETE')"
-              >
-                Annuler cette réservation
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="col">
+        <h2 class="title">J'apprends</h2>
+        <div>
+          <table class="table table-transparent">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>Titre</th>
+                <th>Maître</th>
+                <th>Date</th>
+                <th class="text-center">Validation</th>
+                <th class="text-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let lesson of lessons">
+              <tr *ngIf="lesson.user.id == user.id">
+                <td class="align-middle">
+                  {{ lesson.id }}
+                </td>
+                <td class="align-middle">
+                  <a
+                    class="link-to-sheet"
+                    routerLink="/{{ lesson.sheet.slug }}"
+                  >
+                    {{ lesson.sheet.title }}
+                  </a>
+                </td>
+                <td class="align-middle booking-text">
+                  {{ lesson.sheet.user.firstname }}
+                </td>
+                <td class="align-middle booking-text">
+                  {{ lesson.bookingDate | date }}
+                </td>
+                <td class="text-center">
+                  <button
+                    class="custom-button"
+                    (click)="padawanCheck(lesson)"
+                    [disabled]="canValidate(lesson, 'PADAWAN')"
+                  >
+                    Payer
+                  </button>
+                </td>
+                <td class="text-center">
+                  <button
+                    class="delete-btn"
+                    (click)="kill('lessons', lesson.id)"
+                    [disabled]="canValidate(lesson, 'DELETE')"
+                  >
+                    Annuler
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 

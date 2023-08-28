@@ -1,73 +1,75 @@
-<div class="container-custom row">
-  <div class="col">
-    <div *ngIf="sheet" class="mt-3">
-      <h5 class="title">{{ sheet.title }}</h5>
+<div class="custom-container">
+  <div *ngIf="sheet" class="sheet-card">
+    <h5 class="title">{{ sheet.title }}</h5>
+    <div>
+      <h5 class="description-title">À propos de {{ sheet.user.firstname }}</h5>
+      <p class="description">{{ sheet.user.description }}</p>
+    </div>
 
-      <div class="about-user">
-        <h5 class="description-title">
-          À propos de {{ sheet.user.firstname }}
-        </h5>
-        <p class="description">{{ sheet.user.description }}</p>
+    <div class="about-lesson">
+      <h5 class="description-title">À propos du cours</h5>
+
+      <div class="buttons d-flex justify-content-center">
+        <button
+          (click)="showPosition()"
+          class="btn btn-primary toggle-btn"
+          [ngClass]="{ 'toggle-btn-focus': !positionToggle }"
+        >
+          Où apprendre ?
+        </button>
+        <button
+          (click)="showLanguage()"
+          class="btn btn-primary toggle-btn"
+          [ngClass]="{ 'toggle-btn-focus': !languageToggle }"
+        >
+          Quelle langue ?
+        </button>
       </div>
 
-      <div class="about-lesson">
-        <h5 class="description-title">À propos du cours</h5>
+      <div [hidden]="positionToggle">
+        <div class="d-flex justify-content-center how-to-learn">
+          <div *ngIf="sheet.irl" class="irl">
+            <img src="./assets/parlant.png" alt="" class="logo" />
+            <span>{{ sheet.user.district }} - {{ sheet.user.city }}</span>
+          </div>
 
-        <div class="buttons d-flex justify-content-center">
-          <button
-            (click)="showPosition()"
-            class="btn btn-primary toggle-btn"
-            [ngClass]="{ 'toggle-btn-focus': !positionToggle }"
-          >
-            Où apprendre ?
-          </button>
-          <button
-            (click)="showLanguage()"
-            class="btn btn-primary toggle-btn"
-            [ngClass]="{ 'toggle-btn-focus': !languageToggle }"
-          >
-            Quelle langue ?
-          </button>
-        </div>
-
-        <div [hidden]="positionToggle">
-          <div class="d-flex justify-content-center how-to-learn">
-            <div *ngIf="sheet.irl" class="irl">
-              <img src="./assets/parlant.png" alt="" class="logo" />
-              <span>{{ sheet.user.district }} - {{ sheet.user.city }}</span>
-            </div>
-
-            <div *ngIf="sheet.visio" class="visio">
-              <img src="./assets/webcam.png" alt="" class="logo" />
-              <span>Webcam</span>
-            </div>
+          <div *ngIf="sheet.visio" class="visio">
+            <img src="./assets/webcam.png" alt="" class="logo" />
+            <span>Webcam</span>
           </div>
         </div>
-
-        <div [hidden]="languageToggle" *ngFor="let lang of sheet.language" class="text-center">
-          <span class="language-span" style="margin-right: 1em">{{
-            lang
-          }}</span>
-        </div>
-
-        <p class="description sheet-description">{{ sheet.description }}</p>
       </div>
 
-      <div class="booking-date-container">
-        <app-form-date></app-form-date>
+      <div
+        [hidden]="languageToggle"
+        *ngFor="let lang of sheet.language"
+        class="text-center"
+      >
+        <span class="language-span" style="margin-right: 1em">{{ lang }}</span>
       </div>
+      <p class="description sheet-description">{{ sheet.description }}</p>
+    </div>
+
+    <div class="booking-date-container">
+      <app-form-date></app-form-date>
     </div>
   </div>
 
-  <aside class="col">
-    <div *ngIf="sheet">
-      <div class="user-card">
-          <img class="user-picture" src="https://source.unsplash.com/random/200x200/?{{
-            sheet.category
-          }}" alt="">
-          <h3 class="user-name">{{sheet.user.firstname}}</h3>
-          <button class="btn btn-primary contact-btn" routerLink="../my-space/{{ slug }}/messenger" [state]="teacherSlug" >Contacter</button>
-      </div>
+  <div *ngIf="sheet" class="main-card">
+    <div class="user-card">
+      <img
+        class="user-picture"
+        src="https://source.unsplash.com/random/200x200/?{{ sheet.category }}"
+        alt=""
+      />
+      <span class="user-name">{{ sheet.user.firstname }}</span>
+      <button
+        class="btn btn-primary contact-btn"
+        routerLink="../my-space/{{ slug }}/messenger"
+        [state]="teacherSlug"
+      >
+        Contacter
+      </button>
     </div>
-  </aside>
+  </div>
 </div>
