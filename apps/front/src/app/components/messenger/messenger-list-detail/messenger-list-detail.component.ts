@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { delay, Subscription } from 'rxjs';
 import { Conversation } from 'src/app/model/conversation';
 import { Participant } from 'src/app/model/participant';
@@ -14,7 +14,7 @@ import { mySpaceService } from 'src/app/services/mySpaceObserver/mySpaceObserver
   templateUrl: './messenger-list-detail.component.html',
   styleUrls: ['./messenger-list-detail.component.scss']
 })
-export class MessengerListDetailComponent implements OnInit, OnChanges{
+export class MessengerListDetailComponent implements OnInit{
   @Input() conversationId!: number;
 
   private subscription: Subscription;
@@ -44,11 +44,9 @@ export class MessengerListDetailComponent implements OnInit, OnChanges{
       });
 
     }
-  ngOnChanges() {
-    this.getParticipantsByConv(this.conversationId);
-  }
 
   ngOnInit() {
+    this.getParticipantsByConv(this.conversationId);
     console.log(this.conversationId);
   }
 

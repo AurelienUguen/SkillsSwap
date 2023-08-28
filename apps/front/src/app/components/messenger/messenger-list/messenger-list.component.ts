@@ -16,7 +16,7 @@ import { mySpaceService } from 'src/app/services/mySpaceObserver/mySpaceObserver
   styleUrls: ['./messenger-list.component.scss']
 })
 export class MessengerListComponent implements OnInit {
-  @Input() sheetDetails?: any = {};
+  @Input() sheetDetails: any = {};
 
   private subscription: Subscription;
   private messengerList: Subscription;
@@ -38,7 +38,7 @@ export class MessengerListComponent implements OnInit {
   public teacherMessages!: Message[];
   public currentUserMessages!: Message[];
   public userId!: number;
-  public hasClicked!: false;
+  // public hasClicked = false;
 
   constructor(
     private apiService: ApiService,
@@ -54,16 +54,16 @@ export class MessengerListComponent implements OnInit {
         this.userName = user.firstname;
       });
       this.getUserConnectedParticipants(this.slug);
+      // console.log(this.sheetDetails);
+      // this.hasClicked = this.sheetDetails['hasClicked'];
+
     }
 
   ngOnInit(): void {
-    this.hasClicked = this.sheetDetails;
-    console.log(this.hasClicked);
-
     this.getUserBySlug();
     this.getTeacherBySlug();
 
-    if(this.hasClicked) {
+    if(this.sheetDetails['hasClicked']) {
       setTimeout(() => {
         // this.getParticipantById(this.user.id);
         this.getTeacherParticipants(this.sheetDetails['teacherSlug']);
@@ -71,7 +71,7 @@ export class MessengerListComponent implements OnInit {
       }, 200);
 
       this.getTeacherMessages(this.sheetDetails['teacherSlug']);
-      this.hasClicked = false;
+      // this.hasClicked = false;
     }
   }
 
@@ -117,7 +117,7 @@ export class MessengerListComponent implements OnInit {
   getTeacherParticipants(slug: string) {
     this.messenger.getParticipantByUser(slug)
     .subscribe((participants: any) => {
-      this.teacherParticipants = participants['participants'];
+      console.log(this.teacherParticipants = participants['participants']);
       this.activateTeachersConversation();
     })
   }
@@ -159,7 +159,7 @@ export class MessengerListComponent implements OnInit {
   }
 
   getTeacherMessagesNewConversation(slug: string) {
-    concat(this.messenger.getMessagesByUser(slug))
+    this.messenger.getMessagesByUser(slug)
       .subscribe((messages: any) => {
         console.log(this.teacherMessages = messages['messages']),
         this.hasCommonConversation()

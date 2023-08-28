@@ -48,7 +48,7 @@ export class MessengerComponent {
     }
 
     ngOnInit() {
-      this.sheetDetails = history.state;
+      console.log(this.sheetDetails = history.state);
       // this.getUserBySlug();
 
     }
