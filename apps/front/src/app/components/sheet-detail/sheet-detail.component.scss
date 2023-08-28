@@ -87,7 +87,7 @@
 .main-card {
   position: sticky;
   display:flex;
-  justify-content: center;
+  justify-content: end;
   align-items: center;
   width: 40%;
 }
@@ -133,6 +133,7 @@
 
   .main-card {
     width: 100%;
+    justify-content: center;
   }
 
   .user-card {
@@ -159,6 +160,10 @@
     font-size: $intermediate-title-size-860px;
   }
 
+  .description-title {
+    font-size: $small-title-size-860px;
+  }
+
   .container-custom {
     flex-direction: column-reverse;
   }
@@ -170,4 +175,11 @@
   .user-name {
     font-size: $text-big-size-860px;
   }
+}
+
+@media screen and (max-width: 412px) {
+  .description-title {
+    font-size: $small-title-size-412px;
+  }
+
 }
