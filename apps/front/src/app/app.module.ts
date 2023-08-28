@@ -26,6 +26,7 @@ import { UserFormUpdateComponent } from './components/user-form-update/user-form
 import { MessengerSendFormComponent } from './components/messenger/messenger-send-form/messenger-send-form.component';
 import { TokkenPacksComponent } from './components/tokken-packs/tokken-packs.component';
 import { StripeCongratulationComponent } from './components/stripe-congratulation/stripe-congratulation.component';
+import { MessengerListDetailComponent } from './components/messenger/messenger-list-detail/messenger-list-detail.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { StripeCongratulationComponent } from './components/stripe-congratulatio
     FooterComponent,
     MessengerComponent,
     MessengerListComponent,
+    MessengerListDetailComponent,
     MessengerChatComponent,
     UserFormUpdateComponent,
     MessengerSendFormComponent,
