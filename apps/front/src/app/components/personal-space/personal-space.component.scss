@@ -55,10 +55,10 @@
   color: $primary-theme-color;
 }
 
-.text-and-img {
+/* .text-and-img {
   padding: 15px 0px 15px 0px;
 
-}
+} */
 
 .sub-title {
   font-size: 2vw;
@@ -82,4 +82,47 @@
   height: 400px;
   width: 400px;
   border-radius: 50%;
+}
+
+.custom-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-data {
+  width: 50%;
+}
+
+.skilltoken {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 30px;
+  width: 400px;
+  height: 400px;
+  background-color: $secondary-theme-color;
+  border-radius: 50%;
+}
+
+.skillfortune {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 1020px) {
+  .custom-container {
+    flex-direction: column;
+  }
+
+  .user-data {
+    width: 100%;
+  }
+
+  .skilltoken {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
 }
