@@ -1,10 +1,9 @@
 @import "src/variables.scss";
 
-.container-custom {
-  display: flex;
-  align-items: center;
-}
 
+.custom-container {
+  display: flex;
+}
 
 .title {
   font-family: $main-title;
@@ -81,8 +80,23 @@
   margin-top: 20px;
 }
 
+.sheet-card {
+  width: 60%;
+}
+
+.main-card {
+  position: sticky;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+}
+
 .user-card {
-  width: 50%;
+  width: 60%;
+  min-width: 300px;
+  height: 70%;
+  min-height: 350px;
   padding: 30px;
   color: $primary-theme-color;
   background-color: $secondary-theme-color;
@@ -112,6 +126,34 @@
   margin: 10px 0px 10px 10px;
 }
 
+@media screen and (max-width: 1020px) {
+  .custom-container {
+    flex-direction: column-reverse;
+  }
+
+  .main-card {
+    width: 100%;
+  }
+
+  .user-card {
+    width: 100%;
+    border-radius: 0;
+    box-shadow: none;
+    background-color: $transpancy;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+
+  .sheet-card {
+    width: 100%;
+  }
+
+  .user-name {
+    font-size: $intermediate-title-size-860px;
+  }
+
+}
+
 @media screen and (max-width: 860px) {
   .title {
     font-size: $intermediate-title-size-860px;
@@ -125,4 +167,7 @@
     font-size: $small-title-size-860px;
   }
 
+  .user-name {
+    font-size: $text-big-size-860px;
+  }
 }
