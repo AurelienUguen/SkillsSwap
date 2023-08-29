@@ -48,7 +48,6 @@ export class PersonalSpaceComponent implements OnInit {
         this.slug = user.slug;
       });
       this.userObject = this.userObs.getStatusObservable().subscribe((user: userConnected) => {this.userID = user.slug;});
-
     }
 
 
@@ -161,7 +160,7 @@ export class PersonalSpaceComponent implements OnInit {
     }
   }
 
-  reloadComponent(self:boolean,urlToNavigateTo ?:string){
+  reloadComponent(self:boolean, urlToNavigateTo ?:string){
 
     //skipLocationChange:true means dont update the url to / when navigating
    const url = self ? this.router.url :urlToNavigateTo;
