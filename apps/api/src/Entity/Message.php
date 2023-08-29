@@ -51,15 +51,15 @@ class Message
 
     #[ORM\Column(nullable: true)]
     #[Groups(['read_message', 'create_message', 'read_user','read_convers'])]
-    private ?bool $is_read = null;
+    private ?bool $isRead = null;
 
     #[ORM\Column]
     #[Groups(['read_message', 'create_message', 'read_user','read_convers'])]
-    private ?\DateTime $created_at = null;
+    private ?\DateTime $createdAt = null;
 
     public function __construct()
     {
-        $this->created_at = new \DateTime('now');
+        $this->createdAt = new \DateTime('now');
     }
 
     public function getId(): ?int
@@ -117,24 +117,24 @@ class Message
 
     public function isIsRead(): ?bool
     {
-        return $this->is_read;
+        return $this->isRead;
     }
 
-    public function setIsRead(bool $is_read): static
+    public function setIsRead(bool $isRead): static
     {
-        $this->is_read = $is_read;
+        $this->isRead = $isRead;
 
         return $this;
     }
 
     public function getCreatedAt(): ?\DateTime
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTime $created_at): static
+    public function setCreatedAt(\DateTime $createdAt): static
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }

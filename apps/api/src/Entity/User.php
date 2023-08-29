@@ -46,7 +46,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     #[Gedmo\Slug(fields:['firstname','lastname'])]
     #[Api\ApiProperty(identifier:true)]
-    #[Groups(['read_sheet', 'read_lesson', 'read_user', 'read_participant', 'read_message'])]
+    #[Groups(['read_sheet', 'read_lesson', 'read_user', 'read_participant', 'read_message', 'read_convers'])]
     private ?string $slug = null;
 
     #[ORM\Column]
