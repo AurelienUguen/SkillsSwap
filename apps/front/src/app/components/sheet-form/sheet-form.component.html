@@ -25,9 +25,9 @@
           </div>
         </div>
 
-        <div class="form-group">
+        <div>
           <label for="category">Choisir une catégorie :</label>
-          <select formControlName="category" class="form-select custom-form-control">
+          <select formControlName="category" class="form-select custom-form-select custom-form-control">
             <option *ngFor="let category of categories" value="{{ category.slug }}">
               {{ category.name }}
             </option>
@@ -38,12 +38,12 @@
         </div>
 
         <p>Déroulement du cours :</p>
-        <div class="form-check ps-5">
+        <div class="form-check">
           <label class="form-check-label" for="irl">A domicile</label>
           <input class="form-check-input" formControlName="irl" type="checkbox" [(ngModel)]="isIrlChecked" />
         </div>
 
-        <div class="form-check ps-5">
+        <div class="form-check">
           <label class="form-check-label" for="visio">A distance</label>
           <input formControlName="visio" type="checkbox" class="form-check-input" [(ngModel)]="isVisioChecked" />
         </div>
@@ -59,7 +59,7 @@
 
         <div>
           <label for="price">Échanger contre :</label>
-          <select formControlName="tokenPrice" id="price" class="form-select custom-form-control">
+          <select formControlName="tokenPrice" id="price" class="form-select custom-form-select custom-form-control">
             <option value="5">5 SkillTokens</option>
             <option value="10">10 SkillTokens</option>
             <option value="15">15 SkillTokens</option>

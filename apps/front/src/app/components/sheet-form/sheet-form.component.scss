@@ -2,7 +2,7 @@
 
 .custom-card {
   background-color: $secondary-theme-color;
-  width: 60%;
+  width: 80%;
   padding: 30px;
   margin-top: 60px;
   margin-left: auto;
@@ -37,6 +37,10 @@
   padding: 10px;
 }
 
+.custom-form-select {
+  padding: 2px 0 0 10px;
+}
+
 .custom-button {
   width: 100%;
   border: none;
@@ -55,8 +59,8 @@
   display:block;
 }
 
-@media screen and (min-width: 860px) {
+@media screen and (max-width: 860px) {
   .custom-card {
-    width: 80%;
+    width: 100%;
   }
 }

@@ -96,11 +96,13 @@ export class UserFormUpdateComponent implements OnInit {
         lastname: this.updateUserForm.value.lastname,
         email: this.updateUserForm.value.email,
         phone: this.updateUserForm.value.phone,
-        district: this.updateUserForm.value.district,
+        district: Number(this.updateUserForm.value.district),
         city: this.updateUserForm.value.city,
         description: this.updateUserForm.value.description,
         plaintextPassword: 'adminUpdateProfile.911',
       }
+
+      console.log(this.updateUser);
 
       const user: UserAuth = {
         email: this.updateUserForm.value.email,
