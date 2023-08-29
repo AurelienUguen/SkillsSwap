@@ -46,18 +46,8 @@ export class MessengerComponent {
     }
 
     ngOnInit() {
-      console.log(this.sheetDetails = history.state);
-      // this.getUserBySlug();
-
+      this.sheetDetails = history.state;
     }
-
-    // async getUserBySlug() {
-    //   this.currentUser = await this.apiService.getUserBySlug(this.slug)
-    //     .subscribe(user => {
-    //       this.user = user;
-    //     });
-    //   console.log(this.currentUser);
-    // }
 
     getParticipantByUser(slug: string) {
       this.messenger.getParticipantByUser(slug)
@@ -65,17 +55,4 @@ export class MessengerComponent {
         this.userParticipants = participants['participants'];
       })
     }
-
-    // getParticipantById(id: number) {
-    //   this.messenger.getParticipantsById(id)
-    //     .subscribe(chan => console.log(this.chan = chan))
-    // }
-
-
-    /* getMessagesByUser(slug: string) {
-      this.messenger.getMessagesByUser(slug)
-      .subscribe((messages: any) => {
-        console.log(this.userMessages = messages['messages']);
-      })
-    } */
 }
