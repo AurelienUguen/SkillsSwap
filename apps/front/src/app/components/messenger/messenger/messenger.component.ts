@@ -20,8 +20,6 @@ export class MessengerComponent {
   private subscription: Subscription;
   private mySpace: Subscription;
 
-  // public chan?: Participant;
-  public queryParams?: Observable<Params>;
   public route!: ActivatedRoute;
   public slug!: string;
   public status?: string;

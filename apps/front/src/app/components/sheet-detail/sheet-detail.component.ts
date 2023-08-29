@@ -16,7 +16,7 @@ export class SheetDetailComponent implements OnInit {
   private subscription: Subscription;
   private sheetDetailUser: Subscription;
 
-  public teacherSlug?: any = {teacherSlug: ''};
+  public sheetDetails = {teacherSlug: '', selectedSheet: <Sheet> {}, hasClicked: true};
   public sheet?: Sheet;
   public slug!: string;
   public status?: string;
@@ -47,7 +47,11 @@ export class SheetDetailComponent implements OnInit {
     const slug = this.route.snapshot.paramMap.get('sheet')!;
 
     this.apiService.getSheetBySlug(slug)
-      .subscribe(sheet => this.sheet = sheet);
+      .subscribe(sheet => {
+        this.sheet = sheet;
+        this.sheetDetails['teacherSlug'] = this.sheet.user.slug;
+        this.sheetDetails['selectedSheet'] = this.sheet;
+      });
   }
 
   showLanguage() {

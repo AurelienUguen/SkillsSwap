@@ -24,7 +24,7 @@ export class MessengerListComponent implements OnInit {
   public currentConvId?: number;
   public convMaxId!: number;
   public participMaxId!: number;
-  public isActive: boolean = false;
+  public isActive = false;
   public slug!: string;
   public status?: string;
   public participants?: Participant;
@@ -38,7 +38,8 @@ export class MessengerListComponent implements OnInit {
   public teacherMessages!: Message[];
   public currentUserMessages!: Message[];
   public userId!: number;
-  // public hasClicked = false;
+  public isNewConvPosted = false;
+  public hasClicked = {'hasClicked': false};
 
   constructor(
     private apiService: ApiService,
@@ -62,19 +63,18 @@ export class MessengerListComponent implements OnInit {
   ngOnInit(): void {
     this.getUserBySlug();
     this.getTeacherBySlug();
+    this.hasClicked['hasClicked'] = this.sheetDetails['hasClicked'];
+    console.log(this.sheetDetails);
 
-    if(this.sheetDetails['hasClicked']) {
+    if(this.hasClicked['hasClicked']) {
       setTimeout(() => {
-        // this.getParticipantById(this.user.id);
         this.getTeacherParticipants(this.sheetDetails['teacherSlug']);
-        this.getTeacherMessagesNewConversation(this.sheetDetails['teacherSlug']);
       }, 200);
 
       this.getTeacherMessages(this.sheetDetails['teacherSlug']);
-      // this.hasClicked = false;
+
     }
   }
-
 
   getUserBySlug(): void {
     this.apiService.getUserBySlug(this.slug)
@@ -100,7 +100,7 @@ export class MessengerListComponent implements OnInit {
   getUserConnectedParticipants(slug: string) {
     this.messenger.getParticipantByUser(slug)
     .subscribe((participants: any) => {
-      this.userParticipants = participants['participants'];
+      console.log(this.userParticipants = participants['participants']);
     })
   }
 
@@ -117,11 +117,13 @@ export class MessengerListComponent implements OnInit {
   getTeacherParticipants(slug: string) {
     this.messenger.getParticipantByUser(slug)
     .subscribe((participants: any) => {
-      console.log(this.teacherParticipants = participants['participants']);
+      this.teacherParticipants = participants['participants'];
       this.activateTeachersConversation();
+      if(this.isActive === false){
+        this.createConversation();
+      }
     })
   }
-
 
   getMessagesByConversation(id: number) {
     this.messenger.getMessagesByConversation(id)
@@ -130,25 +132,6 @@ export class MessengerListComponent implements OnInit {
       })
     console.log(this.currentConvId = id);
     this.isActive = true;
-  }
-
-  hasCommonConversation() {
-    console.log(this.user['messages']);
-    console.log(this.teacherMessages);
-    if(this.user['messages'].length === 0 || this.teacherMessages.length === 0) {
-      console.log('new conversation 0 !');
-      this.createConversation();
-    } else {
-        for(let i = 0; i < this.user['messages'].length; i++ ){
-          for(let j = 0; j < this.teacherMessages.length; j++ ){
-            if(!(this.teacherMessages[j].conversation.id === this.user['messages'][i].conversation.id)
-              ){
-                console.log('new conversation 1 !');
-                this.createConversation();
-            }
-          }
-        }
-    }
   }
 
   getTeacherMessages(slug: string) {
@@ -161,20 +144,15 @@ export class MessengerListComponent implements OnInit {
   getTeacherMessagesNewConversation(slug: string) {
     this.messenger.getMessagesByUser(slug)
       .subscribe((messages: any) => {
-        console.log(this.teacherMessages = messages['messages']),
-        this.hasCommonConversation()
+        console.log(this.teacherMessages = messages['messages'])
     })
   }
-
 
   postConversation(maxId: number): void | any {
     const createConv: PostConversation = {
       convId: maxId + 1,
     }
-
-    concat(
-      this.messenger.postConversation(createConv),
-      )
+      this.messenger.postConversation(createConv)
       .subscribe();
     console.log(createConv);
     }
@@ -192,27 +170,29 @@ export class MessengerListComponent implements OnInit {
     console.log(particip1);
     console.log(particip2);
 
-    concat(
-      this.messenger.postParticipant(particip1),
-      this.messenger.postParticipant(particip2),
-      )
-      .subscribe();
+      concat(
+        this.messenger.postParticipant(particip1),
+        this.messenger.postParticipant(particip2),
+        )
+        .subscribe();
+        this.hasClicked['hasClicked'] = false;
+  }
+
+    createParticipant(convId: number) {
+      return this.messenger.getParticipMaxId()
+        .subscribe((id: any) => {
+            this.participMaxId = id['hydra:member'][0].id,
+            this.postParticipant(this.participMaxId, convId)
+      })
     }
 
-  createConversation() {
-    return this.messenger.getConvMaxId()
-      .subscribe((id: any) => {
-          this.convMaxId = id['hydra:member'][0].id,
-          this.postConversation(this.convMaxId),
-          this.createParticipant(this.convMaxId)
-      })
-  }
+    createConversation() {
+      return this.messenger.getConvMaxId()
+        .subscribe((id: any) => {
+            this.convMaxId = id['hydra:member'][0].id,
+            this.postConversation(this.convMaxId),
+            this.createParticipant(this.convMaxId);
+        })
+    }
 
-  createParticipant(convId: number) {
-    return this.messenger.getParticipMaxId()
-      .subscribe((id: any) => {
-          this.participMaxId = id['hydra:member'][0].id,
-          this.postParticipant(this.participMaxId, convId)
-    })
-  }
 }
