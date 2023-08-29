@@ -1,90 +1,81 @@
 <ng-container *ngIf="user">
-  <form [formGroup]="updateUserForm">
-    <div class="row">
-      <label for="firstname" class="col"><strong>Prénom :</strong></label>
-      <input
-        formControlName="firstname"
-        type="text"
-        class="form-control form-text col"
-        [(ngModel)]="user.firstname"
-      />
-    </div>
+  <div>
+    <form class="d-flex" [formGroup]="updateUserForm" class="form-group">
 
-    <div class="row">
-      <label for="lastname" class="col"><strong>Nom :</strong></label>
-      <input
-        formControlName="lastname"
-        type="text"
-        class="form-control form-text col"
-        [(ngModel)]="user.lastname"
-      />
-    </div>
+      <div class="custom-card">
 
-    <div class="row">
-      <label for="email" class="col"><strong>Email :</strong></label>
-      <input
-        formControlName="email"
-        type="email"
-        class="form-control form-text col"
-        [(ngModel)]="user.email"
-      />
-    </div>
+        <div class="custom-card-header">
+          <div class="text-center">
+            <p class="sub-title">Modifier le profil</p>
+          </div>
+        </div>
 
-    <div class="row">
-      <label for="phone" class="col"><strong>Téléphone :</strong></label>
-      <input
-        formControlName="phone"
-        type="text"
-        class="form-control form-text col"
-        [(ngModel)]="user.phone"
-      />
-    </div>
+        <div class="custom-card-body">
 
-    <div class="row">
-      <label for="district" class="col"><strong>Département :</strong></label>
-      <input
-        formControlName="district"
-        type="number"
-        class="form-control form-text col"
-        [(ngModel)]="user.district"
-      />
-    </div>
+          <div>
+            <label for="lastname">Nom :</label>
+            <input formControlName="lastname" type="text" class="custom-form-control"
+              [(ngModel)]="user.lastname" />
+          </div>
 
-    <div class="row">
-      <label for="city" class="col"><strong>Ville :</strong></label>
-      <input
-        formControlName="city"
-        type="text"
-        class="form-control form-text col"
-        [(ngModel)]="user.city"
-      />
-    </div>
+          <div>
+            <label for="firstname">Prénom :</label>
+            <input formControlName="firstname" type="text" class="custom-form-control"
+              [(ngModel)]="user.firstname" />
+          </div>
 
-    <div class="row">
-      <label for="description" class="col"><strong>Description :</strong></label>
-      <textarea
-        formControlName="description"
-        class="form-control form-text col"
-        [(ngModel)]="user.description"
-        rows="5"
-      ></textarea>
-    </div>
+          <div>
+            <label for="email">Email :</label>
+            <input formControlName="email" type="email" class="custom-form-control"
+              [(ngModel)]="user.email" />
+          </div>
 
-    <div class="row">
-      <label for="currentPassword" class="col">Mot de passe actuel :</label>
-      <input formControlName="currentPassword" type="password" class="form-control form-text col" placeholder="Mot de passe requis">
-    </div>
-    <div class="invalid-feedback" *ngIf="currentPassword.touched && currentPassword.invalid && currentPassword.errors">
-      <ng-container *ngIf="currentPassword.errors['required']">Le mot de passe est obligatoire pour valider les changements<br></ng-container>
-    </div>
+          <div>
+            <label for="phone">Téléphone :</label>
+            <input formControlName="phone" type="text" class="custom-form-control"
+              [(ngModel)]="user.phone" />
+          </div>
 
-    <button
-    type="submit"
-    (click)="updateUser()"
-    class="btn col-4 mt-2 float-right custom-button"
-    [disabled]="updateUserForm.invalid"
-  >
-    Mettre à jour
-  </button>
-  </form>
+          <div>
+            <label for="district">Département :</label>
+            <select formControlName="district" id="price" class="form-select custom-form-control custom-form-select" [(ngModel)]="user.district">
+              <option value="75">75 - Paris</option>
+              <option value="77">77 - Seine-et-Marne</option>
+              <option value="78">78 - Yvelines</option>
+              <option value="91">91 - Essonne</option>
+              <option value="92">92 - Hauts-de-Seine</option>
+              <option value="93">93 - Seine-Saint-Denis</option>
+              <option value="94">94 - Val-de-Marne</option>
+              <option value="95">95 - Val-d'Oise</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="city">Ville :</label>
+            <input formControlName="city" type="text" class="custom-form-control"
+              [(ngModel)]="user.city" />
+          </div>
+
+          <div class="mt-3">
+            <label for="description">À propos :</label>
+            <textarea formControlName="description" type="text" class="custom-form-control custom-text-area"
+              placeholder="Décrivez vous en quelques lignes ..." [(ngModel)]="user.description"></textarea>
+          </div>
+
+          <div>
+            <label for="currentPassword">Mot de passe actuel :</label>
+            <input formControlName="currentPassword" type="password" class="custom-form-control" placeholder="Mot de passe requis">
+          </div>
+
+        </div>
+
+        <div class="custom-card-footer text-center">
+          <button type="submit" class="btn custom-button mt-3" (click)="updateUser()" [disabled]="updateUserForm.invalid">Mettre à jour</button>
+        </div>
+
+      </div>
+    </form>
+  </div>
+
 </ng-container>
+
