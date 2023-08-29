@@ -54,25 +54,17 @@ export class MessengerListComponent implements OnInit {
         this.slug = user.slug;
         this.userName = user.firstname;
       });
-      this.getUserConnectedParticipants(this.slug);
-      // console.log(this.sheetDetails);
-      // this.hasClicked = this.sheetDetails['hasClicked'];
 
+      this.getUserConnectedParticipants(this.slug);
     }
 
   ngOnInit(): void {
     this.getUserBySlug();
     this.getTeacherBySlug();
     this.hasClicked['hasClicked'] = this.sheetDetails['hasClicked'];
-    console.log(this.sheetDetails);
 
     if(this.hasClicked['hasClicked']) {
-      setTimeout(() => {
-        this.getTeacherParticipants(this.sheetDetails['teacherSlug']);
-      }, 200);
-
-      this.getTeacherMessages(this.sheetDetails['teacherSlug']);
-
+      this.getTeacherParticipants(this.sheetDetails['teacherSlug']);
     }
   }
 
@@ -80,27 +72,22 @@ export class MessengerListComponent implements OnInit {
     this.apiService.getUserBySlug(this.slug)
       .subscribe(user => {
         this.user = user;
-        // this.getParticipantById(this.user.id)
       });
   }
 
   getTeacherBySlug(): void {
     this.apiService.getUserBySlug(this.sheetDetails['teacherSlug'])
       .subscribe(teacher => {
-        console.log(this.teacher = teacher);
+        this.teacher = teacher;
       });
   }
 
-  getParticipantById(id: number) {
-    this.messenger.getParticipantsById(id)
-      .subscribe((userId: any) => console.log(this.userId = userId)
-      )
-  }
 
   getUserConnectedParticipants(slug: string) {
     this.messenger.getParticipantByUser(slug)
+    .pipe(delay(800))
     .subscribe((participants: any) => {
-      console.log(this.userParticipants = participants['participants']);
+      this.userParticipants = participants['participants'];
     })
   }
 
@@ -130,31 +117,16 @@ export class MessengerListComponent implements OnInit {
       .subscribe((messages: any) => {
         this.currentMessages = messages['messages'].reverse();
       })
-    console.log(this.currentConvId = id);
+    this.currentConvId = id;
     this.isActive = true;
-  }
-
-  getTeacherMessages(slug: string) {
-    concat(this.messenger.getMessagesByUser(slug))
-      .subscribe((messages: any) => {
-        console.log(this.teacherMessages = messages['messages'])
-    })
-  }
-
-  getTeacherMessagesNewConversation(slug: string) {
-    this.messenger.getMessagesByUser(slug)
-      .subscribe((messages: any) => {
-        console.log(this.teacherMessages = messages['messages'])
-    })
   }
 
   postConversation(maxId: number): void | any {
     const createConv: PostConversation = {
       convId: maxId + 1,
     }
-      this.messenger.postConversation(createConv)
+    this.messenger.postConversation(createConv)
       .subscribe();
-    console.log(createConv);
     }
 
 
@@ -167,8 +139,6 @@ export class MessengerListComponent implements OnInit {
       user: `/api/users/${this.teacher.slug}`,
       conversation: `/api/conversations/${convMaxId + 1}`
     }
-    console.log(particip1);
-    console.log(particip2);
 
       concat(
         this.messenger.postParticipant(particip1),

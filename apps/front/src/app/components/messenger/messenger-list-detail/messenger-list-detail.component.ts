@@ -16,6 +16,7 @@ import { mySpaceService } from 'src/app/services/mySpaceObserver/mySpaceObserver
 })
 export class MessengerListDetailComponent implements OnInit{
   @Input() conversationId!: number;
+  @Input() currentUser!: User;
 
   private subscription: Subscription;
   private messengerListDetails: Subscription;
@@ -27,7 +28,6 @@ export class MessengerListDetailComponent implements OnInit{
   public status?: string;
   public user!: User;
   public userName?: string;
-  // public participId!: number;
 
   constructor(
     private apiService: ApiService,
@@ -42,12 +42,10 @@ export class MessengerListDetailComponent implements OnInit{
         this.slug = user.slug;
         this.userName = user.firstname;
       });
-
     }
 
   ngOnInit() {
     this.getParticipantsByConv(this.conversationId);
-    console.log(this.conversationId);
   }
 
   getParticipantsByConv(id: number) {
@@ -59,11 +57,10 @@ export class MessengerListDetailComponent implements OnInit{
   }
 
   getConversationsByUser(participants: []) {
-    console.log(participants);
-    participants.forEach(el => {
-      if(!(el['user']['slug'] === this.slug || el['user']['slug'] === undefined)) {
-        this.participantFirstname = el['user']['firstname'];
-        this.participantLastname = el['user']['lastname'];
+    participants.forEach((el: any) => {
+      if(!(el.user.slice(11) === this.slug || el.user === undefined)) {
+        this.participantFirstname = el.user.slice(11).split("-")[0];
+        this.participantLastname = el.user.slice(11).split("-")[1];
       }
     });
   }
