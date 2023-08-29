@@ -46,7 +46,7 @@ export class LoginService {
                 firstname: hydras[i].firstname
               }
               this.mySpaceObs.updateStatus(userConnect);
-              console.log("Wheeeeee");
+              console.log("Vous êtes connecté");
               this.updateStatus("connected");
               this.router.navigateByUrl("/");
             }
@@ -54,7 +54,7 @@ export class LoginService {
         });
       },
       error => {
-        console.log("Nooooooo");
+        console.log("Un problème est survenu");
         this.updateStatus("disconnected");
         console.log(error);
       }
