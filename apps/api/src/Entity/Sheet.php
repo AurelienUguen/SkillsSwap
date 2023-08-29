@@ -60,8 +60,9 @@ class Sheet
     #[Assert\NotBlank(message: "Ce champs ne peut être nul.")]
     #[Groups(['read_sheet','read_category','create_sheet', 'read_lesson'])]
     private ?User $user = null;
-
+    
     #[ORM\Column(nullable: true)]
+    #[Groups(['read_sheet','create_sheet'])]
     private ?int $tokenPrice = null;
 
     #[ORM\Column]

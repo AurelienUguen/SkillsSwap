@@ -14,6 +14,7 @@ export interface Sheet {
   category: Category;
   imageURL: string;
   slug: string;
+  tokenPrice: number;
 }
 
 export interface sheetPost {
@@ -24,6 +25,7 @@ export interface sheetPost {
   irl: boolean;
   visio: boolean;
   language: string[];
+  tokenPrice: number;
 }
 
 export interface updateSheet {
