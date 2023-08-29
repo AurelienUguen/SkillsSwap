@@ -1,30 +1,30 @@
-<div class="big">
-  <form class="d-flex p-0 position-absolute top-50 start-50 translate-middle" [formGroup]="loginForm" [ngClass]="{ 'w-100' : getScreenWidth < 768}">
+<div>
+  <form class="d-flex" [formGroup]="loginForm">
 
-    <div class="card m-auto" [ngClass]="{ 'w-100' : getScreenWidth < 576}">
+    <div class="custom-card">
 
-      <div class="card-header">
-        <div class="container text-center mt-3">
-          <p class="fw-bolder h5">Welcome to <span class="h4 fw-bolder company-title">SkillSwap</span></p>
+      <div class="custom-card-header">
+        <div class="text-center">
+          <p class="sub-title">Bienvenue sur <span class="company-title">SkillSwap</span></p>
         </div>
       </div>
 
-      <div class="card-body">
+      <div class="custom-card-body">
 
-        <div class="mb-3">
+        <div>
           <label for="email" class="form-label">Email*</label>
-          <input type="email" id="email" class="form-control" name="userEmail" formControlName="userEmail" placeholder="admin@admin.com">
+          <input type="email" id="email" class="custom-form-control" name="userEmail" formControlName="userEmail" placeholder="admin@admin.com">
         </div>
 
-        <div class="mb-3">
+        <div>
           <label for="password" class="form-label">Mot de passe*</label>
-          <input type="password" id="password" class="form-control" name="userPassword" formControlName="userPassword" placeholder="Password.0">
+          <input type="password" id="password" class="custom-form-control" name="userPassword" formControlName="userPassword" placeholder="Password.0">
         </div>
 
       </div>
 
-      <div class="card-footer text-center w-100 mt-3">
-        <button class="btn btn-dark mt-3 w-100 mb-3" type="submit" (click)="signIn()" [disabled]="loginForm.invalid">Connexion</button>
+      <div class="custom-card-footer text-center">
+        <button class="btn custom-button mt-3 mb-3" type="submit" (click)="signIn()" [disabled]="loginForm.invalid">Connexion</button>
         <a routerLink="/signup">Pas encore inscrit ?</a>
       </div>
 
