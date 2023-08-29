@@ -12,17 +12,22 @@
       <div class="buttons d-flex justify-content-center">
         <button
           (click)="showPosition()"
-          class="btn btn-primary toggle-btn"
+          class="btn toggle-btn"
           [ngClass]="{ 'toggle-btn-focus': !positionToggle }"
         >
           Où apprendre ?
         </button>
         <button
           (click)="showLanguage()"
-          class="btn btn-primary toggle-btn"
+          class="btn toggle-btn"
           [ngClass]="{ 'toggle-btn-focus': !languageToggle }"
         >
           Quelle langue ?
+        </button>
+        <button
+          class="btn price-button"
+        >
+          {{sheet.tokenPrice}} SkillTokens
         </button>
       </div>
 

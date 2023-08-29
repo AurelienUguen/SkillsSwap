@@ -25,7 +25,7 @@ export class SheetFormComponent implements OnInit, OnDestroy {
 
   isIrlChecked = false;
   isVisioChecked = false;
-  
+
   public getScreenWidth: any;
   public getScreenHeight: any;
   public form!: FormGroup;
@@ -62,6 +62,9 @@ export class SheetFormComponent implements OnInit, OnDestroy {
       irl: [null],
       visio: [null],
       description: [null, [
+        Validators.required
+      ]],
+      tokenPrice: [null, [
         Validators.required
       ]]
     }, {
@@ -140,9 +143,11 @@ export class SheetFormComponent implements OnInit, OnDestroy {
       irl: this.form.value.irl,
       visio: this.form.value.visio,
       language: ["Français"],
+      tokenPrice: Number(this.form.value.tokenPrice)
     }
 
     this.apiService.postSheet(newSheet).subscribe();
+    console.log(newSheet);
 
     alert('Le cours a bien été enregistré !')
 

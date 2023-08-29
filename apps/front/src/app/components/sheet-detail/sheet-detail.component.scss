@@ -51,10 +51,24 @@
 
 .toggle-btn {
   background-color: $primary-theme-color;
+  color: $secondary-theme-color;
   border: none;
   padding: 12px;
   border-radius: $button-radius;
   margin: 10px 0px 10px 10px;
+}
+
+.price-button {
+  background-color: $secondary-theme-color;
+  border: 2px solid $primary-theme-color;
+  color: $primary-theme-color;
+  padding: 12px;
+  border-radius: $button-radius;
+  margin: 10px 0px 10px 10px;
+}
+
+.price-button:hover {
+  cursor: auto;
 }
 
 .toggle-btn-focus {

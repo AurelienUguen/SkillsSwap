@@ -1,14 +1,53 @@
 @import "src/variables.scss";
 
+.custom-card {
+  background-color: $secondary-theme-color;
+  width: 60%;
+  padding: 30px;
+  margin-top: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 16px;
+  border-top: 2px solid $light-primary-theme-color;;
+  border-bottom: 1px solid $primary-theme-color;
+}
+
+.custom-card-header {
+  margin-bottom: 25px;
+  padding: 10px;
+  border-bottom: 2px solid $primary-theme-color;
+}
+
+.sub-title {
+  font-family: $main-title;
+  font-size: 36px;
+}
+
+.custom-form-control {
+  width: 100%;
+  height: 40px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px solid $primary-theme-color-transparancy;
+  border-radius: 5px;
+}
+
+.custom-text-area {
+  height: 80px;
+  padding: 10px;
+}
+
 .custom-button {
+  width: 100%;
+  border: none;
   background-color: $primary-theme-color;
-  color: $secondary-theme-color;
+  color: $secondary-theme-color;;
   padding: $button-padding;
   border-radius: $button-radius;
 }
 
-.custom-container {
-  margin-top: 150px;
+.custom-button:hover {
+  background-color: $primary-theme-hover;
 }
 
 .invalid-feedback
@@ -16,10 +55,8 @@
   display:block;
 }
 
-.big{
-  position: fixed;
-  left: 0;
-  right:0;
-  top: 86px; 
-  bottom:200px;
+@media screen and (min-width: 860px) {
+  .custom-card {
+    width: 80%;
+  }
 }

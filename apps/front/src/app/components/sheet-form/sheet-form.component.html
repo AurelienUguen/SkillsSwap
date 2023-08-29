@@ -1,22 +1,22 @@
-<div class="big">
-  <form class="d-flex p-0 position-absolute top-50 start-50 translate-middle" [formGroup]="form" [ngClass]="{ 'w-100' : getScreenWidth < 768}">
+<div>
+  <form class="d-flex" [formGroup]="form" class="form-group">
 
-    <div class="card m-auto" [ngClass]="{ 'w-100' : getScreenWidth < 576}">
+    <div class="custom-card">
 
-      <div class="card-header">
-        <div class="container text-center mt-3">
-          <p *ngIf="!sheetToUpdate; else alternateTitle"class="fw-bolder h5">Publier une formation</p>
+      <div class="custom-card-header">
+        <div class="text-center">
+          <p *ngIf="!sheetToUpdate; else alternateTitle" class="sub-title">Déposer un cours</p>
           <ng-template #alternateTitle>
-            <p class="fw-bolder h5">Mettez à jour votre formation</p>
+            <p class="sub-title">Modifier le cours</p>
           </ng-template>
         </div>
       </div>
 
-      <div class="card-body">
+      <div class="custom-card-body">
 
-        <div class="form-group">
+        <div>
           <label for="title">Nom du cours :</label>
-          <input formControlName="title" type="text" class="form-control form-text input-time col"
+          <input formControlName="title" type="text" class="custom-form-control"
             [ngModel]="sheetToUpdate?.title" />
           <div class="invalid-feedback" *ngIf="title.touched && title.invalid && title.errors">
             <ng-container *ngIf="title.errors['required']">Le titre du cours est requis<br></ng-container>
@@ -27,7 +27,7 @@
 
         <div class="form-group">
           <label for="category">Choisir une catégorie :</label>
-          <select formControlName="category" class="form-select">
+          <select formControlName="category" class="form-select custom-form-control">
             <option *ngFor="let category of categories" value="{{ category.slug }}">
               {{ category.name }}
             </option>
@@ -37,7 +37,7 @@
           </div>
         </div>
 
-        <p class="m-0">Déroulement du cours :</p>
+        <p>Déroulement du cours :</p>
         <div class="form-check ps-5">
           <label class="form-check-label" for="irl">A domicile</label>
           <input class="form-check-input" formControlName="irl" type="checkbox" [(ngModel)]="isIrlChecked" />
@@ -48,23 +48,34 @@
           <input formControlName="visio" type="checkbox" class="form-check-input" [(ngModel)]="isVisioChecked" />
         </div>
 
-        <div class="form-check p-0">
+        <div class="mt-3">
           <label for="description">À propos :</label>
-          <textarea formControlName="description" type="text" class="form-control form-text"
+          <textarea formControlName="description" type="text" class="custom-form-control custom-text-area"
             placeholder="Décrivez le contenu du cours" [ngModel]="sheetToUpdate?.description"></textarea>
           <div class="invalid-feedback" *ngIf="description.touched && description.invalid && description.errors">
             <ng-container *ngIf="description.errors['required']">Veuillez décrire le cours</ng-container>
           </div>
         </div>
 
+        <div>
+          <label for="price">Échanger contre :</label>
+          <select formControlName="tokenPrice" id="price" class="form-select custom-form-control">
+            <option value="5">5 SkillTokens</option>
+            <option value="10">10 SkillTokens</option>
+            <option value="15">15 SkillTokens</option>
+            <option value="25">25 SkillTokens</option>
+            <option value="50">50 SkillTokens</option>
+          </select>
+        </div>
+
       </div>
 
-      <div class="card-footer text-center w-100 mt-3">
+      <div class="custom-card-footer text-center">
 
-        <button *ngIf="!sheetToUpdate; else update" type="submit" class="btn btn-dark mt-3 w-100 mb-3" (click)="onSubmit()" [disabled]="form.invalid">Enseigner !</button>
+        <button *ngIf="!sheetToUpdate; else update" type="submit" class="btn custom-button" (click)="onSubmit()" [disabled]="form.invalid">Enseigner !</button>
 
         <ng-template #update>
-          <button type="submit" class="btn btn-dark mt-3 w-100 mb-3" (click)="onUpdate()" [disabled]="form.invalid">Mettre à jour</button>
+          <button type="submit" class="btn custom-button" (click)="onUpdate()" [disabled]="form.invalid">Mettre à jour</button>
         </ng-template>
 
       </div>
