@@ -1,5 +1,6 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Conversation } from 'src/app/model/conversation';
 import { Message, MsgPost } from 'src/app/model/message';
@@ -7,6 +8,7 @@ import { Participant } from 'src/app/model/participant';
 import { User, userConnected } from 'src/app/model/user';
 import { ApiService } from 'src/app/services/api/api.service';
 import { LoginService } from 'src/app/services/login/login.service';
+import { MercureService } from 'src/app/services/mercure/mercure.service';
 import { MessengerService } from 'src/app/services/messenger/messenger.service';
 import { mySpaceService } from 'src/app/services/mySpaceObserver/mySpaceObserver.service';
 
@@ -15,7 +17,7 @@ import { mySpaceService } from 'src/app/services/mySpaceObserver/mySpaceObserver
   templateUrl: './messenger-chat.component.html',
   styleUrls: ['./messenger-chat.component.scss']
 })
-export class MessengerChatComponent implements OnChanges{
+export class MessengerChatComponent implements OnInit, OnChanges{
   @Input() currentMessages?: Message[];
   @Input() currentConversationId?: number;
   @Input() sheetDetails: any;
@@ -37,6 +39,7 @@ export class MessengerChatComponent implements OnChanges{
     private isConnected: LoginService,
     private mySpaceObs: mySpaceService,
     private messenger: MessengerService,
+    private mercureService: MercureService,
     ){
       this.subscription = this.isConnected.getStatusObservable().subscribe((status: string) => {
         this.status = status;
@@ -44,7 +47,13 @@ export class MessengerChatComponent implements OnChanges{
       this.messengerChat = this.mySpaceObs.getStatusObservable().subscribe((user: userConnected) => {
         this.slug = user.slug;
         this.userName = user.firstname;
+        this.getUserBySlug();
       });
+    }
+
+    ngOnInit(): void {
+
+      this.getMessageEvent();
     }
 
     ngOnChanges(): void {
@@ -65,5 +74,22 @@ export class MessengerChatComponent implements OnChanges{
     toString(val: any): string{
       return val.slice(11);
     }
+
+    reverseIt(val: Message[] | undefined): Message[] | undefined {
+      return val?.reverse();
+    }
+
+    getMessageEvent() {
+      this.mercureService.getUpdatedMessage(this.mercureService.getSourceMessage())
+      .subscribe((updatedMessage: any) => {
+
+        const newData = JSON.parse(updatedMessage.data);
+
+        if (newData) {
+          this.currentMessages?.push(newData);
+        }
+      });
+    }
+
 
 }
