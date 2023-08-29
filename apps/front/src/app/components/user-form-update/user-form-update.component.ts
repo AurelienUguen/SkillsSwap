@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User, UserAuth, userConnected, userUpdate } from 'src/app/model/user';
 import { ApiService } from 'src/app/services/api/api.service';
@@ -19,6 +19,7 @@ export class UserFormUpdateComponent implements OnInit {
   public updateUserForm!: FormGroup;
   public status?: string;
   private slug!: string;
+  public userSlug!: string;
   private userID!: string;
   private mySpace: Subscription;
   private userObject: Subscription;
@@ -28,7 +29,7 @@ export class UserFormUpdateComponent implements OnInit {
     private isConnected: LoginService,
     private mySpaceObs: mySpaceService,
     private userObs: mySpaceService,
-    private router: Router,
+    private route: ActivatedRoute,
     private formBuilder: FormBuilder
     ){
       this.subscription = this.isConnected.getStatusObservable().subscribe((status: string) => {
@@ -41,7 +42,8 @@ export class UserFormUpdateComponent implements OnInit {
     }
 
     ngOnInit(): void {
-      this.getUserBySlug();
+      this.userSlug = this.getUserSlug();
+      this.getUserBySlug(this.userSlug);
 
       this.updateUserForm = this.formBuilder.group({
         firstname: [null],
@@ -52,17 +54,37 @@ export class UserFormUpdateComponent implements OnInit {
         city: [null],
         description: [null],
         slug: [null],
-        currentPassword: [null, [Validators.required]]
+        currentPassword: [null,
+          [Validators.required]]
       }, {
         updateOn: 'blur'
       });
     }
 
-    getUserBySlug() {
-      this.apiService.getUserBySlug(this.slug)
-        .subscribe(user => {
-          this.user = user;
-        });
+   /*  passwordValidator(control: FormControl): { password: boolean } | null {
+
+      if(this.user) {
+        if(control.value === this.user.password) return null;
+        return {password: true};
+      }
+      return {password: true};
+    } */
+
+    getUserSlug() {
+      const slug = this.route.snapshot.paramMap.get('user');
+
+      if (!slug) {
+        throw new Error('Sheet slug is not defined');
+      }
+      return slug;
+    }
+
+    getUserBySlug(userSlug: string): void {
+
+      this.apiService.getUserBySlug(userSlug)
+      .subscribe((user: User) => {
+        this.user = user;
+      });
     }
 
     updateUser() {

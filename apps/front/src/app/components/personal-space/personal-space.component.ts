@@ -56,9 +56,6 @@ export class PersonalSpaceComponent implements OnInit {
     this.getUserBySlug();
     this.getSheets();
     this.getLessons();
-    // console.log(this.userID);
-    // console.log(this.user);
-    // setTimeout(() => {console.log(this.user);}, 1000);
   }
 
   kill(
@@ -71,13 +68,13 @@ export class PersonalSpaceComponent implements OnInit {
     this.apiService.laBroyeuse(target).subscribe(
       () => {
         alert(`${victim} a été supprimé avec succès`);
+        this.reloadComponent(true);
         console.log('Suppression réussie !');
       },(error) => {
         console.error('Erreur lors de la suppression :', error);
       }
     );
 
-    this.reloadComponent(true);
 
     if(deco){
       this.isConnected.logout();
@@ -95,10 +92,11 @@ export class PersonalSpaceComponent implements OnInit {
       bookingDateEntry: lesson.bookingDate.toString()
     }
 
+    this.apiService.updateLesson(updateLesson, lesson.id).subscribe();
+
     alert('Le cours a bien été enregistré !');
 
-    this.apiService.updateLesson(updateLesson, lesson.id).subscribe();
-    this.router.navigate([`/`]);
+    this.reloadComponent(true);
   }
 
   masterCheck(lesson : Lesson){
@@ -164,13 +162,11 @@ export class PersonalSpaceComponent implements OnInit {
   }
 
   reloadComponent(self:boolean,urlToNavigateTo ?:string){
+
     //skipLocationChange:true means dont update the url to / when navigating
-   console.log("Current route I am on:",this.router.url);
-   const url=self ? this.router.url :urlToNavigateTo;
+   const url = self ? this.router.url :urlToNavigateTo;
    this.router.navigateByUrl('/',{skipLocationChange:true}).then(()=>{
-     this.router.navigate([`/${url}`]).then(()=>{
-       console.log(`After navigation I am on:${this.router.url}`)
-     })
-   })
+     this.router.navigate([`/${url}`]).then();
+   });
  }
 }
