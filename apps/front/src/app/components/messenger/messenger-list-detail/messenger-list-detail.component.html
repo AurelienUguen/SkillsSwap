@@ -1,7 +1,7 @@
 <h6 class="m-0 msg-info-title">
   <div>
     <ng-container *ngIf="!(participantFirstname === undefined || participantLastname === undefined)">
-      {{ participantFirstname + ' ' + participantLastname }}
+      {{ participantFirstname + ' ' + participantLastname | titlecase }}
     </ng-container>
   </div>
 </h6>

@@ -85,7 +85,7 @@ export class MessengerListComponent implements OnInit {
 
   getUserConnectedParticipants(slug: string) {
     this.messenger.getParticipantByUser(slug)
-    .pipe(delay(800))
+    .pipe(delay(500))
     .subscribe((participants: any) => {
       this.userParticipants = participants['participants'];
     })

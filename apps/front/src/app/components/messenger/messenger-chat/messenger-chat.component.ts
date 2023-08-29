@@ -75,9 +75,9 @@ export class MessengerChatComponent implements OnInit, OnChanges{
       return val.slice(11);
     }
 
-    reverseIt(val: Message[] | undefined): Message[] | undefined {
-      return val?.reverse();
-    }
+    // reverseIt(val: Message[] | undefined): Message[] | undefined {
+    //   return val?.reverse();
+    // }
 
     getMessageEvent() {
       this.mercureService.getUpdatedMessage(this.mercureService.getSourceMessage())
