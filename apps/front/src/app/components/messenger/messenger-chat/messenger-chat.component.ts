@@ -97,7 +97,7 @@ export class MessengerChatComponent implements OnInit, OnChanges{
         const newData = JSON.parse(updatedMessage.data);
 
         if (newData) {
-          this.currentMessages?.push(newData);
+          this.currentMessages?.unshift(newData);
         }
 
         console.log(this.currentMessages);
