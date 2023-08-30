@@ -68,7 +68,5 @@ export class MessengerSendFormComponent {
       },
       error => console.log('Un problème est survenu.')
     );
-    console.log(message);
-    ;
   }
 }

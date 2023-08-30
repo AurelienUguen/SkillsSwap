@@ -1,11 +1,16 @@
-$brd-radius: 10px;
-$border-clr: rgb(48, 85, 52);
+@import "src/variables.scss";
+
+.title {
+  font-family: $main-title;
+  font-size: $main-title-size
+}
 
 .messenger-container {
-  min-height: 400px;
-  // max-height: 480px;
-  border: 2px solid $border-clr;
+  background-color: $light-primary-chat-color;
+  min-height: 560px;
+  border-bottom: 2px solid $primary-theme-color;
   border-radius: 8px;
+  box-shadow: 0px 2px 40px $primary-theme-color-transparancy;
 }
 
 app-messenger-list {

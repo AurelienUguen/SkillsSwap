@@ -2,6 +2,7 @@ $brd-radius: 10px;
 $border-clr: rgb(48, 85, 52);
 $bg-clr: rgb(255, 255, 255, 0.2);
 
+@import "src/variables.scss";
 
 .messenger-list {
   width: 30%;
@@ -16,7 +17,7 @@ $bg-clr: rgb(255, 255, 255, 0.2);
   width: 70%;
   // min-height: 100%;
   height: 100%;
-  border-left: 1px solid $border-clr;
+  border-left: 1px solid $primary-theme-color;
 }
 
 app-messenger-chat {
