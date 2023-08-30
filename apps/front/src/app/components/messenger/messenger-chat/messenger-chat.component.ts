@@ -99,8 +99,6 @@ export class MessengerChatComponent implements OnInit, OnChanges{
         if (newData) {
           this.currentMessages?.unshift(newData);
         }
-
-        this.currentMessages;
       });
     }
 

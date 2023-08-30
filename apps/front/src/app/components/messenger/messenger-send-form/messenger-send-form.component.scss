@@ -1,0 +1,22 @@
+@import "src/variables.scss";
+
+.chat-action-container {
+  padding: 20px;
+}
+
+.custom-form-control {
+  width: 80%;
+  height: 95px;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px solid $primary-theme-color-transparancy;
+  border-radius: 5px;
+}
+
+.custom-button {
+  background-color: $secondary-theme-color;
+  padding: 25px;
+  margin: 20px;
+  border-radius: 50%;
+}
