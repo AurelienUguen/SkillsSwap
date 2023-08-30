@@ -25,6 +25,8 @@ export class MessengerChatComponent implements OnInit, OnChanges{
   private subscription: Subscription;
   private messengerChat: Subscription;
 
+  // public today = new Date();
+  public dates: string[] = [];
   public slug!: string;
   public status?: string;
   public user?: User;
@@ -49,6 +51,7 @@ export class MessengerChatComponent implements OnInit, OnChanges{
         this.userName = user.firstname;
         this.getUserBySlug();
       });
+
     }
 
     ngOnInit(): void {
@@ -58,6 +61,8 @@ export class MessengerChatComponent implements OnInit, OnChanges{
 
     ngOnChanges(): void {
       this.getUserBySlug();
+      this.getUniqueDates(this.currentMessages);
+      // console.log(this.countToday);
     }
 
     getUserBySlug(): void {
@@ -65,6 +70,14 @@ export class MessengerChatComponent implements OnInit, OnChanges{
         .subscribe(user => {
           this.user = user;
         });
+    }
+
+    getUniqueDates(messages: Message[] | undefined){
+      this.dates = [];
+      messages?.forEach((el: Message) => {
+        this.dates.push(el.createdAt.toString().substring(0, 10));
+      });
+      console.log(this.dates);
     }
 
     typeOf(val: any) {
