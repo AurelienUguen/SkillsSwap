@@ -9,6 +9,9 @@
         <a *ngIf="status === 'connected'" routerLink="my-space/{{slug}}" (click)="burgerMenuToggle()">{{userName}}</a>
       <a *ngIf="status === 'disconnected'" routerLink="signup" (click)="burgerMenuToggle()">Inscription</a>
       </li>
+      <li class="navbar__link first">
+        <a *ngIf="status === 'connected'" routerLink="my-space/{{slug}}/messenger" (click)="burgerMenuToggle()"><span class="add-course">Messagerie</span></a>
+      </li>
       <li class="navbar__link third">
         <a *ngIf="status === 'connected'" routerLink="" (click)="logout()" (click)="burgerMenuToggle()">Déconnexion</a>
         <a *ngIf="status === 'disconnected'" routerLink="signin" (click)="burgerMenuToggle()">Connexion</a>
