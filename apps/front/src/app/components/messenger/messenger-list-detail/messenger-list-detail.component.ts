@@ -1,7 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { delay, Subscription } from 'rxjs';
-import { Conversation } from 'src/app/model/conversation';
-import { Participant } from 'src/app/model/participant';
+import { Subscription } from 'rxjs';
 import { User, userConnected } from 'src/app/model/user';
 import { ApiService } from 'src/app/services/api/api.service';
 import { LoginService } from 'src/app/services/login/login.service';
@@ -58,22 +56,10 @@ export class MessengerListDetailComponent implements OnInit{
 
   getConversationsByUser(participants: []) {
     participants.forEach((el: any) => {
-      // console.log(el['user'].slice(11).split("-")[0]);
       if(!(el['user'].slice(11) === this.slug || el['user'].slice(11) === undefined)) {
         this.participantFirstname = el['user'].slice(11).split("-")[0];
         this.participantLastname = el['user'].slice(11).split("-")[1];
-        // this.participantFirstname = el['user']['firstname'];
-        // this.participantLastname = el['user']['lastname'];
       }
     });
   }
-
-  /* getConversationsByUser(participants: []) {
-    participants.forEach((el: any) => {
-      if(!(el.user.slice(11) === this.slug || el.user === undefined)) {
-        this.participantFirstname = el.user.slice(11).split("-")[0];
-        this.participantLastname = el.user.slice(11).split("-")[1];
-      }
-    });
-  } */
 }
