@@ -60,7 +60,7 @@ export class MessengerChatComponent implements OnInit, OnChanges{
 
     ngOnChanges(): void {
       this.getUserBySlug();
-      this.getUniqueDates(this.currentMessages);
+      // this.getUniqueDates(this.currentMessages);
     }
 
     getUserBySlug(): void {
@@ -70,25 +70,25 @@ export class MessengerChatComponent implements OnInit, OnChanges{
         });
     }
 
-    typeOf(val: any) {
-      return typeof val;
-    }
+    // typeOf(val: any) {
+    //   return typeof val;
+    // }
 
     toString(val: any): string{
       return val.slice(11);
     }
 
-    reverseIt(val: Message[] | undefined): Message[] | undefined {
-      return val?.reverse();
-    }
+    // reverseIt(val: Message[] | undefined): Message[] | undefined {
+    //   return val?.reverse();
+    // }
 
-    getUniqueDates(messages: Message[] | undefined){
-      this.dates = [];
-      messages?.forEach((el: Message) => {
-        this.dates.push(el.createdAt.toString().substring(0, 10));
-      });
-      console.log(this.dates);
-    }
+    // getUniqueDates(messages: Message[] | undefined){
+    //   this.dates = [];
+    //   messages?.forEach((el: Message) => {
+    //     this.dates.push(el.createdAt.toString().substring(0, 10));
+    //   });
+    //   console.log(this.dates);
+    // }
 
     getMessageEvent() {
       this.mercureService.getUpdatedMessage(this.mercureService.getSourceMessage())
@@ -100,7 +100,7 @@ export class MessengerChatComponent implements OnInit, OnChanges{
           this.currentMessages?.unshift(newData);
         }
 
-        console.log(this.currentMessages);
+        this.currentMessages;
       });
     }
 

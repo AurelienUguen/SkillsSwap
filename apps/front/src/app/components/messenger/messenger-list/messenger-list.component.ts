@@ -32,13 +32,11 @@ export class MessengerListComponent implements OnInit {
   public user!: User;
   public userName?: string;
   public teacher!: User;
-  // public userMessages?: Message[];
   public currentMessages?: Message[];
   public userParticipants?: Participant[];
   public teacherMessages!: Message[];
   public currentUserMessages!: Message[];
   public userId!: number;
-  public isNewConvPosted = false;
   public hasClicked = {'hasClicked': false};
 
   constructor(
@@ -85,9 +83,9 @@ export class MessengerListComponent implements OnInit {
 
   getUserConnectedParticipants(slug: string) {
     this.messenger.getParticipantByUser(slug)
-    .pipe(delay(500))
-    .subscribe((participants: any) => {
-      this.userParticipants = participants['participants'];
+      .pipe(delay(200))
+      .subscribe((participants: any) => {
+        this.userParticipants = participants['participants'];
     })
   }
 
@@ -140,29 +138,29 @@ export class MessengerListComponent implements OnInit {
       conversation: `/api/conversations/${convMaxId + 1}`
     }
 
-      concat(
-        this.messenger.postParticipant(particip1),
-        this.messenger.postParticipant(particip2),
-        )
-        .subscribe();
-        this.hasClicked['hasClicked'] = false;
+    concat(
+      this.messenger.postParticipant(particip1),
+      this.messenger.postParticipant(particip2),
+      )
+      .subscribe();
+      this.hasClicked['hasClicked'] = false;
   }
 
-    createParticipant(convId: number) {
-      return this.messenger.getParticipMaxId()
-        .subscribe((id: any) => {
-            this.participMaxId = id['hydra:member'][0].id,
-            this.postParticipant(this.participMaxId, convId)
-      })
-    }
+  createParticipant(convId: number) {
+    return this.messenger.getParticipMaxId()
+      .subscribe((id: any) => {
+        this.participMaxId = id['hydra:member'][0].id,
+        this.postParticipant(this.participMaxId, convId)
+    })
+  }
 
-    createConversation() {
-      return this.messenger.getConvMaxId()
-        .subscribe((id: any) => {
-            this.convMaxId = id['hydra:member'][0].id,
-            this.postConversation(this.convMaxId),
-            this.createParticipant(this.convMaxId);
-        })
-    }
+  createConversation() {
+    return this.messenger.getConvMaxId()
+      .subscribe((id: any) => {
+        this.convMaxId = id['hydra:member'][0].id,
+        this.postConversation(this.convMaxId),
+        this.createParticipant(this.convMaxId);
+      })
+  }
 
 }
