@@ -1,15 +1,12 @@
-<!-- <div class="chat-container"> -->
 <div class="chat-display mb-4 p-3">
   <ng-container *ngIf="user">
-    <div *ngFor="let message of reverseIt(currentMessages); let index = index" class="chat-msg-item-container mb-3">
+    <div *ngFor="let message of currentMessages; let index = index" class="chat-msg-item-container mb-3">
       <p class="msg-dayMonth">{{ message.createdAt | date:"d MMM" }}</p>
       <div class="msg-details">
-        <div class="msg-content d-flex flex-column align-items-start" [ngClass]="{'just-end': user.slug === message.owner['slug'], 'txt-align-right': user.slug === message.owner['slug'] }" pe-2 ps-2>
+        <div class="msg-content d-flex flex-column align-items-start" [ngClass]="{'just-end': slug === toString(message.owner), 'txt-align-right': slug === toString(message.owner) }" pe-2 ps-2>
           <p class="m-0">{{ message.content }}</p>
-          <div class="msg-createdAt" [ngClass]="{'just-end': user.slug !== message.owner['slug'] }">{{ message.createdAt | date:"hh:mm" }}</div>
+          <div class="msg-createdAt" [ngClass]="{'just-end': user.slug === toString(message.owner) }">{{ message.createdAt | date:"hh:mm" }}</div>
         </div>
-      <!--   {{message.owner['slug']}}
-        {{user.slug}} -->
       </div>
     </div>
     <!-- <div class="chat-msg-item-container justify-content-end">

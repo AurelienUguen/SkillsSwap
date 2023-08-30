@@ -25,6 +25,8 @@ export class MessengerChatComponent implements OnInit, OnChanges{
   private subscription: Subscription;
   private messengerChat: Subscription;
 
+  public dates: string[] = [];
+
   public slug!: string;
   public status?: string;
   public user?: User;
@@ -58,6 +60,7 @@ export class MessengerChatComponent implements OnInit, OnChanges{
 
     ngOnChanges(): void {
       this.getUserBySlug();
+      this.getUniqueDates(this.currentMessages);
     }
 
     getUserBySlug(): void {
@@ -79,6 +82,14 @@ export class MessengerChatComponent implements OnInit, OnChanges{
       return val?.reverse();
     }
 
+    getUniqueDates(messages: Message[] | undefined){
+      this.dates = [];
+      messages?.forEach((el: Message) => {
+        this.dates.push(el.createdAt.toString().substring(0, 10));
+      });
+      console.log(this.dates);
+    }
+
     getMessageEvent() {
       this.mercureService.getUpdatedMessage(this.mercureService.getSourceMessage())
       .subscribe((updatedMessage: any) => {
@@ -89,7 +100,7 @@ export class MessengerChatComponent implements OnInit, OnChanges{
           this.currentMessages?.push(newData);
         }
 
-        console.log(newData);
+        console.log(this.currentMessages);
       });
     }
 
