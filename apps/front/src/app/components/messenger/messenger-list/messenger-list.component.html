@@ -7,7 +7,8 @@
         class="message-info mb-2 pt-1 p pe-2 pb-1 ps-2"
         tabindex="{{ index }}"
       >
-        <app-messenger-list-detail [conversationId]="conv.conversation.id"></app-messenger-list-detail>
+      <app-messenger-list-detail [conversationId]="conv.conversation.id"></app-messenger-list-detail>
+      <span class="badge-new" [hidden]="!(conv.isNewMsg  && !(conv.id === selectedParticipId))">●</span>
       </div>
     </ng-container>
   </div>
