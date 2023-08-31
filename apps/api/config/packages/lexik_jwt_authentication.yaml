@@ -14,7 +14,7 @@ lexik_jwt_authentication:
             enabled: true
     set_cookies:
         BEARER:
-            lifetime: 2592000
+            lifetime: 600
             domain: '%env(COOKIE_DOMAIN)%'
             samesite: 'strict'
             httpOnly: false

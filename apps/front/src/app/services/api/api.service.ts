@@ -88,6 +88,11 @@ export class ApiService {
     return this.http.put<object>(url, user, {withCredentials: true});
   }
 
+  onRefreshToken(user: User) {
+    const url = `${this.apiUrl}/token/refresh`;
+    return this.http.post(url, user, {withCredentials: true});
+  }
+
   getFilteredCategory(filterParams: any): Observable<any> {
     let params = new HttpParams();
     for (const key in filterParams) {

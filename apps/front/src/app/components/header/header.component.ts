@@ -1,6 +1,7 @@
-import { Component, Renderer2 } from '@angular/core';
+import { Component, Renderer2, OnChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { userConnected } from 'src/app/model/user';
+import { User, userConnected } from 'src/app/model/user';
+import { ApiService } from 'src/app/services/api/api.service';
 import { LoginService } from 'src/app/services/login/login.service';
 import { mySpaceService } from 'src/app/services/mySpaceObserver/mySpaceObserver.service';
 
@@ -16,10 +17,12 @@ export class HeaderComponent {
   private mySpace: Subscription;
 
   public status?: string;
-  public slug?: string;
+  public slug!: string;
+  public user!: User;
   public userName?: string;
 
   constructor(
+    private apiService: ApiService,
     private isConnected: LoginService,
     private mySpaceObs: mySpaceService,
     private renderer: Renderer2,
@@ -33,8 +36,20 @@ export class HeaderComponent {
     });
   }
 
+  ngOnChanges(){
+    this.getUserBySlug()
+    this.onRefreshToken(this.user);
+  }
+
   ngOnInit(){
     this.isConnected.updateStatus('disconnected');
+  }
+
+  getUserBySlug() {
+    this.apiService.getUserBySlug(this.slug)
+      .subscribe(user => {
+        this.user = user;
+      });
   }
 
   logout(){
@@ -43,6 +58,10 @@ export class HeaderComponent {
       firstname: "firstname",
     })
     this.isConnected.logout();
+  }
+
+  onRefreshToken(user: User) {
+    this.apiService.onRefreshToken(user).subscribe();
   }
 
   ngOnDestroy() {
