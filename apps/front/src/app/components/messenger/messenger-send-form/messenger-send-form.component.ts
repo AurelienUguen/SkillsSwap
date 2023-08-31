@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Message, MsgPost } from 'src/app/model/message';
@@ -14,7 +14,7 @@ import { mySpaceService } from 'src/app/services/mySpaceObserver/mySpaceObserver
   templateUrl: './messenger-send-form.component.html',
   styleUrls: ['./messenger-send-form.component.scss']
 })
-export class MessengerSendFormComponent implements OnInit {
+export class MessengerSendFormComponent{
   @Input() currentConversationId?: number;
   @Input() userParticipants?: Participant[];
   @Input() selectedParticipantId?: number;
@@ -22,7 +22,6 @@ export class MessengerSendFormComponent implements OnInit {
   private subscription: Subscription;
   private messengerChat: Subscription;
 
-  private msgSent = false;
   public slug!: string;
   public status?: string;
   public user?: User;
@@ -49,10 +48,6 @@ export class MessengerSendFormComponent implements OnInit {
       });
     }
 
-  ngOnInit(){
-
-  }
-
   onSubmitMsg(){
     if(this.currentConversationId === null || this.currentConversationId === undefined){
       alert("Vous devez d'abord sélectionner une conversation.");
@@ -68,7 +63,7 @@ export class MessengerSendFormComponent implements OnInit {
     const isNewMsg: PostIsNewMsg = {
       isNewMsg: true
     }
-    // this.messenger.postConversation()
+
     this.messenger.postMessage(message).subscribe(
       sucess => {
         this.textareaValue = '';
@@ -76,7 +71,7 @@ export class MessengerSendFormComponent implements OnInit {
       },
       error => console.log('Un problème est survenu.')
     );
-    // console.log(this.userParticipants);
+
     this.messenger.updateIsNewMsg(this.selectedParticipantId!, isNewMsg).subscribe(
       sucess =>  console.log("Vous avez un nouveau message"),
       error => console.log('Le message s\'est perdu en route')

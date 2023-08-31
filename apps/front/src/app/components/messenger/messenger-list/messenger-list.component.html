@@ -1,9 +1,13 @@
 <div class="d-flex ">
   <div class="messenger-list d-flex flex-column me-3 pt-2 pe-3 pb-2 ps-2">
     <ng-container *ngIf="user">
-      <div *ngFor="let conv of userParticipants; let index = index" (click)="getMessagesByConversation(conv.conversation.id, conv.id)" [ngClass]="{'message-info-selected': conv.conversation.id === currentConvId, 'message-info-isnew': conv.isNewMsg  && !(conv.id === selectedParticipId) }" class="message-info mb-2 pt-1 p pe-2 pb-1 ps-2" tabindex="{{ index }}">
+      <div *ngFor="let conv of userParticipants; let index = index"
+        (click)="getMessagesByConversation(conv.conversation.id, conv.id)"
+        [ngClass]="{'message-info-selected': conv.conversation.id === currentConvId, 'message-info-isnew': conv.isNewMsg  && !(conv.id === selectedParticipId) }"
+        class="message-info mb-2 pt-1 p pe-2 pb-1 ps-2"
+        tabindex="{{ index }}"
+      >
         <app-messenger-list-detail [conversationId]="conv.conversation.id"></app-messenger-list-detail>
-        {{ conv | json }}
       </div>
     </ng-container>
   </div>

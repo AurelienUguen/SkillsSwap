@@ -87,7 +87,7 @@ export class MessengerListComponent implements OnInit {
     this.messenger.getParticipantByUser(slug)
       .pipe(delay(200))
       .subscribe((participants: any) => {
-        console.log(this.userParticipants = participants['participants']);
+        this.userParticipants = participants['participants'];
     })
   }
 
@@ -124,7 +124,6 @@ export class MessengerListComponent implements OnInit {
   }
 
   updateNewMsgRead(selectedParticipId: number){
-    console.log(selectedParticipId);
     const isNewMsg: PostIsNewMsg = {
       isNewMsg: false
     }

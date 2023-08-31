@@ -1,11 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { delay, Subscription } from 'rxjs';
-import { Conversation } from 'src/app/model/conversation';
-import { Participant } from 'src/app/model/participant';
+import { Subscription } from 'rxjs';
 import { User, userConnected } from 'src/app/model/user';
 import { ApiService } from 'src/app/services/api/api.service';
 import { LoginService } from 'src/app/services/login/login.service';
-
 import { MessengerService } from 'src/app/services/messenger/messenger.service';
 import { mySpaceService } from 'src/app/services/mySpaceObserver/mySpaceObserver.service';
 
