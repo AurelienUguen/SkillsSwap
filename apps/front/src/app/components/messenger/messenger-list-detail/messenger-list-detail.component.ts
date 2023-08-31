@@ -57,12 +57,10 @@ export class MessengerListDetailComponent implements OnInit{
   }
 
   getConversationsByUser(participants: []) {
-
     participants.forEach((el: any) => {
       if(!(el['user'].slice(11) === this.slug || el['user'].slice(11) === undefined)) {
         this.participantFirstname = el['user'].slice(11).split("-")[0];
         this.participantLastname = el['user'].slice(11).split("-")[1];
-
       }
     });
   }

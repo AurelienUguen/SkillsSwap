@@ -1,8 +1,8 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Message, MsgPost } from 'src/app/model/message';
-import { Participant } from 'src/app/model/participant';
+import { Participant, PostIsNewMsg } from 'src/app/model/participant';
 import { User, userConnected } from 'src/app/model/user';
 import { ApiService } from 'src/app/services/api/api.service';
 import { LoginService } from 'src/app/services/login/login.service';
@@ -14,8 +14,10 @@ import { mySpaceService } from 'src/app/services/mySpaceObserver/mySpaceObserver
   templateUrl: './messenger-send-form.component.html',
   styleUrls: ['./messenger-send-form.component.scss']
 })
-export class MessengerSendFormComponent {
+export class MessengerSendFormComponent implements OnInit {
   @Input() currentConversationId?: number;
+  @Input() userParticipants?: Participant[];
+  @Input() selectedParticipantId?: number;
 
   private subscription: Subscription;
   private messengerChat: Subscription;
@@ -26,7 +28,6 @@ export class MessengerSendFormComponent {
   public user?: User;
   public userName?: string;
   public userMessages?: Message[];
-  public userParticipants?: Participant[];
   public textareaValue = '';
 
   MessageForm = new FormGroup({
@@ -48,6 +49,10 @@ export class MessengerSendFormComponent {
       });
     }
 
+  ngOnInit(){
+
+  }
+
   onSubmitMsg(){
     if(this.currentConversationId === null || this.currentConversationId === undefined){
       alert("Vous devez d'abord sélectionner une conversation.");
@@ -60,6 +65,9 @@ export class MessengerSendFormComponent {
       isRead: false,
       createdAt: new Date(),
     }
+    const isNewMsg: PostIsNewMsg = {
+      isNewMsg: true
+    }
     // this.messenger.postConversation()
     this.messenger.postMessage(message).subscribe(
       sucess => {
@@ -68,5 +76,11 @@ export class MessengerSendFormComponent {
       },
       error => console.log('Un problème est survenu.')
     );
+    // console.log(this.userParticipants);
+    this.messenger.updateIsNewMsg(this.selectedParticipantId!, isNewMsg).subscribe(
+      sucess =>  console.log("Vous avez un nouveau message"),
+      error => console.log('Le message s\'est perdu en route')
+    );
+    console.log(this.selectedParticipantId!);
   }
 }
