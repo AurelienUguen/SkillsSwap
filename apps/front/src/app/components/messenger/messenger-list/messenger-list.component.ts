@@ -1,6 +1,6 @@
-import { Component, Input, OnChanges, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Subscription, concat } from 'rxjs';
-import { delay, first, take, tap } from 'rxjs/operators';
+import { delay } from 'rxjs/operators';
 import { PostConversation } from 'src/app/model/conversation';
 import { Message } from 'src/app/model/message';
 import { Participant, PostIsNewMsg, PostParticipant } from 'src/app/model/participant';
@@ -87,7 +87,7 @@ export class MessengerListComponent implements OnInit {
     this.messenger.getParticipantByUser(slug)
       .pipe(delay(200))
       .subscribe((participants: any) => {
-        this.userParticipants = participants['participants'];
+        console.log(this.userParticipants = participants['participants']);
     })
   }
 
@@ -95,7 +95,7 @@ export class MessengerListComponent implements OnInit {
     for(let i = 0; i < this.userParticipants?.length!; i++) {
       for(let j = 0; j < this.teacherParticipants?.length!; j++) {
         if(this.teacherParticipants?.[j].conversation.id === this.userParticipants?.[i].conversation.id) {
-          this.getMessagesByConversation(this.teacherParticipants?.[j].conversation.id!);
+          this.getMessagesByConversation(this.teacherParticipants?.[j].conversation.id!, this.userParticipants?.[i].id);
         }
       }
     }
@@ -112,15 +112,15 @@ export class MessengerListComponent implements OnInit {
     })
   }
 
-  getMessagesByConversation(id: number) {
+  getMessagesByConversation(id: number, currentUserParticipantId?: number) {
     this.messenger.getMessagesByConversation(id)
       .subscribe((messages: any) => {
         this.currentMessages = messages['messages'].reverse();
       })
     this.currentConvId = id;
     this.isActive = true;
-    // this.selectedParticipId = participantId;
     this.getParticipantsByConv(id);
+    this.updateNewMsgRead(currentUserParticipantId!);
   }
 
   updateNewMsgRead(selectedParticipId: number){
@@ -190,7 +190,6 @@ export class MessengerListComponent implements OnInit {
     participants.forEach((el: any) => {
       if(!(el['user'].slice(11) === this.slug || el['user'].slice(11) === undefined)) {
         this.selectedParticipId = el.id;
-        this.updateNewMsgRead(this.selectedParticipId!);
       }
     });
   }
