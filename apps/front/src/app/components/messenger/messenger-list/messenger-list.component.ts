@@ -3,7 +3,7 @@ import { Subscription, concat } from 'rxjs';
 import { delay, first, take, tap } from 'rxjs/operators';
 import { PostConversation } from 'src/app/model/conversation';
 import { Message } from 'src/app/model/message';
-import { Participant, PostParticipant } from 'src/app/model/participant';
+import { Participant, PostIsNewMsg, PostParticipant } from 'src/app/model/participant';
 import { User, userConnected } from 'src/app/model/user';
 import { ApiService } from 'src/app/services/api/api.service';
 import { LoginService } from 'src/app/services/login/login.service';
@@ -25,6 +25,7 @@ export class MessengerListComponent implements OnInit {
   public convMaxId!: number;
   public participMaxId!: number;
   public isActive = false;
+  public selectedParticipId?: number;
   public slug!: string;
   public status?: string;
   public participants?: Participant;
@@ -64,6 +65,7 @@ export class MessengerListComponent implements OnInit {
     if(this.hasClicked['hasClicked']) {
       this.getTeacherParticipants(this.sheetDetails['teacherSlug']);
     }
+
   }
 
   getUserBySlug(): void {
@@ -117,6 +119,19 @@ export class MessengerListComponent implements OnInit {
       })
     this.currentConvId = id;
     this.isActive = true;
+    // this.selectedParticipId = participantId;
+    this.getParticipantsByConv(id);
+  }
+
+  updateNewMsgRead(selectedParticipId: number){
+    console.log(selectedParticipId);
+    const isNewMsg: PostIsNewMsg = {
+      isNewMsg: false
+    }
+    this.messenger.updateIsNewMsg(selectedParticipId, isNewMsg).subscribe(
+      sucess =>  console.log("mis à jour"),
+      error => console.log('pas mis à jour')
+    );
   }
 
   postConversation(maxId: number): void | any {
@@ -161,6 +176,23 @@ export class MessengerListComponent implements OnInit {
         this.postConversation(this.convMaxId),
         this.createParticipant(this.convMaxId);
       })
+  }
+
+  getParticipantsByConv(id: number) {
+    this.messenger.getparticipantsByConv(id)
+      .subscribe((participants: any) => {
+        this.participants = participants['participants'];
+        this.notCurrentUserSlug(participants['participants']);
+      })
+  }
+
+  notCurrentUserSlug(participants: []) {
+    participants.forEach((el: any) => {
+      if(!(el['user'].slice(11) === this.slug || el['user'].slice(11) === undefined)) {
+        this.selectedParticipId = el.id;
+        this.updateNewMsgRead(this.selectedParticipId!);
+      }
+    });
   }
 
 }

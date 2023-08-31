@@ -34,7 +34,7 @@ class Participant
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['read_participant', 'read_user', 'read_message'])]
+    #[Groups(['read_participant', 'read_user', 'read_message', 'read_convers'])]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'participants')]
@@ -46,6 +46,10 @@ class Participant
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['read_user', 'read_participant', 'create_participant', 'read_message', 'create_message', 'read_convers'])]
     private ?Conversation $conversation = null;
+
+    #[ORM\Column]
+    #[Groups(['read_participant', 'create_participant', 'read_user', 'read_convers'])]
+    private ?bool $isNewMsg = null;
 
     public function getId(): ?int
     {
@@ -72,6 +76,18 @@ class Participant
     public function setConversation(?Conversation $conversation): static
     {
         $this->conversation = $conversation;
+
+        return $this;
+    }
+
+    public function isIsNewMsg(): ?bool
+    {
+        return $this->isNewMsg;
+    }
+
+    public function setIsNewMsg(bool $isNewMsg): static
+    {
+        $this->isNewMsg = $isNewMsg;
 
         return $this;
     }

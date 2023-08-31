@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { Message, MsgPost } from 'src/app/model/message';
 import { ConvMaxId, Conversation, PostConversation } from 'src/app/model/conversation';
 import { LinksService } from '../api/links.service';
-import { Participant, PostParticipant } from 'src/app/model/participant';
+import { Participant, PostIsNewMsg, PostParticipant } from 'src/app/model/participant';
 import { User } from 'src/app/model/user';
 
 @Injectable({
@@ -88,6 +88,10 @@ export class MessengerService {
 
   postMessage(message: MsgPost){
     return this.http.post<MsgPost>(this.linksService.messageUrl, message);
+  }
+
+  updateIsNewMsg(currentParticipId: number, isNewMsg: PostIsNewMsg) {
+    return this.http.put<PostIsNewMsg>(this.apiService.participantUrl + '/' + currentParticipId, isNewMsg, {withCredentials: true});
   }
 
   postConversation(conversation: PostConversation) {
