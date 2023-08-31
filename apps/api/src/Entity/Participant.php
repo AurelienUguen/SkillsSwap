@@ -47,7 +47,7 @@ class Participant
     #[Groups(['read_user', 'read_participant', 'create_participant', 'read_message', 'create_message', 'read_convers'])]
     private ?Conversation $conversation = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     #[Groups(['read_participant', 'create_participant', 'read_user', 'read_convers'])]
     private ?bool $isNewMsg = null;
 
