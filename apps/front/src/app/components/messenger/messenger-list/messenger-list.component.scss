@@ -29,6 +29,7 @@ app-messenger-send-form {
 }
 
 .message-info {
+  display: flex;
   border: 1px solid #252525;
   border-radius: $brd-radius;
   background-color: $bg-clr;
@@ -51,4 +52,13 @@ app-messenger-send-form {
 
 .message-info-isnew {
   border-width: 3px;
+}
+
+.badge-new {
+  display: inline;
+  padding: 0;
+  margin: 0;
+  color: rgb(224, 24, 24);
+  font-size: 2vh;
+  // border-radius: 50%;
 }
